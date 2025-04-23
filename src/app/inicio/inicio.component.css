@@ -1,0 +1,215 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .logo {
+    background-image: url('/assets/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 150px;
+    height: 80px;
+  }
+  
+  .navbar {
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center center;  
+    height: 100px;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; 
+    transition: all 0.3s ease;
+    overflow: hidden; 
+  }
+    
+  
+  .navbar nav a {
+    color: #020166;
+    margin: 0 10px;
+    text-decoration: none;
+    position: relative;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 5px 0;
+  }
+
+  .navbar nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 3px;
+    background-color: orange;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar nav a:hover::after {
+    width: 100%;
+  }
+  
+  .hero {
+    background-color:#002147 ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 100px 20px;
+  }
+  
+  .hero-text h1 {
+    font-size: 2.5em;
+  }
+  
+  .hero-text p {
+    margin: 20px 0;
+    font-size: 1.5em;
+  }
+  
+  .hero button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #f5680e;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: black;
+  }
+  
+  .hero button:hover {
+    transform: scale(1.20); /* Cambia el tamaño suavemente */
+  }
+
+  .cursos, .testimonios {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .curso-lista {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    
+  }
+  
+  .curso {
+    background-color:#020166;
+    color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    width: 250px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .curso:hover {
+    background-color: #d75400;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  }
+
+  .profesores {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .profesores-lista {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .profesor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+  }
+  
+  .profesor img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+  }
+  
+  .profesor p {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .testimonios {
+  background-color:#d75400;
+  color: white;
+  padding: 20px;
+  }
+  
+  .testimonio-oración {
+    margin: 20px auto;
+    max-width: 600px;
+    font-style: italic;
+    font-size:larger;
+    color: white;
+  }
+
+    
+  .footer {
+    background-color: #002147;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .curso-lista {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Scroll */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+      
+      .fade-in.aparecer {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+  }
+  
