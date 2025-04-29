@@ -1,0 +1,89 @@
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a href="#cursos">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+  </nav> 
+</header>
+
+<h2>REGISTRO</h2>
+<form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+  
+  <input type="text" placeholder="Nombre" formControlName="nombre" required>
+  <div *ngIf="registroForm.controls['nombre'].hasError('required') && registroForm.controls['nombre'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+ 
+  <input type="text" placeholder="Apellido" formControlName="apellido" required>
+  <div *ngIf="registroForm.controls['apellido'].hasError('required') && registroForm.controls['apellido'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+  
+  <input type="date" formControlName="fechaNacimiento" required>
+  <div *ngIf="registroForm.controls['fechaNacimiento'].hasError('required') && registroForm.controls['fechaNacimiento'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+  <div *ngIf="registroForm.controls['fechaNacimiento'].hasError('menorDeEdad')">
+    <p style="color: red;">Debes ser mayor de 18 años para registrarte.</p>
+  </div>
+
+  
+  <input type="text" placeholder="País" formControlName="pais" required>
+  <div *ngIf="registroForm.controls['pais'].hasError('required') && registroForm.controls['pais'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+  
+  <select formControlName="rol" required>
+    <option value="" disabled selected>Rol</option>
+    <option value="alumno">Alumno/a</option>
+    <option value="profesor">Profesor/a</option>
+  </select>
+  <div *ngIf="registroForm.controls['rol'].hasError('required') && registroForm.controls['rol'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+  
+  <input type="email" placeholder="Correo electrónico" formControlName="email" required>
+  <div *ngIf="registroForm.controls['email'].hasError('required') && registroForm.controls['email'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+  <div *ngIf="registroForm.controls['email'].hasError('email') && registroForm.controls['email'].touched">
+    <p style="color: red;">El correo electrónico no es válido.</p>
+  </div>
+
+  
+  <input type="password" placeholder="Contraseña" formControlName="password" required>
+  <div *ngIf="registroForm.controls['password'].hasError('required') && registroForm.controls['password'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+  <div *ngIf="registroForm.controls['password'].hasError('minlength') && registroForm.controls['password'].touched">
+    <p style="color: red;">La contraseña debe tener al menos 6 caracteres.</p>
+  </div>
+
+  
+  <button type="submit" [disabled]="!registroForm.valid">Registrarse</button>
+
+  <p>¿Ya tienes una cuenta? <a (click)="irAlAcceso()">Iniciar sesión aquí</a></p>
+
+</form>
+
+<div *ngIf="registroExitoso" class="registro-exitoso">
+  <p>¡REGISTRADO EXITOSAMENTE!</p>
+</div>
+
+<br>
+
+<footer id="footer" class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+

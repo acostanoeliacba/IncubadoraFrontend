@@ -92,7 +92,7 @@ html {
   }
   
   .hero button:hover {
-    transform: scale(1.20); /* Cambia el tamaño suavemente */
+    transform: scale(1.20); 
   }
 
   .cursos, .testimonios {
@@ -184,6 +184,25 @@ html {
     text-align: center;
     padding: 20px;
     
+  }
+
+  .contacto {
+    font-size: larger;
+  }
+
+  .social-icons {
+    margin-top: 10px;
+  }
+  
+  .social-icon {
+    font-size: 30px;
+    margin: 0 10px;
+    color: #ffffff;
+    transition: color 0.3s;
+  }
+  
+  .social-icon:hover {
+    color: #d75400; 
   }
   
   /* Responsive */

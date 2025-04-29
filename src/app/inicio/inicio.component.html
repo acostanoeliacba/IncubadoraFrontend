@@ -7,7 +7,8 @@
         <a href="#profesores">PROFESORES</a>
         <a href="#testimonios">TESTIMONIOS</a>
         <a href="#contacto">CONTACTO</a>
-      </nav> 
+        <a [routerLink]="['/registro']">REGISTRARSE</a>
+    </nav> 
   </header>
   
   <!-- Destacado -->
@@ -17,7 +18,8 @@
       <p>Te invitamos a comenzar hoy a transformar tu futuro</p>
       <br>
     
-      <button>INICIAR SESIÓN</button>
+      <button (click)="irAlAcceso()">INICIAR SESIÓN</button>
+
     </div>
   </section>
   
@@ -26,15 +28,15 @@
     <h2>CURSOS DISPONIBLES</h2>
     <br>
     <div class="curso-lista">
-      <button class="curso">Curso de Carpintería</button>
-      <button class="curso">Curso de Diseño</button>
-      <button class="curso">Curso de Informática</button>
-      <button class="curso">Curso de Mecánica</button>
-      <button class="curso">Curso de Oratoria</button>
-      <button class="curso">Curso de Pintura</button>
-      <button class="curso">Curso de Administración</button>
-      <button class="curso">Curso de Caligrafía</button>
-      <button class="curso">Curso de Manicuría</button>
+      <button class="curso" (click)="irACarpinteria()">Curso de Carpintería</button>
+      <button class="curso" (click)="irADiseno()">Curso de Diseño</button>
+      <button class="curso" (click)="irAInformatica()" >Curso de Informática</button>
+      <button class="curso" (click)="irAMecanica()">Curso de Mecánica</button>
+      <button class="curso" (click)="irAOratoria()">Curso de Oratoria</button>
+      <button class="curso" (click)="irAPintura()">Curso de Pintura</button>
+      <button class="curso" (click)="irAAdministracion()">Curso de Administración</button>
+      <button class="curso" (click)="irACaligrafia()">Curso de Caligrafía</button>
+      <button class="curso" (click)="irAManicuria()">Curso de Manicuría</button>
     </div>
   </section>
   
@@ -79,6 +81,18 @@
   <footer id="contacto" class="footer">
     <div class="contacto">
       <p>Dirección: Cruz del Eje - Mitre 757 | Teléfono: 351487678</p>
+
+      <div class="social-icons">
+        <a href="https://accounts.google.com/signin" target="_blank" class="social-icon">
+          <i class="fab fa-google"></i> <!-- Icono de Gmail -->
+        </a>
+        <a href="https://www.facebook.com/login" target="_blank" class="social-icon">
+          <i class="fab fa-facebook"></i> <!-- Icono de Facebook -->
+        </a>
+        <a href="https://www.instagram.com/accounts/login/" target="_blank" class="social-icon">
+          <i class="fab fa-instagram"></i> <!-- Icono de Instagram -->
+        </a>
+      </div>
     </div>
   </footer>
   

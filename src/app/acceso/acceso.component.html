@@ -1,0 +1,49 @@
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+      <a href="#inicio">INICIO</a>
+      <a href="#cursos">CURSOS</a>
+      <a href="#profesores">PROFESORES</a>
+      <a href="#testimonios">TESTIMONIOS</a>
+      <a href="#contacto">CONTACTO</a>
+  </nav> 
+</header>
+
+<h2>ACCESO</h2>
+
+<form [formGroup]="accesoForm" (ngSubmit)="onSubmit()">
+
+  <input type="email" formControlName="email" placeholder="Correo electrónico" required>
+  <div *ngIf="accesoForm.get('email')?.touched && accesoForm.get('email')?.invalid" class="error-mensaje">
+    <small *ngIf="accesoForm.get('email')?.errors?.['required']">El correo es obligatorio.</small>
+    <small *ngIf="accesoForm.get('email')?.errors?.['email']">Correo no válido.</small>
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Contraseña" required>
+  <div *ngIf="accesoForm.get('password')?.touched && accesoForm.get('password')?.invalid" class="error-mensaje">
+    <small *ngIf="accesoForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+  </div>
+
+  <button type="submit" [disabled]="accesoForm.invalid">Iniciar sesión</button>
+
+  <p>¿No tienes una cuenta? <a (click)="irAlRegistro()">Crear cuenta ahora</a></p>
+
+</form>
+
+<div *ngIf="inicioExitoso" class="inicio-exitoso">
+  <p>¡INICIO DE SESIÓN EXITOSO!</p>
+</div>
+
+<div *ngIf="inicioError" class="inicio-error">
+  <p>{{ inicioError }}</p>
+</div>
+
+<br>
+
+<footer id="footer" class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+

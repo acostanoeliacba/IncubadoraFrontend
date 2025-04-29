@@ -1,10 +1,11 @@
 import { Component, Inject, PLATFORM_ID, AfterViewInit, Renderer2 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
@@ -13,7 +14,8 @@ export class InicioComponent implements AfterViewInit {
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -43,5 +45,45 @@ export class InicioComponent implements AfterViewInit {
       revisarElementos();
       window.addEventListener('scroll', revisarElementos);
     }
+  }
+
+  irAlAcceso() {
+    this.router.navigate(['/acceso']);
+  }
+
+  irACarpinteria() {
+    this.router.navigate(['/carpinteria']);
+  }
+
+  irADiseno() {
+    this.router.navigate(['/diseno']);
+  }
+
+  irAInformatica() {
+    this.router.navigate(['/informatica']);
+  }
+
+  irAMecanica() {
+    this.router.navigate(['/mecanica']);
+  }
+
+  irAOratoria() {
+    this.router.navigate(['/oratoria']);
+  }
+
+  irAPintura() {
+    this.router.navigate(['/pintura']);
+  }
+
+  irAAdministracion() {
+    this.router.navigate(['/administracion']);
+  }
+
+  irACaligrafia() {
+    this.router.navigate(['/caligrafia']);
+  }
+
+  irAManicuria() {
+    this.router.navigate(['/manicuria']);
   }
 }
