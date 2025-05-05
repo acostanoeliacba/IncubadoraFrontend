@@ -13,7 +13,7 @@ export interface Inscripcion {
   providedIn: 'root'
 })
 export class InscripcionesService {
-  private apiUrl = 'http://localhost:3000/inscripciones'; // ajustá según tu ruta real
+  private apiUrl = 'http://localhost:3000/inscripciones';
 
   constructor(private http: HttpClient) {}
 
