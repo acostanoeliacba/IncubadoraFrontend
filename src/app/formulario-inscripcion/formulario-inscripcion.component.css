@@ -1,0 +1,172 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  background-image: url('/assets/img/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 150px;
+  height: 80px;
+}
+
+
+.logo {
+  background-image: url('/assets/img/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 150px;
+  height: 80px;
+}
+
+.navbar {
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center center;  
+  height: 100px;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0; 
+  transition: all 0.3s ease;
+  overflow: hidden; 
+}
+  
+
+.navbar nav a {
+  color: #020166;
+  margin: 0 10px;
+  text-decoration: none;
+  position: relative;
+  margin: 0 10px;
+  text-decoration: none;
+  padding: 5px 0;
+}
+
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background-color: orange;
+  transition: width 0.3s ease;
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+
+form {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="file"],
+  select,
+  button {
+    width: 100%;
+    box-sizing: border-box;  
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  select:focus,
+  input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .radio-group {
+    margin-bottom: 16px;
+  }
+  
+  .radio-group label {
+    font-weight: normal;
+    margin-right: 12px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 6px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .summary {
+    background-color: #e9ecef;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  
+  button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #f5680e;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .footer {
+    width: 100%; 
+    background-color: #002147; 
+    color: white;
+    text-align: center;
+    padding: 20px 0; 
+    margin-top: 40px; 
+    position: relative; 
+  }
+  
