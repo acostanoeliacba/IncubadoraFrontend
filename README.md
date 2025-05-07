@@ -10,6 +10,6 @@ Proyecto Xacademy 2025
 
 * Deben instalar el cliente http desde sus componentes para comunicarse al backend
 * Esta agregado el modo fetch en config.ts  de manera global para la api
-* Para tener los datos del login en cada componente que nesesiten deben importar el authservice y usar sus datos guardados accediendo sus metodos ya estan definidos.
+* Para tener los datos del login en cada componente ( asi solo sera nesesario hacer login una ves ),que nesesiten deben importar el authservice y usar sus datos guardados accediendo sus metodos ya estan definidos.
 
 
