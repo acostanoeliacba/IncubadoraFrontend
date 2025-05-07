@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { InicioComponent } from './inicio/inicio.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { AccesoComponent } from './acceso/acceso.component';
 import { RegistroComponent } from './registro/registro.component';
 import { CarpinteriaComponent } from './carpinteria/carpinteria.component';
@@ -15,6 +16,7 @@ import {ManicuriaComponent } from './manicuria/manicuria.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
+    { path: 'perfil', component: PerfilComponent },
     { path: 'acceso', component: AccesoComponent},
     { path: 'registro', component: RegistroComponent},
     {path: 'carpinteria', component: CarpinteriaComponent},
