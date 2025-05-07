@@ -7,3 +7,8 @@ Proyecto Xacademy 2025
 * **reinstalar la base de datos le hice cambio al formato de datos de los usuarios**
 * para tener los datos del login en cada componente que nesesiten deben importar el authservice y usar sus datos guardados accediendo sus metodos ya estan definidos.
 
+*   probar esta rama con estos comando:
+    1. git checkout fer   
+    2. git fetch
+    3. npm run start
+
