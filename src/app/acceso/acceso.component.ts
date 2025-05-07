@@ -40,8 +40,7 @@ export class AccesoComponent {
     this.http.post('http://localhost:3000/user/easy/login', formData).subscribe({
       next: (response) => {
         console.log('Respuesta del backend:', response);
-        //localStorage.setItem('usuario', JSON.stringify(response));
-        
+   
         this.authService.setUsuario(response);
 
         const usuario2 = this.authService.getUsuario();

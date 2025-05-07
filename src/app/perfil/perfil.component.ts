@@ -57,13 +57,13 @@ ngOnInit(): void {
     return;
   }
   console.log(usuario);
-  //  cargo los datos en la vista
+
   this.usuario = usuario;
   this.tipoUsuario = usuario.tipo_usuario;  
-  this.initForm();  // Inicializa el formulario con los datos del usuario
+  this.initForm();  //  formulario con los datos del usuario
   this.cargando = false;
 
-  // Para obtener más detalles del backend, hacer la llamada aquí
+  // Para  más detalles del backend, la llamada aquí
   // this.perfilService.obtenerPerfil(this.tipoUsuario, usuario.id).subscribe(...)
 }
 
