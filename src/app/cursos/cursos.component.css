@@ -62,58 +62,58 @@ body {
   }
 
 
-.curso-caligrafia {
+.curso-carpinteria {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 40px 0;
   }
   
-  .curso-caligrafia-contenido {
+  .curso-carpinteria-contenido {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 80%;
   }
   
-  .curso-caligrafia-imagen {
+  .curso-carpinteria-imagen {
     flex: 1;
     padding-right: 20px;
   }
   
-  .curso-caligrafia-imagen img {
+  .curso-carpinteria-imagen img {
     width: 100%;
     height: auto;
     border-radius: 8px;
   }
   
-  .curso-caligrafia-info {
+  .curso-carpinteria-info {
     flex: 2;
     padding-left: 20px;
   }
   
-  .curso-caligrafia-info h2 {
+  .curso-carpinteria-info h2 {
     font-size: 2em;
     margin-bottom: 20px;
   }
   
-  .curso-caligrafia-info p {
+  .curso-carpinteria-info p {
     font-size: 1.1em;
     margin-bottom: 20px;
   }
   
-  .curso-caligrafia-info ul {
+  .curso-carpinteria-info ul {
     list-style-type: none;
     padding: 0;
     margin-bottom: 20px;
   }
   
-  .curso-caligrafia-info ul li {
+  .curso-carpinteria-info ul li {
     font-size: 1.1em;
     margin-bottom: 10px;
   }
   
-  .curso-caligrafia-info button {
+  .curso-carpinteria-info button {
     background-color: #002147;
     color: white;
     padding: 10px 20px;
@@ -123,7 +123,7 @@ body {
     transition: background-color 0.3s ease;
   }
   
-  .curso-caligrafia-info button:hover {
+  .curso-carpinteria-info button:hover {
     background-color: #f5680e;
   }
 

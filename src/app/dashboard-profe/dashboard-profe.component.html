@@ -1,0 +1,64 @@
+<div class="tablero">
+    
+    <div class="encabezado">
+        <div class="perfil">
+            <img src="/assets/img/sinfoto.png" alt="Foto del profesor" class="avatar">
+            <div>
+                <h2 class="titulo">Bienvenido</h2>
+                <p class="subtitulo">PROFESOR</p>
+            </div>
+        </div>
+        <div class="acciones">
+            <button (click)="verAlumnos()" class="boton">Alumnos</button>
+            <button (click)="verPerfil()" class="boton">Editar perfil</button>
+            <button class="boton" (click)="logout()">Cerrar sesión</button>  
+        </div>
+    </div>
+
+    <div class="resumen">
+        <h3 class="subtitulo">RESUMEN GENERAL</h3>
+        <ul class="lista">
+            <li>Cursos asignados: <span class="negrita">2</span></li>
+            <li>Alumnos inscritos: <span class="negrita">120</span></li>
+            <li>Próxima clase: <span class="negrita">15 mayo 2025</span></li>
+        </ul>
+    </div>
+
+    <div class="mis-cursos">
+        <h3 class="subtitulo">MIS CURSOS</h3>
+        <div class="cursos">
+            <div class="curso">
+                <h4 class="curso-titulo">Curso: Informática</h4>
+                <p>Modalidad: Presencial</p>
+                <p>Alumnos: 60</p>
+                <button (click)="verCurso(1)" class="boton">Ver detalles</button>
+            </div>
+            <div class="curso">
+                <h4 class="curso-titulo">Curso: Diseño</h4>
+                <p>Modalidad: Presencial</p>
+                <p>Alumnos: 60</p>
+                <button (click)="verCurso(1)" class="boton">Ver detalles</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mensajes">
+        <h3 class="subtitulo">MENSAJES RECIENTES</h3>
+        <ul class="lista-mensajes">
+            <li class="mensaje">Mensaje de Administración: Reunión el viernes a las 18:00 hs.</li>
+            <li class="mensaje">Mensaje de Alumno: Consulta sobre la tarea.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer id="footer" class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+
+
+
+  

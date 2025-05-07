@@ -148,7 +148,7 @@ body {
 .inicio-error {
   margin-top: 20px;
   padding: 12px 20px;
-  background-color: #f44336; /* Rojo */
+  background-color: #f44336; 
   color: white;
   font-weight: bold;
   text-align: center;

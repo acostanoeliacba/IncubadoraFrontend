@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PinturaComponent } from './pintura.component';
+import { DashboardProfeComponent } from './dashboard-profe.component';
 
-describe('PinturaComponent', () => {
-  let component: PinturaComponent;
-  let fixture: ComponentFixture<PinturaComponent>;
+describe('DashboardProfeComponent', () => {
+  let component: DashboardProfeComponent;
+  let fixture: ComponentFixture<DashboardProfeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PinturaComponent]
+      imports: [DashboardProfeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PinturaComponent);
+    fixture = TestBed.createComponent(DashboardProfeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

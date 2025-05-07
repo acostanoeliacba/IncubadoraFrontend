@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-inscripciones',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: 'lista-alumnos.component.html',
   styleUrls: ['lista-alumnos.component.css']
