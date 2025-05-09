@@ -1,5 +1,4 @@
 
--- Tiempo de generación: 07-05-2025 a las 14:53:43
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,6 +85,7 @@ CREATE TABLE `Cursos` (
   `descripcion` text DEFAULT NULL,
   `duracion` int(11) DEFAULT NULL,
   `tipo` enum('gratuito','arancelado','capacitacion','entrenamiento') DEFAULT NULL,
+  `costo` decimal(10,2) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -98,16 +98,16 @@ CREATE TABLE `Cursos` (
 -- Volcado de datos para la tabla `Cursos`
 --
 
-INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 'Carpintería', 'Curso básico de carpintería para principiantes.', 60, 'capacitacion', '2025-05-06', '2025-07-06'),
-(2, 'Diseño', 'Introducción al diseño gráfico digital.', 45, 'gratuito', '2025-06-01', '2025-07-15'),
-(3, 'Informática', 'Fundamentos de informática y uso de sistemas operativos.', 90, 'arancelado', '2025-05-15', '2025-08-15'),
-(4, 'Mecánica', 'Taller práctico de mecánica automotriz.', 75, 'capacitacion', '2025-06-10', '2025-08-24'),
-(5, 'Oratoria', 'Curso de oratoria y expresión verbal en público.', 30, 'gratuito', '2025-05-20', '2025-06-19'),
-(6, 'Pintura', 'Técnicas básicas de pintura artística y muralismo.', 40, 'arancelado', '2025-07-01', '2025-08-10'),
-(7, 'Administración', 'Conceptos básicos de administración de empresas.', 60, 'capacitacion', '2025-05-10', '2025-07-10'),
-(8, 'Caligrafía', 'Curso de caligrafía y escritura estética.', 20, 'gratuito', '2025-06-05', '2025-06-25'),
-(9, 'Manicuría', 'Formación en técnicas de manicuría y cuidado de uñas.', 50, 'capacitacion', '2025-05-22', '2025-07-11');
+INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `costo`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 'Carpintería', 'Este curso de carpintería está diseñado para enseñar desde lo básico hasta lo avanzado. Aprende a manejar las herramientas y técnicas más importantes para crear proyectos de carpintería con precisión y seguridad.', 60, 'capacitacion', 3000.00, '2025-05-06', '2025-07-06'),
+(2, 'Diseño', 'Para aquellos interesados en desarrollar habilidades en la creación y desarrollo de proyectos visuales impactantes. Aprenderás las herramientas y técnicas esenciales para diseñar piezas gráficas para una amplia gama de medios, desde impresos hasta digitales.', 45, 'gratuito', 8000.00, '2025-06-01', '2025-07-15'),
+(3, 'Informática', 'Dirigido a personas que desean aprender a utilizar las herramientas informáticas esenciales para la vida diaria, el trabajo y la educación. A través de este curso, adquirirás conocimientos fundamentales sobre el uso de la computadora, programas de oficina y navegación en internet, lo que te permitirá desenvolverte con confianza en un mundo digital.', 90, 'arancelado', 9000.00, '2025-05-15', '2025-08-15'),
+(4, 'Mecánica', 'Principios fundamentales de la reparación y mantenimiento de vehículos. Este curso te proporcionará las herramientas y conocimientos esenciales para entender el funcionamiento de los motores, los sistemas de transmisión, frenos, suspensión, y mucho más. Ya sea que busques aprender para uso personal o como base para una carrera en la mecánica, este curso es el primer paso hacia el mundo automotriz.', 75, 'capacitacion', 15000.00, '2025-06-10', '2025-08-24'),
+(5, 'Oratoria', 'Mejora tus habilidades de comunicación y aprende a expresarse de manera efectiva frente a cualquier tipo de audiencia. A lo largo de este curso, desarrollarás herramientas y técnicas para hablar con claridad, seguridad y persuasión, ya sea en presentaciones profesionales, exposiciones académicas o situaciones cotidianas donde se requiere hablar en público.', 30, 'gratuito', 20000.00, '2025-05-20', '2025-06-19'),
+(6, 'Pintura', 'Dirigido a todas las personas que deseen iniciarse en el arte de pintar o perfeccionar sus habilidades artísticas. A través de un enfoque práctico y dinámico, aprenderás a expresarte mediante el color, la forma y la técnica, explorando distintos estilos y materiales.\r\n            Durante el curso, desarrollarás tu creatividad, conocerás las bases del dibujo, el manejo del color y las técnicas esenciales para trabajar con acrílicos, óleos y acuarelas, adaptándote a tu propio estilo personal.', 40, 'arancelado', 20000.00, '2025-07-01', '2025-08-10'),
+(7, 'Administración', 'Ofrece una formación práctica y actualizada para quienes buscan adquirir o perfeccionar habilidades en la gestión de organizaciones. Aprenderás a planificar, organizar, dirigir y controlar recursos de manera eficiente, desarrollando una visión estratégica que te permita liderar proyectos, empresas o emprendimientos exitosamente.\r\n          Ideal para quienes desean fortalecer su perfil profesional, emprender o mejorar la gestión de sus negocios.', 60, 'capacitacion', 18000.00, '2025-05-10', '2025-07-10'),
+(8, 'Caligrafía', 'Para introducirte en el mundo de la escritura artística, combinando técnica y creatividad. Aprenderás a dominar distintos estilos caligráficos, mejorar tu trazo, desarrollar precisión y expresar tu estilo personal a través de la letra escrita. Es ideal tanto para principiantes como para quienes buscan perfeccionar su técnica en proyectos creativos, diseño, invitaciones, arte y más.', 20, 'gratuito', 12000.00, '2025-06-05', '2025-06-25'),
+(9, 'Manicuría', 'Te formarás en las técnicas esenciales para el cuidado y embellecimiento de manos y uñas. Aprenderás desde los conceptos básicos de higiene y preparación hasta las últimas tendencias en esmaltado, decoración y tratamientos de spa para manos. Ideal para quienes desean iniciar su propio emprendimiento o perfeccionar sus habilidades en el mundo de la estética.', 50, 'capacitacion', 15000.00, '2025-05-22', '2025-07-11');
 
 -- --------------------------------------------------------
 
@@ -315,6 +315,24 @@ INSERT INTO `Publicaciones` (`id_publicacion`, `titulo`, `contenido`, `fecha_pub
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Sessions`
+--
+
+CREATE TABLE `Sessions` (
+  `sid` varchar(36) NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `data` text DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONES PARA LA TABLA `Sessions`:
+--
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Usuarios`
 --
 
@@ -437,6 +455,12 @@ ALTER TABLE `ProgramasCredito`
 --
 ALTER TABLE `Publicaciones`
   ADD PRIMARY KEY (`id_publicacion`);
+
+--
+-- Indices de la tabla `Sessions`
+--
+ALTER TABLE `Sessions`
+  ADD PRIMARY KEY (`sid`);
 
 --
 -- Indices de la tabla `Usuarios`
