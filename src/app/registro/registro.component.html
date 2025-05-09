@@ -1,12 +1,12 @@
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-    <nav>
-      <a href="#inicio">INICIO</a>
-      <a [routerLink]="['/cursos']">CURSOS</a>
-      <a href="#profesores">PROFESORES</a>
-      <a href="#testimonios">TESTIMONIOS</a>
-      <a href="#contacto">CONTACTO</a>
-    </nav>    
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a href="#cursos">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+  </nav> 
 </header>
 
 <h2>REGISTRO</h2>
@@ -33,22 +33,16 @@
   </div>
 
   
-  <input type="text" placeholder="País" formControlName="pais" required>
-  <div *ngIf="registroForm.controls['pais'].hasError('required') && registroForm.controls['pais'].touched">
+  <input type="text" placeholder="Direccion" formControlName="direccion" required>
+  <div *ngIf="registroForm.controls['direccion'].hasError('required') && registroForm.controls['direccion'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>
 
-  
-  <select formControlName="rol" required>
-    <option value="" disabled selected>Rol</option>
-    <option value="alumno">Alumno/a</option>
-    <option value="profesor">Profesor/a</option>
-  </select>
-  <div *ngIf="registroForm.controls['rol'].hasError('required') && registroForm.controls['rol'].touched">
+ <input type="text" placeholder="Telefono" formControlName="telefono" required>
+  <div *ngIf="registroForm.controls['telefono'].hasError('required') && registroForm.controls['telefono'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>
-
-  
+ 
   <input type="email" placeholder="Correo electrónico" formControlName="email" required>
   <div *ngIf="registroForm.controls['email'].hasError('required') && registroForm.controls['email'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
@@ -66,7 +60,25 @@
     <p style="color: red;">La contraseña debe tener al menos 6 caracteres.</p>
   </div>
 
-  
+ <input type="text" placeholder="Dni" formControlName="dni" required>
+  <div *ngIf="registroForm.controls['dni'].hasError('required') && registroForm.controls['dni'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+  <select formControlName="tipo_usuario" required>
+    <option value="" disabled selected>Tipo Usuario</option>
+    <option value="alumno">Alumno</option>
+    <option value="docente">Docente</option>
+  </select>
+  <div *ngIf="registroForm.controls['tipo_usuario'].hasError('required') && registroForm.controls['tipo_usuario'].touched">
+    <p style="color: red;">Este campo es obligatorio.</p>
+  </div>
+
+    <input type="text" placeholder="Especialidad" formControlName="especialidad" required>
+    <div *ngIf="registroForm.controls['especialidad'].hasError('required') && registroForm.controls['especialidad'].touched">
+      <p style="color: red;">Este campo es obligatorio.</p>
+    </div>
+
   <button type="submit" [disabled]="!registroForm.valid">Registrarse</button>
 
   <p>¿Ya tienes una cuenta? <a (click)="irAlAcceso()">Iniciar sesión aquí</a></p>
@@ -84,6 +96,3 @@
     <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
   </div>
 </footer>
-
-
-

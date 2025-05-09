@@ -10,31 +10,37 @@
 </header>
 
 <form [formGroup]="inscripcionForm" (ngSubmit)="inscribirse()">
-    <label for="nombreCompleto">Nombre completo:</label>
-    <input id="nombreCompleto" type="text" formControlName="nombre_completo" placeholder="Nombre y apellido" />
+  
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre" placeholder="Nombre" readonly>
+
+    <label>Apellido:</label>
+    <input type="text" formControlName="apellido" placeholder="Apellido" readonly>
   
     <label for="email">Correo electrónico:</label>
     <input id="email" type="email" formControlName="email" placeholder="tuemail@ejemplo.com" />
   
     <label for="curso">Seleccionar curso:</label>
-    <select id="curso" formControlName="id_curso" (change)="actualizarCostoYFecha()">
-      <option value="" disabled selected>-- Selecciona un curso --</option>
-      <option *ngFor="let curso of cursos" [value]="curso.id_curso">
-        {{ curso.nombre_curso }} ({{ curso.tipo }})
-      </option>
-      <option value="Curso de Carpinteria">Curso de Carpinteria</option>
-      
-    </select>
+      <select id="curso" formControlName="id_curso" (change)="actualizarCostoYFecha()">
+          <option value="" disabled selected>-- Selecciona un curso --</option>
+          <option *ngFor="let curso of cursos" [value]="curso.id_curso">
+            {{ curso.nombre_curso }} ({{ curso.tipo }})
+          </option>
+      </select>
   
-    <div *ngIf="costoTotal">
-      <strong>Costo total:</strong> {{ costoTotal | currency:'ARS' }}
+    <div *ngIf="monto !== null">
+      <strong>Costo:</strong> {{ costo | currency:'ARS' }}
     </div>
-  
+     <br>
     <div *ngIf="fechaInicio">
-      <strong>Fecha de inicio:</strong> {{ fechaInicio | date }}
+      <strong>Fecha de Inicio del curso:</strong> {{ fechaInicio | date }}
     </div>
-  
-    <label for="formaPago">Forma de pago:</label>
+     <br>
+    <div *ngIf="fecha_pago">
+      <strong>Fecha de Pago actual:</strong> {{ fecha_pago | date }}
+    </div>
+     <br>
+<!--     <label for="formaPago">Forma de pago:</label>
     <select id="formaPago" formControlName="forma_pago">
       <option value="" disabled selected>-- Selecciona una forma de pago --</option>
       <option value="tarjeta">Tarjeta de crédito/débito</option>
@@ -42,10 +48,10 @@
       <option value="efectivo">Efectivo</option>
       <option value="mercadopago">Mercado Pago</option>
     </select>
-  
-    <label for="comprobante">Adjuntar comprobante de pago:</label>
+ -->
+<!--     <label for="comprobante">Adjuntar comprobante de pago:</label>
     <input id="comprobante" type="file" (change)="onFileSelected($event)" />
-  
+   -->
     <label>
       <input type="checkbox" formControlName="acepta_politica" />
       Acepto la política de privacidad
