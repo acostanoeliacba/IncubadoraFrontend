@@ -1,0 +1,53 @@
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
+}
+
+.perfil-container h2 {
+  font-size: 2em;
+  color: #002147;
+  margin-bottom: 20px;
+}
+
+.perfil-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.perfil-form label {
+  font-weight: 500;
+  color: #333;
+}
+
+.perfil-form select,
+.perfil-form button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+}
+
+.perfil-form button {
+  background-color: #002147;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-form button:hover {
+  background-color: #f5680e;
+}

@@ -86,4 +86,5 @@ export class InicioComponent implements AfterViewInit {
   irAManicuria() {
     this.router.navigate(['/manicuria']);
   }
+
 }

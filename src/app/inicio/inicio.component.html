@@ -3,7 +3,7 @@
   <a href="/"><div class="logo"></div></a>
     <nav>
         <a href="#inicio">INICIO</a>
-        <a href="#cursos">CURSOS</a>
+        <a [routerLink]="['/cursos']">CURSOS</a>
         <a href="#profesores">PROFESORES</a>
         <a href="#testimonios">TESTIMONIOS</a>
         <a href="#contacto">CONTACTO</a>
@@ -37,6 +37,26 @@
       <button class="curso" (click)="irAAdministracion()">Curso de Administración</button>
       <button class="curso" (click)="irACaligrafia()">Curso de Caligrafía</button>
       <button class="curso" (click)="irAManicuria()">Curso de Manicuría</button>
+    </div>
+  </section>
+
+  <section class="logo-slider">
+    <h2>EMPRESAS ASOCIADAS</h2>
+    <br>
+    <div class="logo-track">
+      <div class="logo-slide"><img src="assets/img/empresa1.png" alt="Empresa 1"></div>
+      <div class="logo-slide"><img src="assets/img/empresa2.png" alt="Empresa 2"></div>
+      <div class="logo-slide"><img src="assets/img/empresa3.png" alt="Empresa 3"></div>
+      <div class="logo-slide"><img src="assets/img/empresa4.png" alt="Empresa 4"></div>
+      <div class="logo-slide"><img src="assets/img/empresa5.png" alt="Empresa 5"></div>
+      <div class="logo-slide"><img src="assets/img/empresa6.png" alt="Empresa 6"></div>
+      <!-- Se repite para que tenga un efecto infinito -->
+      <div class="logo-slide"><img src="assets/img/empresa1.png" alt="Empresa 1"></div>
+      <div class="logo-slide"><img src="assets/img/empresa2.png" alt="Empresa 2"></div>
+      <div class="logo-slide"><img src="assets/img/empresa3.png" alt="Empresa 3"></div>
+      <div class="logo-slide"><img src="assets/img/empresa4.png" alt="Empresa 4"></div>
+      <div class="logo-slide"><img src="assets/img/empresa5.png" alt="Empresa 5"></div>
+      <div class="logo-slide"><img src="assets/img/empresa6.png" alt="Empresa 6"></div>
     </div>
   </section>
   

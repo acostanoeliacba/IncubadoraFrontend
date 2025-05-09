@@ -1,0 +1,70 @@
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a [routerLink]="['/cursos']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+  </nav> 
+</header>
+
+<form [formGroup]="inscripcionForm" (ngSubmit)="inscribirse()">
+  
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre" placeholder="Nombre" readonly>
+
+    <label>Apellido:</label>
+    <input type="text" formControlName="apellido" placeholder="Apellido" readonly>
+  
+    <label for="email">Correo electrónico:</label>
+    <input id="email" type="email" formControlName="email" placeholder="tuemail@ejemplo.com" />
+  
+    <label for="curso">Seleccionar curso:</label>
+      <select id="curso" formControlName="id_curso" (change)="actualizarCostoYFecha()">
+          <option value="" disabled selected>-- Selecciona un curso --</option>
+          <option *ngFor="let curso of cursos" [value]="curso.id_curso">
+            {{ curso.nombre_curso }} ({{ curso.tipo }})
+          </option>
+      </select>
+  
+    <div *ngIf="monto !== null">
+      <strong>Costo:</strong> {{ costo | currency:'ARS' }}
+    </div>
+     <br>
+    <div *ngIf="fechaInicio">
+      <strong>Fecha de Inicio del curso:</strong> {{ fechaInicio | date }}
+    </div>
+     <br>
+    <div *ngIf="fecha_pago">
+      <strong>Fecha de Pago actual:</strong> {{ fecha_pago | date }}
+    </div>
+     <br>
+<!--     <label for="formaPago">Forma de pago:</label>
+    <select id="formaPago" formControlName="forma_pago">
+      <option value="" disabled selected>-- Selecciona una forma de pago --</option>
+      <option value="tarjeta">Tarjeta de crédito/débito</option>
+      <option value="transferencia">Transferencia bancaria</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="mercadopago">Mercado Pago</option>
+    </select>
+ -->
+<!--     <label for="comprobante">Adjuntar comprobante de pago:</label>
+    <input id="comprobante" type="file" (change)="onFileSelected($event)" />
+   -->
+    <label>
+      <input type="checkbox" formControlName="acepta_politica" />
+      Acepto la política de privacidad
+    </label>
+
+    <br>
+  
+    <button type="submit" [disabled]="inscripcionForm.invalid">Pagar Inscripción</button>
+  </form>
+
+  <footer id="footer" class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  

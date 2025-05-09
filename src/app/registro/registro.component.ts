@@ -77,7 +77,8 @@ onSubmit() {
       especialidad: formData.especialidad
     };
 
-    this.http.post('http://localhost:3000/user/find', payload).subscribe({
+
+    this.http.post('http://localhost:3000/user/easy/create', payload).subscribe({
       next: (response) => {
         console.log('Usuario registrado correctamente:', response);
         this.registroExitoso = true;

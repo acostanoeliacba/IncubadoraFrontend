@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angular/forms';
 import { PerfilService } from './perfilservicio';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service'; 
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../app/services/auth.service'; 
 
-import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-perfil',
-  standalone:true,
-  imports: [CommonModule, ReactiveFormsModule], 
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })
@@ -20,40 +22,22 @@ export class PerfilComponent implements OnInit {
   cargando: boolean = true;
   modoEdicion: boolean = false;
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
               private perfilService: PerfilService,
               private authService: AuthService,
-              private router: Router) {}
+              private router: Router,
+              @Inject(PLATFORM_ID) private platformId: Object
+              ) {}
 
-  // ngOnInit(): void {
-  //   this.tipoUsuario = localStorage.getItem('tipo_usuario') as 'alumno' | 'docente';
-  //   const id_usuario = localStorage.getItem('id_usuario');
-
-  //   if (!id_usuario || !this.tipoUsuario) {
-  //     alert("Sesión no válida");
-  //     return;
-  //   }
-
-  //   this.perfilService.obtenerPerfil(this.tipoUsuario, id_usuario).subscribe({
-  //     next: (datos) => {
-  //       this.usuario = datos;
-  //       this.initForm();
-  //       this.cargando = false;
-  //     },
-  //     error: () => {
-  //       alert('Error al cargar el perfil');
-  //       this.cargando = false;
-  //     }
-  //   });
-  // }
-
-ngOnInit(): void {
+  ngOnInit(): void {
 
   const usuario = this.authService.getUsuario();
 
-  if (!usuario) {
+  if (!usuario && isPlatformBrowser(this.platformId)) {
     alert("Sesión no válida");
-    this.router.navigate(['/acceso']);
+      setTimeout(() => {
+        this.router.navigate(['/acceso']);
+        }, 500);
     return;
   }
   console.log(usuario);
@@ -66,7 +50,6 @@ ngOnInit(): void {
   // Para  más detalles del backend, la llamada aquí
   // this.perfilService.obtenerPerfil(this.tipoUsuario, usuario.id).subscribe(...)
 }
-
 
   initForm(): void {
     this.perfilForm = this.fb.group({
@@ -108,4 +91,10 @@ ngOnInit(): void {
       }
     });
   }
+
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
+
 }

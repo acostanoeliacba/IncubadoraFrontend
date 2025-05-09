@@ -61,6 +61,33 @@
   .perfil-form button:hover {
     background-color: #f5680e;
   }
+
+  .navbar nav a {
+  color: #020166;
+  margin: 0 10px;
+  text-decoration: none;
+  position: relative;
+  margin: 0 10px;
+  text-decoration: none;
+  padding: 5px 0;
+}
+
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background-color: orange;
+  transition: width 0.3s ease;
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+
   
   /* Comentario para futura carga de foto de perfil */
   /*

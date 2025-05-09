@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
 import { AuthService } from '../services/auth.service'; 
-
 
 @Component({
   selector: 'app-acceso',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ReactiveFormsModule], 
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule], 
   templateUrl: './acceso.component.html',
   styleUrls: ['./acceso.component.css']
 })
@@ -33,6 +32,22 @@ export class AccesoComponent {
     });
   }
   
+  // onSubmit() {
+  //   if (this.accesoForm.valid) {
+  //     console.log('Formulario de acceso válido:', this.accesoForm.value);
+
+  //     setTimeout(() => {
+  //       this.inicioExitoso = true;
+  //       this.inicioError = null; 
+  //       this.router.navigate(['/perfil']); 
+  //     }, 1000); 
+  //   } else {
+  //     console.log('Formulario inválido');
+  //     this.inicioExitoso = false;
+  //     this.inicioError = 'Por favor, revisa los errores en el formulario.';
+  //   }
+  // }
+
   onSubmit() {
     if (this.accesoForm.valid) {
     const formData = this.accesoForm.value;
@@ -42,10 +57,6 @@ export class AccesoComponent {
         console.log('Respuesta del backend:', response);
    
         this.authService.setUsuario(response);
-
-        const usuario2 = this.authService.getUsuario();
-        console.log('Usuario cargado desde AuthService:', usuario2)
-        
         this.inicioExitoso = true;
         this.inicioError = null;
         this.router.navigate(['/perfil']);
@@ -61,6 +72,11 @@ export class AccesoComponent {
       this.inicioExitoso = false;
       this.inicioError = 'Por favor, revisa los errores en el formulario.';
     }
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
   }
 
   irAlRegistro() {

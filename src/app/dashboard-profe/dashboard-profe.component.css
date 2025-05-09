@@ -1,0 +1,159 @@
+.tablero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #c3e8fd;
+}
+
+@media (min-width: 768px) {
+    .tablero {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.encabezado {
+    grid-column: span 3;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+}
+
+.titulo {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.subtitulo {
+    color: #020166; 
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.boton {
+    height: 2.5rem;
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    background: #020166;
+    color: #fff;
+    gap: 16px;
+    transition: background 0.2s;
+    margin: 0 0.5rem;
+}
+
+.boton:hover {
+    background: #d75400;
+}
+
+/* Panel resumen */
+.resumen {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.lista {
+    list-style: none;
+    padding: 0;
+}
+
+.lista li {
+    margin-bottom: 0.5rem;
+}
+
+.negrita {
+    font-weight: bold;
+}
+
+.mis-cursos {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    grid-column: span 2;
+}
+
+.cursos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .cursos {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.curso {
+    border: 1px solid #c3e8fd;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    transition: box-shadow 0.2s;
+}
+
+.curso:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.curso-titulo {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+
+.mensajes {
+    grid-column: span 3;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.lista-mensajes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mensaje {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #c3e8fd;
+}
+
+.mensaje:last-child {
+    border-bottom: none;
+}
+
+.footer {
+    width: 100%; 
+    background-color: #002147; 
+    color: white;
+    text-align: center;
+    padding: 20px 0; 
+    position: relative; 
+  }
+  
