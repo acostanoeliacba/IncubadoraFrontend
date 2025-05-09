@@ -2,11 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angular/forms';
 import { PerfilService } from './perfilservicio';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../app/services/auth.service'; 
+
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-    imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })
@@ -17,29 +22,40 @@ export class PerfilComponent implements OnInit {
   cargando: boolean = true;
   modoEdicion: boolean = false;
 
-  constructor(private fb: FormBuilder, private perfilService: PerfilService) {}
+  constructor(private fb: FormBuilder,
+              private perfilService: PerfilService,
+              private authService: AuthService,
+              private router: Router,
+              @Inject(PLATFORM_ID) private platformId: Object
+              ) {}
 
   ngOnInit(): void {
-    this.tipoUsuario = localStorage.getItem('tipo_usuario') as 'alumno' | 'docente';
-    const id_usuario = localStorage.getItem('id_usuario');
 
-    if (!id_usuario || !this.tipoUsuario) {
-      alert("Sesión no válida");
-      return;
-    }
-
-    this.perfilService.obtenerPerfil(this.tipoUsuario, id_usuario).subscribe({
-      next: (datos) => {
-        this.usuario = datos;
-        this.initForm();
-        this.cargando = false;
-      },
-      error: () => {
-        alert('Error al cargar el perfil');
-        this.cargando = false;
-      }
-    });
+  const usuario = this.authService.getUsuario();
+  // if (!usuario) {
+  //     alert("Sesión no válida");
+  //     setTimeout(() => {
+  //       this.router.navigate(['/acceso']);
+  //       }, 500);
+  //     return
+  // }
+  if (!usuario && isPlatformBrowser(this.platformId)) {
+    alert("Sesión no válida");
+      setTimeout(() => {
+        this.router.navigate(['/acceso']);
+        }, 500);
+    return;
   }
+  console.log(usuario);
+
+  this.usuario = usuario;
+  this.tipoUsuario = usuario.tipo_usuario;  
+  this.initForm();  //  formulario con los datos del usuario
+  this.cargando = false;
+
+  // Para  más detalles del backend, la llamada aquí
+  // this.perfilService.obtenerPerfil(this.tipoUsuario, usuario.id).subscribe(...)
+}
 
   initForm(): void {
     this.perfilForm = this.fb.group({
@@ -81,4 +97,10 @@ export class PerfilComponent implements OnInit {
       }
     });
   }
+
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
+
 }
