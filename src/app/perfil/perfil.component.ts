@@ -3,7 +3,7 @@ import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angu
 import { PerfilService } from './perfilservicio';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../app/services/auth.service'; 
+import { AuthService } from '../services/auth.service'; 
 
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
