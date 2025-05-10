@@ -12,6 +12,30 @@ body {
     flex: 1; 
   }
 
+  .btn-github {
+    display: inline-flex;
+    align-items: center;
+    background-color: #24292e;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-github:hover {
+    background-color: #1b1f23;
+  }
+
+  .github-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
 
   .logo {
     background-image: url('/assets/img/logo.png');

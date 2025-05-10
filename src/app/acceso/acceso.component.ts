@@ -32,21 +32,6 @@ export class AccesoComponent {
     });
   }
   
-  // onSubmit() {
-  //   if (this.accesoForm.valid) {
-  //     console.log('Formulario de acceso válido:', this.accesoForm.value);
-
-  //     setTimeout(() => {
-  //       this.inicioExitoso = true;
-  //       this.inicioError = null; 
-  //       this.router.navigate(['/perfil']); 
-  //     }, 1000); 
-  //   } else {
-  //     console.log('Formulario inválido');
-  //     this.inicioExitoso = false;
-  //     this.inicioError = 'Por favor, revisa los errores en el formulario.';
-  //   }
-  // }
 
   onSubmit() {
     if (this.accesoForm.valid) {
@@ -79,6 +64,10 @@ export class AccesoComponent {
     this.router.navigate(['/acceso']);
   }
 
+  accederConGitHub() {
+  window.location.href = 'http://localhost:3000/user/login'; 
+ 
+}
   irAlRegistro() {
     this.router.navigate(['/registro']);
   }

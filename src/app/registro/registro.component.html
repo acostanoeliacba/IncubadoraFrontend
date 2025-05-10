@@ -70,14 +70,20 @@
     <option value="alumno">Alumno</option>
     <option value="docente">Docente</option>
   </select>
+  
   <div *ngIf="registroForm.controls['tipo_usuario'].hasError('required') && registroForm.controls['tipo_usuario'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>
 
-    <input type="text" placeholder="Especialidad" formControlName="especialidad" required>
-    <div *ngIf="registroForm.controls['especialidad'].hasError('required') && registroForm.controls['especialidad'].touched">
-      <p style="color: red;">Este campo es obligatorio.</p>
-    </div>
+  <input type="text" placeholder="Especialidad" formControlName="especialidad" required>   
+  <div *ngIf="registroForm.controls['especialidad'].hasError('required') && registroForm.controls['especialidad'].touched">
+    <p style="color: red;">Este campo es obligatorio si eres docente.</p>
+  </div>
+ 
+    <label>Ingrese Foto de perfil:</label>
+    <br>
+    <br>
+   <input type="file" (change)="onFileSelected($event)" accept="image/*" />
 
   <button type="submit" [disabled]="!registroForm.valid">Registrarse</button>
 
