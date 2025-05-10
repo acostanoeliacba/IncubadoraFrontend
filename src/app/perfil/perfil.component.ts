@@ -40,7 +40,7 @@ export class PerfilComponent implements OnInit {
         }, 500);
     return;
   }
-  console.log(usuario);
+  console.log("perfil de usuario:",usuario);
 
   this.usuario = usuario;
   this.tipoUsuario = usuario.tipo_usuario;  
