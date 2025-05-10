@@ -1,4 +1,5 @@
 
+-- Tiempo de generación: 10-05-2025 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,12 +30,6 @@ CREATE TABLE `Asistencia` (
   `estado` enum('presente','ausente','justificado') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `Asistencia`:
---   `id_inscripcion`
---       `Inscripciones` -> `id_inscripcion`
---
-
 -- --------------------------------------------------------
 
 --
@@ -48,12 +43,6 @@ CREATE TABLE `CondicionesAprobacion` (
   `nota_minima` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `CondicionesAprobacion`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---
-
 -- --------------------------------------------------------
 
 --
@@ -64,14 +53,6 @@ CREATE TABLE `CursoCredito` (
   `id_curso` int(11) NOT NULL,
   `id_programa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `CursoCredito`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_programa`
---       `ProgramasCredito` -> `id_programa`
---
 
 -- --------------------------------------------------------
 
@@ -89,10 +70,6 @@ CREATE TABLE `Cursos` (
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Cursos`:
---
 
 --
 -- Volcado de datos para la tabla `Cursos`
@@ -119,14 +96,6 @@ CREATE TABLE `DocenteCurso` (
   `id_usuario` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `DocenteCurso`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
 
 --
 -- Volcado de datos para la tabla `DocenteCurso`
@@ -159,10 +128,6 @@ CREATE TABLE `Empresas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `Empresas`:
---
-
---
 -- Volcado de datos para la tabla `Empresas`
 --
 
@@ -189,12 +154,6 @@ CREATE TABLE `EntrenamientosLaborales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `EntrenamientosLaborales`:
---   `empresa_id`
---       `Empresas` -> `id_empresa`
---
-
---
 -- Volcado de datos para la tabla `EntrenamientosLaborales`
 --
 
@@ -216,14 +175,6 @@ CREATE TABLE `Inscripciones` (
   `id_curso` int(11) DEFAULT NULL,
   `fecha_inscripcion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Inscripciones`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
 
 --
 -- Volcado de datos para la tabla `Inscripciones`
@@ -256,14 +207,6 @@ CREATE TABLE `Pagos` (
   `fecha_pago` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `Pagos`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
-
 -- --------------------------------------------------------
 
 --
@@ -279,10 +222,6 @@ CREATE TABLE `ProgramasCredito` (
   `requisitos` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `ProgramasCredito`:
---
-
 -- --------------------------------------------------------
 
 --
@@ -297,10 +236,6 @@ CREATE TABLE `Publicaciones` (
   `tipo` enum('curso','capacitacion','entrenamiento') DEFAULT NULL,
   `estado` enum('activo','inactivo') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Publicaciones`:
---
 
 --
 -- Volcado de datos para la tabla `Publicaciones`
@@ -327,8 +262,11 @@ CREATE TABLE `Sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `Sessions`:
+-- Volcado de datos para la tabla `Sessions`
 --
+
+INSERT INTO `Sessions` (`sid`, `expires`, `data`, `createdAt`, `updatedAt`) VALUES
+('o3MVmOW5DHziV1GmlOtQLra1_8yI-6Ug', '2025-05-11 15:02:16', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"user\":{\"id\":\"205468351\",\"nodeId\":\"U_kgDODD8yvw\",\"displayName\":\"Hector Fernando Calisaya\",\"username\":\"Fe25dev\",\"profileUrl\":\"https://github.com/Fe25dev\",\"emails\":[{\"value\":\"legasy23dream@gmail.com\"}],\"photos\":[{\"value\":\"https://avatars.githubusercontent.com/u/205468351?v=4\"}],\"provider\":\"github\",\"_raw\":\"{\\\"login\\\":\\\"Fe25dev\\\",\\\"id\\\":205468351,\\\"node_id\\\":\\\"U_kgDODD8yvw\\\",\\\"avatar_url\\\":\\\"https://avatars.githubusercontent.com/u/205468351?v=4\\\",\\\"gravatar_id\\\":\\\"\\\",\\\"url\\\":\\\"https://api.github.com/users/Fe25dev\\\",\\\"html_url\\\":\\\"https://github.com/Fe25dev\\\",\\\"followers_url\\\":\\\"https://api.github.com/users/Fe25dev/followers\\\",\\\"following_url\\\":\\\"https://api.github.com/users/Fe25dev/following{/other_user}\\\",\\\"gists_url\\\":\\\"https://api.github.com/users/Fe25dev/gists{/gist_id}\\\",\\\"starred_url\\\":\\\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\\\",\\\"subscriptions_url\\\":\\\"https://api.github.com/users/Fe25dev/subscriptions\\\",\\\"organizations_url\\\":\\\"https://api.github.com/users/Fe25dev/orgs\\\",\\\"repos_url\\\":\\\"https://api.github.com/users/Fe25dev/repos\\\",\\\"events_url\\\":\\\"https://api.github.com/users/Fe25dev/events{/privacy}\\\",\\\"received_events_url\\\":\\\"https://api.github.com/users/Fe25dev/received_events\\\",\\\"type\\\":\\\"User\\\",\\\"user_view_type\\\":\\\"public\\\",\\\"site_admin\\\":false,\\\"name\\\":\\\"Hector Fernando Calisaya\\\",\\\"company\\\":null,\\\"blog\\\":\\\"\\\",\\\"location\\\":null,\\\"email\\\":\\\"legasy23dream@gmail.com\\\",\\\"hireable\\\":null,\\\"bio\\\":\\\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\\\",\\\"twitter_username\\\":null,\\\"notification_email\\\":\\\"legasy23dream@gmail.com\\\",\\\"public_repos\\\":3,\\\"public_gists\\\":0,\\\"followers\\\":0,\\\"following\\\":0,\\\"created_at\\\":\\\"2025-03-29T22:18:31Z\\\",\\\"updated_at\\\":\\\"2025-05-10T13:31:26Z\\\"}\",\"_json\":{\"login\":\"Fe25dev\",\"id\":205468351,\"node_id\":\"U_kgDODD8yvw\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/205468351?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/Fe25dev\",\"html_url\":\"https://github.com/Fe25dev\",\"followers_url\":\"https://api.github.com/users/Fe25dev/followers\",\"following_url\":\"https://api.github.com/users/Fe25dev/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/Fe25dev/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Fe25dev/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Fe25dev/orgs\",\"repos_url\":\"https://api.github.com/users/Fe25dev/repos\",\"events_url\":\"https://api.github.com/users/Fe25dev/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Fe25dev/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false,\"name\":\"Hector Fernando Calisaya\",\"company\":null,\"blog\":\"\",\"location\":null,\"email\":\"legasy23dream@gmail.com\",\"hireable\":null,\"bio\":\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\",\"twitter_username\":null,\"notification_email\":\"legasy23dream@gmail.com\",\"public_repos\":3,\"public_gists\":0,\"followers\":0,\"following\":0,\"created_at\":\"2025-03-29T22:18:31Z\",\"updated_at\":\"2025-05-10T13:31:26Z\"}}}', '2025-05-10 12:52:49', '2025-05-10 15:02:16');
 
 -- --------------------------------------------------------
 
@@ -347,35 +285,36 @@ CREATE TABLE `Usuarios` (
   `password` varchar(150) NOT NULL,
   `dni` int(11) DEFAULT NULL,
   `especialidad` varchar(100) DEFAULT NULL,
-  `tipo_usuario` enum('alumno','docente') NOT NULL
+  `tipo_usuario` enum('alumno','docente') NOT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Usuarios`:
---
 
 --
 -- Volcado de datos para la tabla `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `telefono`, `email`, `password`, `dni`, `especialidad`, `tipo_usuario`) VALUES
-(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juanPerez@gmail.com', 'youtube24', 12345678, '', 'alumno'),
-(2, 'ruth', 'Carlo', '1990-02-10', 'villa maria 5', '311554447', 'calom@gmail.com', 'youangri2', 34563233, '', 'alumno'),
-(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'luciaMartinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno'),
-(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlosGomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno'),
-(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'mariaFernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno'),
-(6, 'Juan', 'Pérea', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juanPerez2@gmail.com', 'juan12345', 40456789, NULL, 'alumno'),
-(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedroSuarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente'),
-(8, 'Laura Clara', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'lauraMartinez2@gmail.com', 'laura123', 31000002, 'Diseño', 'docente'),
-(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marceloRuiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente'),
-(10, 'Graciela luz', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'gracielaFernandezMar@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente'),
-(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andresPaz12@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente'),
-(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeriaLuna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente'),
-(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'estebanDominguez33@gmail.com', 'esteban123', 31000007, 'Administración', 'docente'),
-(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolinaSilva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente'),
-(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javierTorresCuvero@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente'),
-(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'lucianaCruz@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente'),
-(17, 'Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno');
+INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `telefono`, `email`, `password`, `dni`, `especialidad`, `tipo_usuario`, `foto`) VALUES
+(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juanPerez@gmail.com', 'youtube24', 12345678, '', 'alumno', NULL),
+(2, 'ruth', 'Carlo', '1990-02-10', 'villa maria 5', '311554447', 'calom@gmail.com', 'youangri2', 34563233, '', 'alumno', NULL),
+(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'luciaMartinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno', NULL),
+(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlosGomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno', NULL),
+(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'mariaFernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno', NULL),
+(6, 'Juan', 'Pérea', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juanPerez2@gmail.com', 'juan12345', 40456789, NULL, 'alumno', NULL),
+(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedroSuarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente', NULL),
+(8, 'Laura Clara', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'lauraMartinez2@gmail.com', 'laura123', 31000002, 'Diseño', 'docente', NULL),
+(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marceloRuiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente', NULL),
+(10, 'Graciela luz', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'gracielaFernandezMar@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente', NULL),
+(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andresPaz12@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente', NULL),
+(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeriaLuna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente', NULL),
+(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'estebanDominguez33@gmail.com', 'esteban123', 31000007, 'Administración', 'docente', NULL),
+(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolinaSilva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente', NULL),
+(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javierTorresCuvero@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente', NULL),
+(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'lucianaCruz@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente', NULL),
+(17, 'Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno', NULL),
+(18, 'Ludmila', 'Palermo', '1999-06-03', 'La paz-Tucuman', '3115986632', 'Lusdmi25@gmail.com', 'li1234', 408569321, 'Pintura', 'docente', NULL),
+(19, 'Josep ', 'Montañes', '1986-07-09', 'La Iliada-Cordoba', '3445785698', 'jo25montaar@gmail.com', 'josep999', 36789654, 'Mecanica', 'docente', NULL),
+(20, 'lucas', 'Yamaha', '1965-09-08', 'la Sierra-La pampa', '3885294632', 'lica3333@gmail.com', 'lu122345', 26895674, 'Carpinteria', 'docente', NULL),
+(21, 'Cristian', 'Peña', '1989-09-04', 'La cruz de laSierra', '3115967321', 'cri25025ar@gmail.com', 'cristian2025', 33596412, 'Caligrafia', 'docente', '/uploads/33596412_1746902468547.jpeg');
 
 --
 -- Índices para tablas volcadas
@@ -530,7 +469,7 @@ ALTER TABLE `Publicaciones`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
