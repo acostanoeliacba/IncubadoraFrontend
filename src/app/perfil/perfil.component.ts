@@ -43,7 +43,14 @@ export class PerfilComponent implements OnInit {
   console.log("perfil de usuario:",usuario);
 
   this.usuario = usuario;
-  this.tipoUsuario = usuario.tipo_usuario;  
+
+  if (usuario && usuario.tipo_usuario) {
+    console.log(usuario.tipo_usuario);
+    this.tipoUsuario = usuario.tipo_usuario;  
+  } else {
+    console.warn('Usuario no encontrado o inválido');
+  }
+  //this.tipoUsuario = usuario.tipo_usuario;  
   this.initForm();  //  formulario con los datos del usuario
   this.cargando = false;
 
