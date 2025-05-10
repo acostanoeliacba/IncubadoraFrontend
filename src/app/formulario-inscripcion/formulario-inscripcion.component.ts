@@ -7,6 +7,9 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
 
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
+
 @Component({
   selector: 'app-formulario-inscripcion',
   standalone: true,
@@ -28,8 +31,10 @@ export class FormularioInscripcionComponent implements OnInit {
   constructor(private fb: FormBuilder, 
               private http: HttpClient,
               private router: Router,
-              private authService: AuthService
+              private authService: AuthService,
+              @Inject(PLATFORM_ID) private platformId: Object
               ) {
+
     this.inscripcionForm = this.fb.group({
       id_curso: ['', Validators.required],
       id_usuario: [''],
@@ -45,8 +50,9 @@ export class FormularioInscripcionComponent implements OnInit {
     this.cargarCursos();
     const usuarioLogueado = this.authService.getUsuario();
     console.log("usuario-formulario-inscripcion",usuarioLogueado);
-    if (!usuarioLogueado) {
-        alert("Sesión no válida");
+
+    if (!usuarioLogueado && isPlatformBrowser(this.platformId)) {
+    alert('Sesión no válida');
         setTimeout(() => {
           this.router.navigate(['/acceso']);
           }, 500);
