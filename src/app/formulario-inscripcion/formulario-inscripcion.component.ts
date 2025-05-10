@@ -78,7 +78,7 @@ export class FormularioInscripcionComponent implements OnInit {
     const idCursoSeleccionado = Number(this.inscripcionForm.get('id_curso')?.value);
      console.log("id_cursoseleccionado",idCursoSeleccionado);
     const curso = this.cursos.find(c => c.id_curso === idCursoSeleccionado);
-    
+      console.log("id_cursoseleccionado",curso);
     if (curso) {
       this.costo = curso.costo;
             console.log("costo",this.costo);
