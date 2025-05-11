@@ -1,5 +1,5 @@
 
--- Tiempo de generación: 07-05-2025 a las 14:53:43
+-- Tiempo de generación: 10-05-2025 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,12 +30,6 @@ CREATE TABLE `Asistencia` (
   `estado` enum('presente','ausente','justificado') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `Asistencia`:
---   `id_inscripcion`
---       `Inscripciones` -> `id_inscripcion`
---
-
 -- --------------------------------------------------------
 
 --
@@ -49,12 +43,6 @@ CREATE TABLE `CondicionesAprobacion` (
   `nota_minima` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `CondicionesAprobacion`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---
-
 -- --------------------------------------------------------
 
 --
@@ -65,14 +53,6 @@ CREATE TABLE `CursoCredito` (
   `id_curso` int(11) NOT NULL,
   `id_programa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `CursoCredito`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_programa`
---       `ProgramasCredito` -> `id_programa`
---
 
 -- --------------------------------------------------------
 
@@ -86,28 +66,25 @@ CREATE TABLE `Cursos` (
   `descripcion` text DEFAULT NULL,
   `duracion` int(11) DEFAULT NULL,
   `tipo` enum('gratuito','arancelado','capacitacion','entrenamiento') DEFAULT NULL,
+  `costo` decimal(10,2) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `Cursos`:
---
-
---
 -- Volcado de datos para la tabla `Cursos`
 --
 
-INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 'Carpintería', 'Curso básico de carpintería para principiantes.', 60, 'capacitacion', '2025-05-06', '2025-07-06'),
-(2, 'Diseño', 'Introducción al diseño gráfico digital.', 45, 'gratuito', '2025-06-01', '2025-07-15'),
-(3, 'Informática', 'Fundamentos de informática y uso de sistemas operativos.', 90, 'arancelado', '2025-05-15', '2025-08-15'),
-(4, 'Mecánica', 'Taller práctico de mecánica automotriz.', 75, 'capacitacion', '2025-06-10', '2025-08-24'),
-(5, 'Oratoria', 'Curso de oratoria y expresión verbal en público.', 30, 'gratuito', '2025-05-20', '2025-06-19'),
-(6, 'Pintura', 'Técnicas básicas de pintura artística y muralismo.', 40, 'arancelado', '2025-07-01', '2025-08-10'),
-(7, 'Administración', 'Conceptos básicos de administración de empresas.', 60, 'capacitacion', '2025-05-10', '2025-07-10'),
-(8, 'Caligrafía', 'Curso de caligrafía y escritura estética.', 20, 'gratuito', '2025-06-05', '2025-06-25'),
-(9, 'Manicuría', 'Formación en técnicas de manicuría y cuidado de uñas.', 50, 'capacitacion', '2025-05-22', '2025-07-11');
+INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `costo`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 'Carpintería', 'Este curso de carpintería está diseñado para enseñar desde lo básico hasta lo avanzado. Aprende a manejar las herramientas y técnicas más importantes para crear proyectos de carpintería con precisión y seguridad.', 60, 'capacitacion', 3000.00, '2025-05-06', '2025-07-06'),
+(2, 'Diseño', 'Para aquellos interesados en desarrollar habilidades en la creación y desarrollo de proyectos visuales impactantes. Aprenderás las herramientas y técnicas esenciales para diseñar piezas gráficas para una amplia gama de medios, desde impresos hasta digitales.', 45, 'gratuito', 8000.00, '2025-06-01', '2025-07-15'),
+(3, 'Informática', 'Dirigido a personas que desean aprender a utilizar las herramientas informáticas esenciales para la vida diaria, el trabajo y la educación. A través de este curso, adquirirás conocimientos fundamentales sobre el uso de la computadora, programas de oficina y navegación en internet, lo que te permitirá desenvolverte con confianza en un mundo digital.', 90, 'arancelado', 9000.00, '2025-05-15', '2025-08-15'),
+(4, 'Mecánica', 'Principios fundamentales de la reparación y mantenimiento de vehículos. Este curso te proporcionará las herramientas y conocimientos esenciales para entender el funcionamiento de los motores, los sistemas de transmisión, frenos, suspensión, y mucho más. Ya sea que busques aprender para uso personal o como base para una carrera en la mecánica, este curso es el primer paso hacia el mundo automotriz.', 75, 'capacitacion', 15000.00, '2025-06-10', '2025-08-24'),
+(5, 'Oratoria', 'Mejora tus habilidades de comunicación y aprende a expresarse de manera efectiva frente a cualquier tipo de audiencia. A lo largo de este curso, desarrollarás herramientas y técnicas para hablar con claridad, seguridad y persuasión, ya sea en presentaciones profesionales, exposiciones académicas o situaciones cotidianas donde se requiere hablar en público.', 30, 'gratuito', 20000.00, '2025-05-20', '2025-06-19'),
+(6, 'Pintura', 'Dirigido a todas las personas que deseen iniciarse en el arte de pintar o perfeccionar sus habilidades artísticas. A través de un enfoque práctico y dinámico, aprenderás a expresarte mediante el color, la forma y la técnica, explorando distintos estilos y materiales.\r\n            Durante el curso, desarrollarás tu creatividad, conocerás las bases del dibujo, el manejo del color y las técnicas esenciales para trabajar con acrílicos, óleos y acuarelas, adaptándote a tu propio estilo personal.', 40, 'arancelado', 20000.00, '2025-07-01', '2025-08-10'),
+(7, 'Administración', 'Ofrece una formación práctica y actualizada para quienes buscan adquirir o perfeccionar habilidades en la gestión de organizaciones. Aprenderás a planificar, organizar, dirigir y controlar recursos de manera eficiente, desarrollando una visión estratégica que te permita liderar proyectos, empresas o emprendimientos exitosamente.\r\n          Ideal para quienes desean fortalecer su perfil profesional, emprender o mejorar la gestión de sus negocios.', 60, 'capacitacion', 18000.00, '2025-05-10', '2025-07-10'),
+(8, 'Caligrafía', 'Para introducirte en el mundo de la escritura artística, combinando técnica y creatividad. Aprenderás a dominar distintos estilos caligráficos, mejorar tu trazo, desarrollar precisión y expresar tu estilo personal a través de la letra escrita. Es ideal tanto para principiantes como para quienes buscan perfeccionar su técnica en proyectos creativos, diseño, invitaciones, arte y más.', 20, 'gratuito', 12000.00, '2025-06-05', '2025-06-25'),
+(9, 'Manicuría', 'Te formarás en las técnicas esenciales para el cuidado y embellecimiento de manos y uñas. Aprenderás desde los conceptos básicos de higiene y preparación hasta las últimas tendencias en esmaltado, decoración y tratamientos de spa para manos. Ideal para quienes desean iniciar su propio emprendimiento o perfeccionar sus habilidades en el mundo de la estética.', 50, 'capacitacion', 15000.00, '2025-05-22', '2025-07-11');
 
 -- --------------------------------------------------------
 
@@ -119,14 +96,6 @@ CREATE TABLE `DocenteCurso` (
   `id_usuario` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `DocenteCurso`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
 
 --
 -- Volcado de datos para la tabla `DocenteCurso`
@@ -159,10 +128,6 @@ CREATE TABLE `Empresas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `Empresas`:
---
-
---
 -- Volcado de datos para la tabla `Empresas`
 --
 
@@ -189,12 +154,6 @@ CREATE TABLE `EntrenamientosLaborales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `EntrenamientosLaborales`:
---   `empresa_id`
---       `Empresas` -> `id_empresa`
---
-
---
 -- Volcado de datos para la tabla `EntrenamientosLaborales`
 --
 
@@ -216,14 +175,6 @@ CREATE TABLE `Inscripciones` (
   `id_curso` int(11) DEFAULT NULL,
   `fecha_inscripcion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Inscripciones`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
 
 --
 -- Volcado de datos para la tabla `Inscripciones`
@@ -256,14 +207,6 @@ CREATE TABLE `Pagos` (
   `fecha_pago` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `Pagos`:
---   `id_curso`
---       `Cursos` -> `id_curso`
---   `id_usuario`
---       `Usuarios` -> `id_usuario`
---
-
 -- --------------------------------------------------------
 
 --
@@ -278,10 +221,6 @@ CREATE TABLE `ProgramasCredito` (
   `duracion` int(11) DEFAULT NULL,
   `requisitos` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `ProgramasCredito`:
---
 
 -- --------------------------------------------------------
 
@@ -299,10 +238,6 @@ CREATE TABLE `Publicaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `Publicaciones`:
---
-
---
 -- Volcado de datos para la tabla `Publicaciones`
 --
 
@@ -311,6 +246,27 @@ INSERT INTO `Publicaciones` (`id_publicacion`, `titulo`, `contenido`, `fecha_pub
 (2, 'Capacitación en Angular', 'Frontend avanzado con Angular y consumo de APIs.', '2025-05-02', 'capacitacion', 'activo'),
 (3, 'Entrenamiento Fullstack', 'Entrenamiento intensivo para desarrolladores fullstack.', '2025-05-03', 'entrenamiento', 'inactivo'),
 (4, 'Curso de MySQL Avanzado', 'Profundiza en consultas complejas y optimización.', '2025-05-04', 'curso', 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Sessions`
+--
+
+CREATE TABLE `Sessions` (
+  `sid` varchar(36) NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `data` text DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `Sessions`
+--
+
+INSERT INTO `Sessions` (`sid`, `expires`, `data`, `createdAt`, `updatedAt`) VALUES
+('o3MVmOW5DHziV1GmlOtQLra1_8yI-6Ug', '2025-05-11 15:02:16', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"user\":{\"id\":\"205468351\",\"nodeId\":\"U_kgDODD8yvw\",\"displayName\":\"Hector Fernando Calisaya\",\"username\":\"Fe25dev\",\"profileUrl\":\"https://github.com/Fe25dev\",\"emails\":[{\"value\":\"legasy23dream@gmail.com\"}],\"photos\":[{\"value\":\"https://avatars.githubusercontent.com/u/205468351?v=4\"}],\"provider\":\"github\",\"_raw\":\"{\\\"login\\\":\\\"Fe25dev\\\",\\\"id\\\":205468351,\\\"node_id\\\":\\\"U_kgDODD8yvw\\\",\\\"avatar_url\\\":\\\"https://avatars.githubusercontent.com/u/205468351?v=4\\\",\\\"gravatar_id\\\":\\\"\\\",\\\"url\\\":\\\"https://api.github.com/users/Fe25dev\\\",\\\"html_url\\\":\\\"https://github.com/Fe25dev\\\",\\\"followers_url\\\":\\\"https://api.github.com/users/Fe25dev/followers\\\",\\\"following_url\\\":\\\"https://api.github.com/users/Fe25dev/following{/other_user}\\\",\\\"gists_url\\\":\\\"https://api.github.com/users/Fe25dev/gists{/gist_id}\\\",\\\"starred_url\\\":\\\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\\\",\\\"subscriptions_url\\\":\\\"https://api.github.com/users/Fe25dev/subscriptions\\\",\\\"organizations_url\\\":\\\"https://api.github.com/users/Fe25dev/orgs\\\",\\\"repos_url\\\":\\\"https://api.github.com/users/Fe25dev/repos\\\",\\\"events_url\\\":\\\"https://api.github.com/users/Fe25dev/events{/privacy}\\\",\\\"received_events_url\\\":\\\"https://api.github.com/users/Fe25dev/received_events\\\",\\\"type\\\":\\\"User\\\",\\\"user_view_type\\\":\\\"public\\\",\\\"site_admin\\\":false,\\\"name\\\":\\\"Hector Fernando Calisaya\\\",\\\"company\\\":null,\\\"blog\\\":\\\"\\\",\\\"location\\\":null,\\\"email\\\":\\\"legasy23dream@gmail.com\\\",\\\"hireable\\\":null,\\\"bio\\\":\\\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\\\",\\\"twitter_username\\\":null,\\\"notification_email\\\":\\\"legasy23dream@gmail.com\\\",\\\"public_repos\\\":3,\\\"public_gists\\\":0,\\\"followers\\\":0,\\\"following\\\":0,\\\"created_at\\\":\\\"2025-03-29T22:18:31Z\\\",\\\"updated_at\\\":\\\"2025-05-10T13:31:26Z\\\"}\",\"_json\":{\"login\":\"Fe25dev\",\"id\":205468351,\"node_id\":\"U_kgDODD8yvw\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/205468351?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/Fe25dev\",\"html_url\":\"https://github.com/Fe25dev\",\"followers_url\":\"https://api.github.com/users/Fe25dev/followers\",\"following_url\":\"https://api.github.com/users/Fe25dev/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/Fe25dev/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Fe25dev/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Fe25dev/orgs\",\"repos_url\":\"https://api.github.com/users/Fe25dev/repos\",\"events_url\":\"https://api.github.com/users/Fe25dev/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Fe25dev/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false,\"name\":\"Hector Fernando Calisaya\",\"company\":null,\"blog\":\"\",\"location\":null,\"email\":\"legasy23dream@gmail.com\",\"hireable\":null,\"bio\":\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\",\"twitter_username\":null,\"notification_email\":\"legasy23dream@gmail.com\",\"public_repos\":3,\"public_gists\":0,\"followers\":0,\"following\":0,\"created_at\":\"2025-03-29T22:18:31Z\",\"updated_at\":\"2025-05-10T13:31:26Z\"}}}', '2025-05-10 12:52:49', '2025-05-10 15:02:16');
 
 -- --------------------------------------------------------
 
@@ -329,35 +285,36 @@ CREATE TABLE `Usuarios` (
   `password` varchar(150) NOT NULL,
   `dni` int(11) DEFAULT NULL,
   `especialidad` varchar(100) DEFAULT NULL,
-  `tipo_usuario` enum('alumno','docente') NOT NULL
+  `tipo_usuario` enum('alumno','docente') NOT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `Usuarios`:
---
 
 --
 -- Volcado de datos para la tabla `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `telefono`, `email`, `password`, `dni`, `especialidad`, `tipo_usuario`) VALUES
-(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juanPerez@gmail.com', 'youtube24', 12345678, '', 'alumno'),
-(2, 'ruth', 'Carlo', '1990-02-10', 'villa maria 5', '311554447', 'calom@gmail.com', 'youangri2', 34563233, '', 'alumno'),
-(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'luciaMartinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno'),
-(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlosGomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno'),
-(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'mariaFernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno'),
-(6, 'Juan', 'Pérea', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juanPerez2@gmail.com', 'juan12345', 40456789, NULL, 'alumno'),
-(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedroSuarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente'),
-(8, 'Laura Clara', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'lauraMartinez2@gmail.com', 'laura123', 31000002, 'Diseño', 'docente'),
-(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marceloRuiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente'),
-(10, 'Graciela luz', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'gracielaFernandezMar@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente'),
-(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andresPaz12@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente'),
-(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeriaLuna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente'),
-(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'estebanDominguez33@gmail.com', 'esteban123', 31000007, 'Administración', 'docente'),
-(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolinaSilva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente'),
-(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javierTorresCuvero@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente'),
-(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'lucianaCruz@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente'),
-(17, 'Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno');
+INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `telefono`, `email`, `password`, `dni`, `especialidad`, `tipo_usuario`, `foto`) VALUES
+(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juanPerez@gmail.com', 'youtube24', 12345678, '', 'alumno', NULL),
+(2, 'ruth', 'Carlo', '1990-02-10', 'villa maria 5', '311554447', 'calom@gmail.com', 'youangri2', 34563233, '', 'alumno', NULL),
+(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'luciaMartinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno', NULL),
+(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlosGomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno', NULL),
+(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'mariaFernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno', NULL),
+(6, 'Juan', 'Pérea', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juanPerez2@gmail.com', 'juan12345', 40456789, NULL, 'alumno', NULL),
+(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedroSuarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente', NULL),
+(8, 'Laura Clara', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'lauraMartinez2@gmail.com', 'laura123', 31000002, 'Diseño', 'docente', NULL),
+(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marceloRuiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente', NULL),
+(10, 'Graciela luz', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'gracielaFernandezMar@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente', NULL),
+(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andresPaz12@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente', NULL),
+(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeriaLuna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente', NULL),
+(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'estebanDominguez33@gmail.com', 'esteban123', 31000007, 'Administración', 'docente', NULL),
+(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolinaSilva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente', NULL),
+(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javierTorresCuvero@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente', NULL),
+(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'lucianaCruz@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente', NULL),
+(17, 'Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno', NULL),
+(18, 'Ludmila', 'Palermo', '1999-06-03', 'La paz-Tucuman', '3115986632', 'Lusdmi25@gmail.com', 'li1234', 408569321, 'Pintura', 'docente', NULL),
+(19, 'Josep ', 'Montañes', '1986-07-09', 'La Iliada-Cordoba', '3445785698', 'jo25montaar@gmail.com', 'josep999', 36789654, 'Mecanica', 'docente', NULL),
+(20, 'lucas', 'Yamaha', '1965-09-08', 'la Sierra-La pampa', '3885294632', 'lica3333@gmail.com', 'lu122345', 26895674, 'Carpinteria', 'docente', NULL),
+(21, 'Cristian', 'Peña', '1989-09-04', 'La cruz de laSierra', '3115967321', 'cri25025ar@gmail.com', 'cristian2025', 33596412, 'Caligrafia', 'docente', '/uploads/33596412_1746902468547.jpeg');
 
 --
 -- Índices para tablas volcadas
@@ -439,6 +396,12 @@ ALTER TABLE `Publicaciones`
   ADD PRIMARY KEY (`id_publicacion`);
 
 --
+-- Indices de la tabla `Sessions`
+--
+ALTER TABLE `Sessions`
+  ADD PRIMARY KEY (`sid`);
+
+--
 -- Indices de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
@@ -506,7 +469,7 @@ ALTER TABLE `Publicaciones`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas

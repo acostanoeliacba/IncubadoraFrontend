@@ -1,6 +1,19 @@
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a [routerLink]="['/cursos']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+  </nav> 
+</header>
+
 <div *ngIf="cargando">Cargando...</div>
 
-<div *ngIf="!cargando">
+<div *ngIf="!cargando" class="perfil-container">
   <h2>Mi Perfil ({{ tipoUsuario }})</h2>
 
   <!-- Imagen de perfil (comentada) -->
@@ -11,7 +24,13 @@
   </div>
   -->
 
-  <form [formGroup]="perfilForm" *ngIf="perfilForm">
+  <div >
+    <label>Foto de perfil:</label><br>
+    <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de perfil" style="max-width: 150px; border-radius: 50%;">
+
+  </div>
+
+  <form [formGroup]="perfilForm" *ngIf="perfilForm" class="perfil-form">
 
     <div>
       <label>Nombre:</label>

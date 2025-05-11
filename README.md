@@ -12,4 +12,5 @@ Proyecto Xacademy 2025
 * Esta agregado el modo fetch en config.ts  de manera global para la api
 * Para tener los datos del login en cada componente ( asi solo sera nesesario hacer login una ves ),que nesesiten deben importar el authservice y usar sus datos guardados accediendo sus metodos ya estan definidos.
 
+PRUEBEN CORRER EL FRONT de la rama fer con la base ACTUALIZADA le carge costo a los cursos  ya se comunican al backend  el login el registro el perfil
 

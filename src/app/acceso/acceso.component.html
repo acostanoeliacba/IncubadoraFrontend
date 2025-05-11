@@ -33,6 +33,11 @@
 
   <p>¿No tienes una cuenta? <a (click)="irAlRegistro()">Crear cuenta ahora</a></p>
 
+  <button type="button" class="btn-github" (click)="accederConGitHub()">
+    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" class="github-icon">
+    Acceder con GitHub
+  </button>
+
 </form>
 
 <div *ngIf="inicioExitoso" class="inicio-exitoso">

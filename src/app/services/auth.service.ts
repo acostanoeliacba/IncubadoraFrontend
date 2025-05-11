@@ -1,49 +1,43 @@
-
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { PLATFORM_ID } from '@angular/core';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isBrowser: boolean;
+  private readonly isBrowser: boolean;
 
   constructor() {
-    const platformId = inject(PLATFORM_ID);
+    const platformId: Object = inject(PLATFORM_ID);
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
+  setUsuario(usuario: any): void {
+    if (!this.isBrowser) return;
 
-  setUsuario(usuario: any) {
-  if (this.isBrowser) {
     try {
-    
       const jsonString = JSON.stringify(usuario);
-
       const parsed = JSON.parse(jsonString);
-
-      const userOnly = parsed?.user;
-
-      if (userOnly !== undefined) {
-        localStorage.setItem('usuario', JSON.stringify(userOnly));
-      }
+      const userOnly = parsed?.user ?? parsed;
+      localStorage.setItem('usuario', JSON.stringify(userOnly));
     } catch (error) {
-      console.error('Error al procesar el usuario:', error);
+      console.error('Error al guardar el usuario:', error);
     }
   }
-}
 
-  getUsuario() {
-    if (this.isBrowser) {
+  getUsuario(): any | null {
+    if (!this.isBrowser) return null;
+
+    try {
       const data = localStorage.getItem('usuario');
       return data ? JSON.parse(data) : null;
+    } catch (error) {
+      console.error('Error al leer el usuario:', error);
+      return null;
     }
-    return null;
   }
 
-  logout() {
+  logout(): void {
     if (this.isBrowser) {
       localStorage.removeItem('usuario');
     }
