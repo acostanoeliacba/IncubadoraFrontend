@@ -1,0 +1,13 @@
+<div class="perfil-container">
+  <h2>Inscribirse a un Curso</h2>
+
+  <form [formGroup]="inscripcionForm" (ngSubmit)="inscribirse()" class="perfil-form">
+
+    <label for="id_curso">Seleccionar Curso:</label>
+    <select id="id_curso" formControlName="id_curso">
+      <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
+    </select>
+
+    <button type="submit" [disabled]="inscripcionForm.invalid">Inscribirse</button>
+  </form>
+</div>
