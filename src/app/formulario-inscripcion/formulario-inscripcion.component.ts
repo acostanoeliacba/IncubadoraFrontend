@@ -20,7 +20,7 @@ export class FormularioInscripcionComponent implements OnInit {
   fechaInicio: string | null = null;
   comprobanteFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router ) {
     this.inscripcionForm = this.fb.group({
       id_curso: ['', Validators.required],
       id_usuario: [''],
@@ -83,6 +83,10 @@ export class FormularioInscripcionComponent implements OnInit {
             this.comprobanteFile = null;
             this.costoTotal = null;
             this.fechaInicio = null;
+
+        setTimeout(() => {
+          this.router.navigate(['/pago']);
+        }, 3000);
           },
           error => {
             alert('Error al inscribirse.');

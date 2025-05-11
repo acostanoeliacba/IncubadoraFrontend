@@ -22,7 +22,7 @@ body {
     height: 80px;
   }
 
-  .navbar {
+.navbar {
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center center;  
@@ -34,8 +34,12 @@ body {
     transition: all 0.3s ease;
     overflow: hidden; 
   }
+
+  .nav-links {
+   display: flex;
+   gap: 15px;
+  }
     
-  
   .navbar nav a {
     color: #020166;
     margin: 0 10px;
@@ -60,6 +64,17 @@ body {
   .navbar nav a:hover::after {
     width: 100%;
   }
+
+  .menu-icon {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+  #menu-toggle {
+  display: none;
+}
 
   h2 {
     text-align: center;
@@ -158,18 +173,10 @@ body {
   position: relative; 
 }
 
-  
-
   @media (max-width: 768px) {
     .curso-lista {
       flex-direction: column;
       align-items: center;
-    }
-  
-    .navbar nav {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
     }
 
     .registro-exitoso {
@@ -185,6 +192,27 @@ body {
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+    .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+  }
+
+  #menu-toggle:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+     display: block;
+    margin-right: 20px;
+    color: #f5680e;
   }
 
 }
