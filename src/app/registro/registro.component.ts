@@ -102,7 +102,7 @@ onSubmit() {
         console.log('Usuario registrado correctamente:', response);
         this.registroExitoso = true;
         this.mensaje = '¡Registro exitoso!';
-        setTimeout(() => this.router.navigate(['/acceso']), 2000);
+        setTimeout(() => this.router.navigate(['/acceso']), 3000);
       },
       error: (error) => {
         console.error('Error al registrar usuario:', error);

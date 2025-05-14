@@ -14,6 +14,11 @@ import { ContenidoInformaticaComponent } from './contenido-informatica/contenido
 import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
 
 
+import { PagoComponent } from './pago/pago.component';
+import { GraciasComponent } from './gracias/gracias.component';
+import { ContenidoInformaticaComponent } from './contenido-informatica/contenido-informatica.component';
+import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
+
 export const routes: Routes = [
     { path: '', component: InicioComponent },
     { path: 'acceso', component: AccesoComponent},
@@ -27,6 +32,5 @@ export const routes: Routes = [
     { path: 'pago', component: PagoComponent},
     { path: 'gracias', component: GraciasComponent},
     { path: 'contenido-informatica', component: ContenidoInformaticaComponent},
-    { path: 'contenido-diseno', component: ContenidoDisenoComponent}
-
+    { path: 'contenido-diseno', component: ContenidoDisenoComponent},
 ];

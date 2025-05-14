@@ -26,6 +26,7 @@ export class FormularioInscripcionComponent implements OnInit {
   comprobanteFile: File | null = null;
   fechaActual:string | null =null;
   fechaInicio:string | null =null;
+  id_usuario: number | null = null;
 
   constructor(private fb: FormBuilder, 
               private http: HttpClient,
@@ -61,10 +62,13 @@ export class FormularioInscripcionComponent implements OnInit {
       this.inscripcionForm.patchValue({
         nombre: usuarioLogueado.nombre,
         apellido: usuarioLogueado.apellido,
-        id_usuario: usuarioLogueado.id_usuario,
+        id_usuario: usuarioLogueado.id,
         email: usuarioLogueado.email
       });
+      this.id_usuario=usuarioLogueado.id;
     }
+    console.log('Form después de patch:', this.inscripcionForm.value);
+      console.log('Form después de patch:', this.id_usuario);
   }
 
   cargarCursos() {
@@ -77,7 +81,7 @@ export class FormularioInscripcionComponent implements OnInit {
     const idCursoSeleccionado = Number(this.inscripcionForm.get('id_curso')?.value);
      console.log("id_cursoseleccionado",idCursoSeleccionado);
     const curso = this.cursos.find(c => c.id_curso === idCursoSeleccionado);
-      console.log("id_cursoseleccionado",curso);
+      console.log("cursoseleccionado",curso);
     if (curso) {
       this.costo = curso.costo;
             console.log("costo",this.costo);
@@ -103,7 +107,7 @@ export class FormularioInscripcionComponent implements OnInit {
   }
 
   inscribirse() {
-    //if (this.inscripcionForm.valid && this.comprobanteFile) {
+
     if (this.inscripcionForm.valid ) {
       const formData = new FormData();
       formData.append('id_curso', this.inscripcionForm.get('id_curso')?.value);
@@ -111,29 +115,46 @@ export class FormularioInscripcionComponent implements OnInit {
       if (this.fecha_pago !== null) {
        formData.append('fecha_inscripcion', this.fecha_pago);
       }
-      //formData.append('acepta_politica', this.inscripcionForm.get('acepta_politica')?.value);
-      // formData.append('comprobante_pago', this.comprobanteFile);
-      this.http.post('http://localhost:3000/inscripciones', formData)
-        .subscribe(
-          response => {
-            alert('¡Inscripción exitosa!');
-            this.inscripcionForm.reset();
-            this.comprobanteFile = null;
-            this.monto = null;
-            this.costo = null;
-            this.fechaInicio = null;
-            this.fecha_pago = null;
 
-            setTimeout(() => {
-            this.router.navigate(['/pago']);
-            }, 3000);
-          },
-          error => {
-            alert('Error al inscribirse.');
-          }
-        );
+      // this.http.post('http://localhost:3000/inscripciones', formData)
+      //   .subscribe(
+      //     response => {
+      //       alert('¡Inscripción exitosa!');
+      //       this.inscripcionForm.reset();
+      //       this.comprobanteFile = null;
+      //       this.monto = null;
+      //       this.costo = null;
+      //       this.fechaInicio = null;
+      //       this.fecha_pago = null;
+
+      //       setTimeout(() => {
+      //       this.router.navigate(['/pago']);
+      //       }, 3000);
+      //     },
+      //     error => {
+      //       alert('Error al inscribirse.');
+      //     }
+      // );
+
+      const datosCompra = {
+        id_curso: this.inscripcionForm.get('id_curso')?.value,
+        id_usuario: this.inscripcionForm.get('id_usuario')?.value,
+        nombre: this.inscripcionForm.get('nombre')?.value,
+        apellido: this.inscripcionForm.get('apellido')?.value,
+        email: this.inscripcionForm.get('email')?.value,
+        fecha_pago: this.fecha_pago,
+        costo: this.costo,
+        modalidad: this.monto,
+        fecha_inicio: this.fechaInicio
+      };
+
+       console.log("datos antes de guardar",datosCompra);
+       localStorage.setItem('datosCompra', JSON.stringify(datosCompra));
+       console.log("datos guardados almacenados de la compra",localStorage.getItem('datosCompra'));
+      
+      this.router.navigate(['/pago']);
     } else {
-      alert('Por favor completa todos los campos y adjunta el comprobante de pago.');
+      alert('Por favor completa todos los campos.');
     }
   }
 

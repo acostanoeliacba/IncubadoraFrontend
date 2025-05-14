@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 })
 export class PagoComponent implements OnInit {
 
-    @ViewChild('cardElement') cardElement!: ElementRef;
+  @ViewChild('cardElement') cardElement!: ElementRef;
+
   stripe: Stripe | null = null;
   elements!: StripeElements;
   card!: StripeCardElement;
@@ -23,49 +24,96 @@ export class PagoComponent implements OnInit {
   cargando = false;
   mensaje = '';
   pagoExitoso = false;
+  datosPago: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, 
+              private router: Router
+              ) {}
 
   async ngOnInit() {
-    this.stripe = await loadStripe('pk_test_51RLsAiC5buLPzJLWwH6H0MQbDlQhIahobv55oIK8oGTUuxGPMN1DxR3sFKLq5Lbeox3nrsZMGlhNjUXCcQPuX6kx004uKS6Cy1');
-    if (!this.stripe) {
-      this.mensaje = 'Error al cargar Stripe';
-      this.pagoExitoso = false;
-      return;
-    }
+  this.stripe = await loadStripe('pk_test_51RLsAiC5buLPzJLWwH6H0MQbDlQhIahobv55oIK8oGTUuxGPMN1DxR3sFKLq5Lbeox3nrsZMGlhNjUXCcQPuX6kx004uKS6Cy1');
 
-    this.elements = this.stripe.elements();
-    this.card = this.elements.create('card');
+  if (!this.stripe) {
+    this.mensaje = 'Error al cargar Stripe';
+    this.pagoExitoso = false;
+    return;
+  }
+
+  this.elements = this.stripe.elements();
+  this.card = this.elements.create('card');
+
+  // Solo montar después de un tick del DOM
+  setTimeout(() => {
     this.card.mount(this.cardElement.nativeElement);
-
-    this.http.post<any>('http://localhost:3000/create-payment-intent', { amount: 1000 }).subscribe(res => {
+  });
+      this.http.post<any>('http://localhost:3000/pagos/create-payment-intent', { amount: 1000 }).subscribe(res => {
       this.clientSecret = res.clientSecret;
     });
-  }
+}
 
-  async pagar() {
-    if (!this.stripe || !this.clientSecret) return;
+async pagar() {
+  if (!this.stripe || !this.clientSecret) return;
 
-    this.cargando = true;
-    this.mensaje = '';
+  this.cargando = true;
+  this.mensaje = '';
 
-    const { error, paymentIntent } = await this.stripe.confirmCardPayment(this.clientSecret, {
-      payment_method: { card: this.card },
-    });
+  const { error, paymentIntent } = await this.stripe.confirmCardPayment(this.clientSecret, {
+    payment_method: { card: this.card },
+  });
 
-    this.cargando = false;
+  this.cargando = false;
 
-    if (error) {
-      this.mensaje = '❌ Error: ' + error.message;
-      this.pagoExitoso = false;
-    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      this.mensaje = '✅ ¡Pago exitoso! 🎉';
-      this.pagoExitoso = true;
-      
-    setTimeout(() => {
-        this.router.navigate(['/gracias']);
-      }, 3000);
+  if (error) {
+    this.mensaje = '❌ Error: ' + error.message;
+    this.pagoExitoso = false;
+  } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+    this.mensaje = '✅ ¡Pago exitoso! 🎉';
+    this.pagoExitoso = true;
+ 
+    const datosCompraString = localStorage.getItem('datosCompra');
+    if (datosCompraString) {
+      const datos = JSON.parse(datosCompraString);
 
+     //Envio datos del pago a la tabla pagos del backend
+      const datosPago = {
+        id_usuario: datos.id_usuario,
+        id_curso: datos.id_curso,
+        monto: datos.costo,
+        fecha_pago: datos.fecha_pago
+      };
+
+      console.log("pago antes de guardar",datosPago);
+     this.http.post('http://localhost:3000/pagos',datosPago)  
+      .subscribe(
+        response =>{
+          this.mensaje += '\n ✅ Pago Registrado en base.';
+        },
+        error => {
+          this.mensaje = '⚠️ Pago no registrado';
+        }
+        );  
+      const inscripcionPayload = {
+        id_usuario: datos.id_usuario,
+        id_curso: datos.id_curso,
+        fecha_inscripcion: datos.fecha_pago
+      };
+    // Envio inscripción al backend
+      console.log("inscripcion antes de guardar",inscripcionPayload);
+      this.http.post('http://localhost:3000/inscripciones', inscripcionPayload)
+        .subscribe(
+          response => {
+            localStorage.removeItem('datosCompra');
+            this.mensaje += '\n✅ Inscripción registrada.';
+            setTimeout(() => {
+              this.router.navigate(['/gracias']);
+            }, 5000);
+          },
+          error => {
+            this.mensaje = '⚠️ Hubo un error al registrar la inscripción.';
+          }
+        );
     }
   }
+}
+
 }

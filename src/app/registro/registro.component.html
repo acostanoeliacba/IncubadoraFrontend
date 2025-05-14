@@ -58,7 +58,7 @@
   </div>
 
   
-  <input type="password" placeholder="Contraseña" formControlName="password" required>
+  <input type="password" placeholder="Contraseña" formControlName="password" required   autocomplete="off">
   <div *ngIf="registroForm.controls['password'].hasError('required') && registroForm.controls['password'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>

@@ -15,10 +15,10 @@
     </nav> 
   </header>
 
-<h2>Formulario de Pago</h2>
-
 <div class="pago-container">
   
+  <h2>Formulario de Pago</h2>
+
   <div class="img">
   <img src="assets/img/ilustracion-tarjeta.png" alt="Ilustración de Tarjeta">
   </div>
@@ -28,6 +28,10 @@
   </div>
 
   <div class="card-element-container">
+    <div #cardElement class="card-element"></div>
+  </div>
+
+  <div *ngIf="stripe && elements" class="card-element-container">
     <div #cardElement class="card-element"></div>
   </div>
 

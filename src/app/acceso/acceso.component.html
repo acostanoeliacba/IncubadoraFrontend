@@ -24,7 +24,7 @@
     <small *ngIf="accesoForm.get('email')?.errors?.['email']">Correo no válido.</small>
   </div>
 
-  <input type="password" formControlName="password" placeholder="Contraseña" required>
+  <input type="password" formControlName="password" placeholder="Contraseña" required   autocomplete="off">
   <div *ngIf="accesoForm.get('password')?.touched && accesoForm.get('password')?.invalid" class="error-mensaje">
     <small *ngIf="accesoForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
   </div>

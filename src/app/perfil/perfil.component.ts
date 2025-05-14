@@ -30,10 +30,10 @@ export class PerfilComponent implements OnInit {
               @Inject(PLATFORM_ID) private platformId: Object
               ) {}
   get fotoUrl(): string {
-    return this.usuario?.foto ? `http://localhost:3000/uploads/${this.usuario.foto}` : '';
+    return this.usuario?.foto ? `http://localhost:3000${this.usuario.foto}` : '';
   }
    
-    ngOnInit(): void {
+  ngOnInit(): void {
       const usuario = this.authService.getUsuario();
 
 
@@ -48,6 +48,12 @@ export class PerfilComponent implements OnInit {
       console.log("perfil de usuario:", usuario);
       this.usuario = usuario;
 
+      if (this.fotoUrl) {
+          console.log("URL de la foto:", this.fotoUrl);
+        } else {
+          console.warn("No hay foto para mostrar.");
+      }
+
       if (usuario && usuario.tipo_usuario) {
         console.log(usuario.tipo_usuario);
         this.tipoUsuario = usuario.tipo_usuario;
@@ -56,8 +62,7 @@ export class PerfilComponent implements OnInit {
       } else {
         console.warn('Usuario no encontrado o inválido');
       }
-    }
-
+  }
 
   initForm(): void {
     if ((!this.usuario || !this.usuario.nombre) && isPlatformBrowser(this.platformId )) {
