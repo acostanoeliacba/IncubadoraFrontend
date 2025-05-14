@@ -9,6 +9,11 @@ import { InscripcionesPorCursoComponent } from './inscripciones-por-curso/inscri
 import { PerfilComponent } from './perfil/perfil.component';
 import { ListaInscripcionesComponent } from './lista-alumnos/lista-alumnos.component';
 
+import { PagoComponent } from './pago/pago.component';
+import { GraciasComponent } from './gracias/gracias.component';
+import { ContenidoInformaticaComponent } from './contenido-informatica/contenido-informatica.component';
+import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
+
 export const routes: Routes = [
     { path: '', component: InicioComponent },
     { path: 'perfil', component: PerfilComponent },
@@ -19,6 +24,10 @@ export const routes: Routes = [
     { path: 'formulario-inscripcion', component: FormularioInscripcionComponent},
     { path: 'inscripciones-por-curso', component: InscripcionesPorCursoComponent},
     { path: 'perfil', component: PerfilComponent},
-    { path: 'lista-alumnos', component: ListaInscripcionesComponent}
+    { path: 'lista-alumnos', component: ListaInscripcionesComponent},
 
+    { path: 'pago', component: PagoComponent},
+    { path: 'gracias', component: GraciasComponent},
+    { path: 'contenido-informatica', component: ContenidoInformaticaComponent},
+    { path: 'contenido-diseno', component: ContenidoDisenoComponent},
 ];

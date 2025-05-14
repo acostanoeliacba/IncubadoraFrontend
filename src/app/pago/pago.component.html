@@ -1,0 +1,47 @@
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+   
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <nav class="nav-links">
+        <a href="#inicio">INICIO</a>
+        <a [routerLink]="['/cursos']">CURSOS</a>
+        <a href="#profesores">PROFESORES</a>
+        <a href="#testimonios">TESTIMONIOS</a>
+        <a href="#contacto">CONTACTO</a>
+    </nav> 
+  </header>
+
+
+<div class="pago-container">
+  
+  <h2>Formulario de Pago</h2>
+
+  <div class="img">
+  <img src="assets/img/ilustracion-tarjeta.png" alt="Ilustración de Tarjeta">
+  </div>
+  
+  <div *ngIf="mensaje" class="mensaje" [ngClass]="{ 'exito': pagoExitoso, 'error': !pagoExitoso }">
+    {{ mensaje }}
+  </div>
+
+  <div class="card-element-container">
+    <div #cardElement class="card-element"></div>
+  </div>
+
+  <div *ngIf="stripe && elements" class="card-element-container">
+    <div #cardElement class="card-element"></div>
+  </div>
+
+  <button (click)="pagar()" [disabled]="cargando">
+  {{ cargando ? 'Procesando...' : 'Pagar' }}
+  </button>
+</div>
+
+<footer id="footer" class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+  </div>
+</footer>

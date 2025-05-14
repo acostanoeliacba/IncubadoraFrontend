@@ -1,0 +1,51 @@
+.gracias-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #218838 0%, #34d058 100%);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.gracias-container h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.gracias-container p {
+  font-size: 1.2rem;
+  max-width: 500px;
+  margin-bottom: 2rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.gracias-container a {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #020166;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.gracias-container a:hover {
+  background-color: #f5680e;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
