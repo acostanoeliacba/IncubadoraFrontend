@@ -42,10 +42,8 @@ export class CursosComponent {
     }
   
     if (usuario) {
-      // Usuario logueado va al formulario de inscripción
       this.router.navigate(['/formulario-inscripcion']);
     } else {
-      // No logueado lo dirige a iniciar sesión
       this.router.navigate(['/acceso']);
     }
   }

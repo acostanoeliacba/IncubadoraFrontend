@@ -126,9 +126,6 @@ onFileSelected(event: any) {
     const fileType = file.type;
     const maxSize = 2 * 1024 * 1024; // 2 MB
 
-    console.log('Tipo de archivo:', fileType);
-    console.log('Tamaño del archivo:', file.size);
-
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(fileType)) {
       this.mensaje = 'Solo se permiten imágenes JPG o PNG';
       this.fotoSeleccionada = null;

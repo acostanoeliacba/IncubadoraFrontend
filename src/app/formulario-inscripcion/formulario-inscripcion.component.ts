@@ -67,8 +67,7 @@ export class FormularioInscripcionComponent implements OnInit {
       });
       this.id_usuario=usuarioLogueado.id;
     }
-    console.log('Form después de patch:', this.inscripcionForm.value);
-      console.log('Form después de patch:', this.id_usuario);
+
   }
 
   cargarCursos() {
@@ -84,13 +83,11 @@ export class FormularioInscripcionComponent implements OnInit {
       console.log("cursoseleccionado",curso);
     if (curso) {
       this.costo = curso.costo;
-            console.log("costo",this.costo);
-      this.monto = curso.tipo;
-            console.log("modalidad",this.monto);
+      this.monto = curso.tipo;    
       this.fechaInicio = curso.fecha_inicio;
         const hoy = new Date();
       this.fecha_pago = hoy.toISOString().split('T')[0]; // formato: 'YYYY-MM-DD'
-        console.log("Fecha actual para el pago:", this.fecha_pago);
+        
     } else {
       this.monto = null;
       this.fecha_pago = null;
@@ -115,27 +112,6 @@ export class FormularioInscripcionComponent implements OnInit {
       if (this.fecha_pago !== null) {
        formData.append('fecha_inscripcion', this.fecha_pago);
       }
-
-      // this.http.post('http://localhost:3000/inscripciones', formData)
-      //   .subscribe(
-      //     response => {
-      //       alert('¡Inscripción exitosa!');
-      //       this.inscripcionForm.reset();
-      //       this.comprobanteFile = null;
-      //       this.monto = null;
-      //       this.costo = null;
-      //       this.fechaInicio = null;
-      //       this.fecha_pago = null;
-
-      //       setTimeout(() => {
-      //       this.router.navigate(['/pago']);
-      //       }, 3000);
-      //     },
-      //     error => {
-      //       alert('Error al inscribirse.');
-      //     }
-      // );
-
       const datosCompra = {
         id_curso: this.inscripcionForm.get('id_curso')?.value,
         id_usuario: this.inscripcionForm.get('id_usuario')?.value,
@@ -147,11 +123,7 @@ export class FormularioInscripcionComponent implements OnInit {
         modalidad: this.monto,
         fecha_inicio: this.fechaInicio
       };
-
-       console.log("datos antes de guardar",datosCompra);
        localStorage.setItem('datosCompra', JSON.stringify(datosCompra));
-       console.log("datos guardados almacenados de la compra",localStorage.getItem('datosCompra'));
-      
       this.router.navigate(['/pago']);
     } else {
       alert('Por favor completa todos los campos.');

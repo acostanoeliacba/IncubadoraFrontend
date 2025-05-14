@@ -82,7 +82,6 @@ async pagar() {
         fecha_pago: datos.fecha_pago
       };
 
-      console.log("pago antes de guardar",datosPago);
      this.http.post('http://localhost:3000/pagos',datosPago)  
       .subscribe(
         response =>{
@@ -98,7 +97,7 @@ async pagar() {
         fecha_inscripcion: datos.fecha_pago
       };
     // Envio inscripción al backend
-      console.log("inscripcion antes de guardar",inscripcionPayload);
+ 
       this.http.post('http://localhost:3000/inscripciones', inscripcionPayload)
         .subscribe(
           response => {
@@ -106,7 +105,7 @@ async pagar() {
             this.mensaje += '\n✅ Inscripción registrada.';
             setTimeout(() => {
               this.router.navigate(['/gracias']);
-            }, 5000);
+            }, 4000);
           },
           error => {
             this.mensaje = '⚠️ Hubo un error al registrar la inscripción.';
