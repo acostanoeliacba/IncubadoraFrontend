@@ -13,6 +13,7 @@ Proyecto Xacademy 2025
     2.       git checkout develop   
     3.       npm run start
 
+**Deben agregar el STRIPE_SECRET_KEY a sus archivos .env del backend  para poder funcionar con stripe lo agregan como el valor de una variable mas.**
+
 PRUEBEN CORRER EL FRONT de la rama develop con la base ACTUALIZADA estan cargados costo a los cursos  ya se comunican al backend  el login el registro el perfil y el pago funciona com stripe
 
-**Deben agregar el STRIPE_SECRET_KEY a sus archivos .env del backend  para poder funcionar con stripe lo agregan como el valor de una variable mas.**
