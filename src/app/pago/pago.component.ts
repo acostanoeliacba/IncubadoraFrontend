@@ -46,7 +46,16 @@ export class PagoComponent implements OnInit {
   setTimeout(() => {
     this.card.mount(this.cardElement.nativeElement);
   });
-      this.http.post<any>('http://localhost:3000/pagos/create-payment-intent', { amount: 1000 }).subscribe(res => {
+
+      const datosCompraString = localStorage.getItem('datosCompra');
+      let monto = 0;
+
+      if (datosCompraString) {
+        const datos = JSON.parse(datosCompraString);
+        monto = datos.costo || 0;  
+      }
+
+      this.http.post<any>('http://localhost:3000/pagos/create-payment-intent', { amount: monto }).subscribe(res => {
       this.clientSecret = res.clientSecret;
     });
 }
