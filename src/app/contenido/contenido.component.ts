@@ -17,6 +17,8 @@ import { AuthService } from '../services/auth.service';
 export class ContenidoComponent implements OnInit {
   curso: any;
   idCurso: string | null = null;
+  cursoInfo: any;
+  contenidoInfo: any;
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -27,52 +29,51 @@ export class ContenidoComponent implements OnInit {
 
   ngOnInit(): void {
     this.idCurso = this.route.snapshot.paramMap.get('id');
-    console.log('🧭 ID del curso recibido:', this.idCurso);
+    console.log('ID del curso recibido:', this.idCurso);
   
+       this.http.get<any[]>(`http://localhost:3000/contenidos/curso/${this.idCurso}`).subscribe(
+          contenidoI => {
+             if (contenidoI.length > 0) {
+              console.log("✅ Contenidos recibidos:", contenidoI);
+              this.contenidoInfo = contenidoI[0];
+              }
+              else{
+                console.error("❌ Sin contenido del curso:"); 
+              }           
+          },
+          error => {
+            console.error("❌ Error al cargar el contenido del curso:", error);
+          }
+        );
 
-         // this.http.get<any[]>(`http://localhost:3000/inscripciones/cursos/${this.userId}`).subscribe(
-         //    data => {
-         //      console.log("✅ Inscripciones recibidas:", data);
-             
-         //     if (Array.isArray(data) && data.length > 0) {
-         //          data.forEach((inscripcion, i) => {
-         //          const nombreCurso = inscripcion?.curso?.nombre_curso;
-         //          console.log(`📘 Curso #${i + 1}: ${nombreCurso ?? 'Sin nombre de curso'}`);
-         //      });
+       this.http.get<any>(`http://localhost:3000/cursos/info/${this.idCurso}`).subscribe(
+          cursoI => {
+            console.log("✅ Información de Curso recibida:", cursoI);
+            this.cursoInfo = cursoI;
 
-         //      } else {
-         //          console.warn("⚠️ Inscripciones no encontradas.");
-         //      }
-
-         //      this.cursosInscriptos = data;
-         //      this.cargandoCursos = false;
-         //    },
-         //    error => {
-         //      console.error("❌ Error al cargar las inscripciones:", error);
-         //      this.cargandoCursos = false;
-         //    }
-         //  );
-
-
-
-
-    this.curso = {
-      nombre: 'Informática',
-      modalidad: 'Presencial',
-      alumnos: 60,
-      fechaInicio: '15/05/2025',
-      fechaFin: '30/07/2025',
-      unidades: ['Introducción', 'Herramientas básicas', 'Procesadores de texto'],
-      proximaClase: { fecha: '15/05/2025', tema: 'Herramientas básicas' },
-      materiales: [
-        { nombre: 'Programa PDF', link: '/assets/programa-informatica.pdf' },
-        { nombre: 'Presentación PPT', link: '/assets/unidad1-informatica.ppt' }
-      ],
-      mensajes: [
-        'Reunión el viernes 18:00 hs.',
-        'Consulta sobre la tarea.'
-      ]
-    };
+            // Aquí ya podemos usar los datos de cursoInfo
+            this.curso = {
+              nombre: cursoI.nombre_curso,
+              modalidad: cursoI.tipo,
+              alumnos: 60,
+              fechaInicio: cursoI.fecha_inicio,
+              fechaFin: cursoI.fecha_fin,
+              unidades: ['Introducción', 'Herramientas básicas', 'Procesadores de texto'],
+              proximaClase: { fecha: '15/05/2025', tema: 'Herramientas básicas' },
+              materiales: [
+                { nombre: 'Programa PDF', link: '/assets/programa-informatica.pdf' },
+                { nombre: 'Presentación PPT', link: '/assets/unidad1-informatica.ppt' }
+              ],
+              mensajes: [
+                'Reunión el viernes 18:00 hs.',
+                'Consulta sobre la tarea.'
+              ]
+            };
+          },
+          error => {
+            console.error("❌ Error al cargar la información del curso:", error);
+          }
+        );
   }
 
   editarCurso() {

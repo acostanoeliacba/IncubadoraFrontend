@@ -1,7 +1,6 @@
 
-
 <header class="navbar">
-  <a href="/"><div class="logo"></div></a>
+    <a href="/"><div class="logo"></div></a>
   <nav>
     <a href="#inicio">INICIO</a>
     <a [routerLink]="['/cursos']">CURSOS</a>
@@ -13,56 +12,57 @@
   </nav> 
 </header>
 
-
 <div class="revisar-contenido">
-  <h2>{{ curso.nombre }}</h2>
+    <div class="acciones">
+      <button class="boton" (click)="editarCurso()">Editar contenido</button>
+      <button class="boton" (click)="subirMaterial()">Subir material</button>
+      <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
+      <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
+    </div>
+    <h2 *ngIf="curso">{{ curso.nombre }}</h2>
+    <div *ngIf="curso" class="info-general">
+       <!-- <p>Alumnos inscritos: {{ curso.alumnos }}</p> -->
+       <p>Fecha Inicio Curso: {{ curso.fechaInicio }}</p>
+       <p>Fecha Fin Curso: {{ curso.fechaFin }}</p>
+    </div>
 
-  <div class="info-general">
-    <p>Modalidad: {{ curso.modalidad }}</p>
-    <p>Alumnos inscritos: {{ curso.alumnos }}</p>
-    <p>Fecha: {{ curso.fechaInicio }} – {{ curso.fechaFin }}</p>
-  </div>
-
-  <div class="secciones-grid">
+  <div *ngIf="contenidoInfo" class="secciones-grid">
     <section class="temario">
       <h3>📚 Temario</h3>
       <ul>
-        <li *ngFor="let unidad of curso.unidades">
+<!--         <li *ngFor="let unidad of contenidoInfo.modulo">
           ✅ {{ unidad }}
+        </li> -->
+        <li>
+           ✅ Módulo {{ contenidoInfo.modulo }}: {{ contenidoInfo.nombre }}
         </li>
       </ul>
     </section>
 
-    <section class="agenda">
+  <section class="agenda">
       <h3>📆 Próxima clase</h3>
-      <p>Fecha: {{ curso.proximaClase.fecha }}</p>
-      <p>Tema: {{ curso.proximaClase.tema }}</p>
-    </section>
+<!--       <p>Fecha: {{ curso.proximaClase.fecha }}</p>
+      <p>Tema: {{ curso.proximaClase.tema }}</p> -->
+  </section>
 
-    <section class="materiales">
+  <section *ngIf="contenidoInfo" class="materiales">
       <h3>📂 Materiales</h3>
       <ul>
-        <li *ngFor="let material of curso.materiales">
-          📎 <a [href]="material.link" target="_blank">{{ material.nombre }}</a>
-        </li>
+<!--         <li *ngFor="let material of contenidoInfo.url">
+             <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
+        </li> -->
+           📎 <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
       </ul>
-    </section>
+  </section>
 
-    <section class="mensajes">
+  <section class="mensajes">
       <h3>💬 Mensajes recientes</h3>
       <ul>
-        <li *ngFor="let mensaje of curso.mensajes">
+<!--         <li *ngFor="let mensaje of curso.mensajes">
           {{ mensaje }}
-        </li>
+        </li> -->
       </ul>
-    </section>
-  </div>
-
-  <div class="acciones">
-    <button class="boton" (click)="editarCurso()">Editar contenido</button>
-    <button class="boton" (click)="subirMaterial()">Subir material</button>
-    <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
-    <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
+  </section>
   </div>
 </div>
 
