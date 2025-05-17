@@ -63,7 +63,7 @@ export class FormularioInscripcionComponent implements OnInit {
       this.inscripcionForm.patchValue({
         nombre: usuarioLogueado.nombre,
         apellido: usuarioLogueado.apellido,
-        id_usuario: usuarioLogueado.id,
+        id_usuario: usuarioLogueado.id_usuario,
         email: usuarioLogueado.email
       });
       this.id_usuario=usuarioLogueado.id;

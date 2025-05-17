@@ -13,6 +13,7 @@ import { PagoComponent } from './pago/pago.component';
 import { GraciasComponent } from './gracias/gracias.component';
 import { ContenidoInformaticaComponent } from './contenido-informatica/contenido-informatica.component';
 import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
+import { ContenidoComponent } from './contenido/contenido.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -30,4 +31,5 @@ export const routes: Routes = [
     { path: 'gracias', component: GraciasComponent},
     { path: 'contenido-informatica', component: ContenidoInformaticaComponent},
     { path: 'contenido-diseno', component: ContenidoDisenoComponent},
+    { path: 'curso/contenido/:id', component: ContenidoComponent}
 ];

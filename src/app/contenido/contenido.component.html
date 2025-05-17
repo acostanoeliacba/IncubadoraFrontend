@@ -1,0 +1,68 @@
+
+
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a [routerLink]="['/cursos']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+  </nav> 
+</header>
+
+
+<div class="revisar-contenido">
+  <h2>{{ curso.nombre }}</h2>
+
+  <div class="info-general">
+    <p>Modalidad: {{ curso.modalidad }}</p>
+    <p>Alumnos inscritos: {{ curso.alumnos }}</p>
+    <p>Fecha: {{ curso.fechaInicio }} – {{ curso.fechaFin }}</p>
+  </div>
+
+  <div class="secciones-grid">
+    <section class="temario">
+      <h3>📚 Temario</h3>
+      <ul>
+        <li *ngFor="let unidad of curso.unidades">
+          ✅ {{ unidad }}
+        </li>
+      </ul>
+    </section>
+
+    <section class="agenda">
+      <h3>📆 Próxima clase</h3>
+      <p>Fecha: {{ curso.proximaClase.fecha }}</p>
+      <p>Tema: {{ curso.proximaClase.tema }}</p>
+    </section>
+
+    <section class="materiales">
+      <h3>📂 Materiales</h3>
+      <ul>
+        <li *ngFor="let material of curso.materiales">
+          📎 <a [href]="material.link" target="_blank">{{ material.nombre }}</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="mensajes">
+      <h3>💬 Mensajes recientes</h3>
+      <ul>
+        <li *ngFor="let mensaje of curso.mensajes">
+          {{ mensaje }}
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="acciones">
+    <button class="boton" (click)="editarCurso()">Editar contenido</button>
+    <button class="boton" (click)="subirMaterial()">Subir material</button>
+    <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
+    <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
+  </div>
+</div>
+

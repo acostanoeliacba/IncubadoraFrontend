@@ -48,4 +48,9 @@ export class CursosComponent {
       this.router.navigate(['/acceso']);
     }
   }
+
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
 }

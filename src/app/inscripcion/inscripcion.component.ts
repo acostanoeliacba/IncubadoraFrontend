@@ -16,7 +16,7 @@ import { AuthService } from './services/auth.service';
 export class InscripcionComponent implements OnInit {
   inscripcionForm: FormGroup;
   cursos: Curso[] = [];
-  id_usuario: number = 0; // Este lo cargás luego del login
+  id_usuario: number = 0; //  carga luego del login
 
   constructor(
               private fb: FormBuilder,

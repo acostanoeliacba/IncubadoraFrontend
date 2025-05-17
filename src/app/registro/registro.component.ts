@@ -1,15 +1,15 @@
-
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { Router,RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule], 
+  imports: [CommonModule, ReactiveFormsModule,RouterModule, HttpClientModule], 
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
@@ -21,9 +21,10 @@ export class RegistroComponent {
   mensaje: string = '';
   fotoSeleccionada: File | null = null;
 
-  constructor( private http: HttpClient,
-               private fb: FormBuilder, 
-               private router: Router) {
+  constructor( private fb: FormBuilder, 
+               private authService: AuthService,
+               private router: Router,
+               private http: HttpClient) {
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -150,6 +151,10 @@ onFileSelected(event: any) {
 }
 
   irAlAcceso() {
+    this.router.navigate(['/acceso']);
+  }
+  cerrarSesion(): void {
+    this.authService.logout();       
     this.router.navigate(['/acceso']);
   }
 }

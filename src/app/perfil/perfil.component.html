@@ -79,6 +79,16 @@
     <div *ngIf="!modoEdicion">
       <button type="button" (click)="activarEdicion()">Editar Perfil</button>
     </div>
-
+  
+    <div *ngFor="let inscripcion of cursosInscriptos" class="cursoAlumno">
+      <a [routerLink]="['/curso/contenido', inscripcion.id_curso]">
+        Curso: {{ inscripcion.curso?.nombre_curso }}
+      </a>
+    </div>
+    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0)" class="aula0">
+           No estás inscrito en ningún curso.
+    </div>
+          
   </form>
+
 </div>

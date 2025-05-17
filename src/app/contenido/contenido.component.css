@@ -1,5 +1,4 @@
 
-
 /*   desde cambio en navbar */
 .navbar {
   display: flex;
@@ -51,7 +50,6 @@
 .navbar nav a:hover::after {
   width: 100%;
 }
-
 
 
 .revisar-contenido {
