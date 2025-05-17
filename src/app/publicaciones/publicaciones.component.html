@@ -1,0 +1,42 @@
+<p>publicaciones works!</p>
+<div class="contenedor">
+    <h2>Noticias y Novedades</h2>
+  
+    <form [formGroup]="publicacionForm" (ngSubmit)="crearPublicacion()" class="formulario" enctype="multipart/form-data">
+      <label>Título:</label>
+      <input formControlName="titulo" type="text" />
+  
+      <label>Contenido:</label>
+      <textarea formControlName="contenido"></textarea>
+  
+      <label>Tipo:</label>
+      <select formControlName="tipo">
+        <option value="">-- Selecciona --</option>
+        <option value="crédito">Crédito</option>
+        <option value="entrenamiento">Entrenamiento</option>
+      </select>
+  
+      <label>Estado:</label>
+      <select formControlName="estado">
+        <option value="">-- Selecciona --</option>
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+  
+      <label>Imagen:</label>
+      <input type="file" (change)="onArchivoSeleccionado($event)" />
+  
+      <button type="submit" [disabled]="publicacionForm.invalid">Crear Publicación</button>
+    </form>
+  
+    <div *ngFor="let pub of publicaciones" class="tarjeta">
+      <h3>{{ pub.titulo }}</h3>
+      <p>{{ pub.contenido }}</p>
+      <div class="info">
+        <span>{{ pub.tipo }}</span> | <span>{{ pub.estado }}</span>
+      </div>
+      <!-- imagen futura -->
+      <!-- <img *ngIf="pub.imagenUrl" [src]="pub.imagenUrl" alt="Imagen" /> -->
+    </div>
+  </div>
+  
