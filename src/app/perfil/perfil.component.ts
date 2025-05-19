@@ -33,10 +33,14 @@ export class PerfilComponent implements OnInit {
               private http: HttpClient,
               @Inject(PLATFORM_ID) private platformId: Object
               ) {}
+
   get fotoUrl(): string {
-    return this.usuario?.foto ? `http://localhost:3000${this.usuario.foto}` : '';
+    const foto = this.usuario?.foto;
+    if (!foto || foto === 'null' || foto === 'undefined') {
+      return 'assets/img/perfilDefault3.jpg';
+    }
+    return `http://localhost:3000${foto}`;
   }
-   
   ngOnInit(): void {
       const usuario = this.authService.getUsuario();
 
@@ -65,7 +69,7 @@ export class PerfilComponent implements OnInit {
         this.userId = usuario.id_usuario;
 
         if (this.userId) {
-          console.log(`📡 Solicitando inscripciones desde: http://localhost:3000/inscripciones/cursos${this.userId}`);
+          console.log(`Solicitando inscripciones desde: http://localhost:3000/inscripciones/cursos${this.userId}`);
 
           this.http.get<any[]>(`http://localhost:3000/inscripciones/cursos/${this.userId}`).subscribe(
             data => {

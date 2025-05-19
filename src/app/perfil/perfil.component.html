@@ -27,11 +27,10 @@
 
   <div >
     <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de perfil" style="max-width: 150px; border-radius: 50%;">
-
   </div>
 
   <form [formGroup]="perfilForm" *ngIf="perfilForm" class="perfil-form">
-
+    
     <div>
       <label>Nombre:</label>
       <input type="text" formControlName="nombre" [readonly]="!modoEdicion">

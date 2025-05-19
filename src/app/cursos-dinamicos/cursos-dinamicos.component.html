@@ -14,10 +14,11 @@
 </header>
 
 <div *ngFor="let curso of cursos" class="curso-carpinteria">
-  <div class="curso-carpinteria-contenido">
+  <div class="curso-carpinteria-contenido">    
     <div class="curso-carpinteria-imagen">
-      <img [src]="curso.foto || 'assets/img/default.png'" [alt]="curso.nombre_curso">
+       <img [src]="curso.foto ? 'http://localhost:3000' + curso.foto : 'assets/img/default.jpg'" [alt]="curso.nombre_curso">
     </div>
+
     <div class="curso-carpinteria-info">
       <h2>{{ curso.nombre_curso }}</h2>
       <p>{{ curso.descripcion }}</p>
