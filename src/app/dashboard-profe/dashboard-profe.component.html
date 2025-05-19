@@ -12,6 +12,7 @@
     </div>
 
     <div class="acciones">
+      <button [routerLink]="['/cursoDinamico']">CURSOS</button>
       <button (click)="verAlumnos()" class="boton">Alumnos</button>
       <button (click)="verPerfil()" class="boton">Editar perfil</button>
       <button class="boton" (click)="cerrarSesion()">Cerrar sesión</button>
@@ -57,6 +58,52 @@
   </div>
 
 </div>
+
+<form [formGroup]="cursoForm" (ngSubmit)="crearCurso()">
+  <h3>Formulario para Crear Curso </h3>
+  <label for="nombre_curso">Nombre del Curso:</label>
+  <input id="nombre_curso" formControlName="nombre_curso" required>
+  <div *ngIf="cursoForm.get('nombre_curso')?.invalid && (cursoForm.get('nombre_curso')?.touched || cursoForm.get('nombre_curso')?.dirty)">
+    <small class="error">El nombre del curso es obligatorio.</small>
+  </div>
+
+  <label for="descripcion">Descripción:</label>
+  <textarea id="descripcion" formControlName="descripcion"></textarea>
+
+  <label for="duracion">Duración:</label>
+  <input id="duracion" type="number" formControlName="duracion" placeholder="cantidad de meses">
+  <div *ngIf="cursoForm.get('duracion')?.invalid && (cursoForm.get('duracion')?.touched || cursoForm.get('duracion')?.dirty)">
+    <small class="error">La duración debe ser un número válido.</small>
+  </div>
+
+  <label for="tipo">Tipo:</label>
+  <select id="tipo" formControlName="tipo" required>
+    <option value="">Seleccione un tipo</option>
+    <option value="gratuito">Gratuito</option>
+    <option value="arancelado">Arancelado</option>
+    <option value="capacitacion">Capacitación</option>
+  </select>
+  <div *ngIf="cursoForm.get('tipo')?.invalid && (cursoForm.get('tipo')?.touched || cursoForm.get('tipo')?.dirty)">
+    <small class="error">El tipo es obligatorio.</small>
+  </div>
+
+  <label for="costo">Costo:</label>
+  <input id="costo" type="number" formControlName="costo">
+
+  <label for="fecha_inicio">Fecha de Inicio:</label>
+  <input id="fecha_inicio" type="date" formControlName="fecha_inicio">
+
+  <label for="fecha_fin">Fecha de Fin:</label>
+  <input id="fecha_fin" type="date" formControlName="fecha_fin">
+
+  <label for="foto">Foto:</label>
+  <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*">
+  
+  <br>
+  <button type="submit" [disabled]="cursoForm.invalid">Crear Curso</button>
+</form>
+
+
 
 <footer id="footer" class="footer">
   <div class="footer-content">

@@ -16,12 +16,13 @@ import { CommonModule } from '@angular/common';
 export class CursosDinamicosComponent implements OnInit {
     cursos: any[] = [];
     
-    constructor(private http: HttpClient,
-                private router: Router,
-                private authService: AuthService
-                ) {}
+  constructor(private http: HttpClient,
+              private router: Router,
+              private authService: AuthService
+              ) {}
 
   ngOnInit(): void {
+
     this.http.get<any[]>('http://localhost:3000/cursos').subscribe(
       data => {
         console.log("✅ Cursos recibidos:", data);
