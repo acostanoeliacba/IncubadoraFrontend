@@ -85,9 +85,12 @@
       <a [routerLink]="['/curso/contenido', inscripcion.id_curso]">
         Curso: {{ inscripcion.curso?.nombre_curso }}
       </a>
-    </div>
-    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0)" class="aula0">
+    </div>  
+    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'alumno'" class="aula0">
            No estás inscrito en ningún curso.
+    </div>
+    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'docente'" class="aula0">
+        <a [routerLink]="['/dashboard-profe']">Panel del Profesor </a>
     </div>
           
   </form>

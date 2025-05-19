@@ -13,56 +13,67 @@
 </header>
 
 <div class="revisar-contenido">
-    <div class="acciones">
-      <button class="boton" (click)="editarCurso()">Editar contenido</button>
-      <button class="boton" (click)="subirMaterial()">Subir material</button>
-      <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
-      <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
-    </div>
-    <h2 *ngIf="curso">{{ curso.nombre }}</h2>
-    <div *ngIf="curso" class="info-general">
-       <!-- <p>Alumnos inscritos: {{ curso.alumnos }}</p> -->
-       <p>Fecha Inicio Curso: {{ curso.fechaInicio }}</p>
-       <p>Fecha Fin Curso: {{ curso.fechaFin }}</p>
-    </div>
+  <div class="acciones" *ngIf="tipoUsuario === 'docente'">
+    <button class="boton" (click)="editarCurso()">Editar contenido</button>
+    <button class="boton" (click)="subirMaterial()">Subir material</button>
+    <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
+    <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
+  </div>
 
-  <div *ngIf="contenidoInfo" class="secciones-grid">
+  <h2 *ngIf="curso">{{ curso.nombre }}</h2>
+
+  <div class="info-general">
+    <p *ngIf="curso?.fechaInicio">Fecha Inicio Curso: {{ curso.fechaInicio }}</p>
+    <p *ngIf="curso?.fechaFin">Fecha Fin Curso: {{ curso.fechaFin }}</p>
+    <p *ngIf="!curso">No hay información del curso disponible.</p>
+  </div>
+
+  <div class="secciones-grid">
+    <!-- Temario -->
     <section class="temario">
       <h3>📚 Temario</h3>
-      <ul>
-<!--         <li *ngFor="let unidad of contenidoInfo.modulo">
-          ✅ {{ unidad }}
-        </li> -->
-        <li>
-           ✅ Módulo {{ contenidoInfo.modulo }}: {{ contenidoInfo.nombre }}
-        </li>
+      <ul *ngIf="contenidoInfo?.modulo && contenidoInfo?.nombre; else sinTemario">
+        <li>✅ Módulo {{ contenidoInfo.modulo }}: {{ contenidoInfo.nombre }}</li>
       </ul>
+      <ng-template #sinTemario>
+        <p>No hay temario disponible.</p>
+      </ng-template>
     </section>
 
-  <section class="agenda">
+    <!-- Agenda -->
+    <section class="agenda">
       <h3>📆 Próxima clase</h3>
-<!--       <p>Fecha: {{ curso.proximaClase.fecha }}</p>
-      <p>Tema: {{ curso.proximaClase.tema }}</p> -->
-  </section>
+      <div *ngIf="curso?.proximaClase; else sinAgenda">
+        <p>Fecha: {{ curso.proximaClase.fecha }}</p>
+        <p>Tema: {{ curso.proximaClase.tema }}</p>
+      </div>
+      <ng-template #sinAgenda>
+        <p>No hay próxima clase agendada.</p>
+      </ng-template>
+    </section>
 
-  <section *ngIf="contenidoInfo" class="materiales">
+    <!-- Materiales -->
+    <section class="materiales">
       <h3>📂 Materiales</h3>
-      <ul>
-<!--         <li *ngFor="let material of contenidoInfo.url">
-             <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
-        </li> -->
-           📎 <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
+      <ul *ngIf="contenidoInfo?.url; else sinMateriales">
+        <li>
+          📎 <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
+        </li>
       </ul>
-  </section>
+      <ng-template #sinMateriales>
+        <p>No hay materiales disponibles.</p>
+      </ng-template>
+    </section>
 
-  <section class="mensajes">
+    <!-- Mensajes -->
+    <section class="mensajes">
       <h3>💬 Mensajes recientes</h3>
-      <ul>
-<!--         <li *ngFor="let mensaje of curso.mensajes">
-          {{ mensaje }}
-        </li> -->
+      <ul *ngIf="curso?.mensajes?.length > 0; else sinMensajes">
+        <li *ngFor="let mensaje of curso.mensajes">{{ mensaje }}</li>
       </ul>
-  </section>
+      <ng-template #sinMensajes>
+        <p>No hay mensajes recientes.</p>
+      </ng-template>
+    </section>
   </div>
 </div>
-

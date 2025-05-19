@@ -148,12 +148,19 @@
     border-bottom: none;
 }
 
+.main-content {
+  margin-bottom: 80px; /* espacio para el footer fijo */
+}
 .footer {
     width: 100%; 
     background-color: #002147; 
     color: white;
     text-align: center;
     padding: 20px 0; 
-    position: relative; 
+
+    position: fixed; /* footer fijo abajo */
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
   }
   

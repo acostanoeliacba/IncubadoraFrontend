@@ -19,6 +19,7 @@ export class ContenidoComponent implements OnInit {
   idCurso: string | null = null;
   cursoInfo: any;
   contenidoInfo: any;
+  tipoUsuario: string = '';
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -28,11 +29,16 @@ export class ContenidoComponent implements OnInit {
               ) {}
 
   ngOnInit(): void {
+
+    const usuario = this.authService.getUsuario();
+      if (usuario && usuario.tipo_usuario) {
+        this.tipoUsuario = usuario.tipo_usuario;
+      }
     this.idCurso = this.route.snapshot.paramMap.get('id');
-    console.log('ID del curso recibido:', this.idCurso);
+        console.log('ID del curso recibido:', this.idCurso);
   
-       this.http.get<any[]>(`http://localhost:3000/contenidos/curso/${this.idCurso}`).subscribe(
-          contenidoI => {
+    this.http.get<any[]>(`http://localhost:3000/contenidos/curso/${this.idCurso}`).subscribe(
+        contenidoI => {
              if (contenidoI.length > 0) {
               console.log("✅ Contenidos recibidos:", contenidoI);
               this.contenidoInfo = contenidoI[0];
@@ -40,14 +46,14 @@ export class ContenidoComponent implements OnInit {
               else{
                 console.error("❌ Sin contenido del curso:"); 
               }           
-          },
+        },
           error => {
             console.error("❌ Error al cargar el contenido del curso:", error);
-          }
-        );
+        }
+    );
 
-       this.http.get<any>(`http://localhost:3000/cursos/info/${this.idCurso}`).subscribe(
-          cursoI => {
+    this.http.get<any>(`http://localhost:3000/cursos/info/${this.idCurso}`).subscribe(
+        cursoI => {
             console.log("✅ Información de Curso recibida:", cursoI);
             this.cursoInfo = cursoI;
 
@@ -69,11 +75,11 @@ export class ContenidoComponent implements OnInit {
                 'Consulta sobre la tarea.'
               ]
             };
-          },
-          error => {
+        },
+        error => {
             console.error("❌ Error al cargar la información del curso:", error);
-          }
-        );
+        }
+    );
   }
 
   editarCurso() {
