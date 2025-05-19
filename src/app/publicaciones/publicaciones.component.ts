@@ -1,15 +1,17 @@
+// publicaciones.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PublicacionService } from './serviciopublicaciones';
 import { Publicacion } from './Publicacion.model';
+
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
@@ -20,7 +22,8 @@ export class PublicacionesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private publicacionService: PublicacionService
+    private publicacionService: PublicacionService,
+    private authService: AuthService
   ) {
     this.publicacionForm = this.fb.group({
       titulo: ['', Validators.required],
@@ -32,6 +35,10 @@ export class PublicacionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarPublicaciones();
+  }
+
+  get esDocente(): boolean {
+    return this.authService.esDocente();
   }
 
   cargarPublicaciones(): void {

@@ -7,6 +7,57 @@ body {
     flex-direction: column;
     min-height: 100vh;
   }
+  .logo {
+    background-image: url('/assets/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 150px;
+    height: 80px;
+  }
+  
+  .navbar {
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center center;  
+    height: 100px;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; 
+    transition: all 0.3s ease;
+    overflow: hidden; 
+  }
+
+  .nav-links {
+  display: flex;
+  gap: 15px;
+}
+    
+  .navbar nav a {
+    color: #020166;
+    margin: 0 10px;
+    text-decoration: none;
+    position: relative;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 5px 0;
+  }
+
+  .navbar nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 3px;
+    background-color: orange;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar nav a:hover::after {
+    width: 100%;
+  }
 
   main {
     flex: 1; 

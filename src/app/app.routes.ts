@@ -12,6 +12,7 @@ import { PagoComponent } from './pago/pago.component';
 import { GraciasComponent } from './gracias/gracias.component';
 import { ContenidoInformaticaComponent } from './contenido-informatica/contenido-informatica.component';
 import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
+import { PublicacionesComponent } from './publicaciones/publicaciones.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'pago', component: PagoComponent},
     { path: 'gracias', component: GraciasComponent},
     { path: 'contenido-informatica', component: ContenidoInformaticaComponent},
-    { path: 'contenido-diseno', component: ContenidoDisenoComponent}
+    { path: 'contenido-diseno', component: ContenidoDisenoComponent},
+    { path: 'publicacion', component: PublicacionesComponent}
 
 ];

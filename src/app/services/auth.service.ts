@@ -37,6 +37,16 @@ export class AuthService {
     }
   }
 
+  esDocente(): boolean {
+    const usuario = this.getUsuario();
+    return usuario?.rol === 'docente';
+  }
+
+  esAlumno(): boolean {
+    const usuario = this.getUsuario();
+    return usuario?.rol === 'alumno';
+  }
+
   logout(): void {
     if (this.isBrowser) {
       localStorage.removeItem('usuario');
