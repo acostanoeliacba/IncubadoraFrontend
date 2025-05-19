@@ -10,8 +10,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ListaInscripcionesComponent } from './lista-alumnos/lista-alumnos.component';
 import { PagoComponent } from './pago/pago.component';
 import { GraciasComponent } from './gracias/gracias.component';
-import { ContenidoInformaticaComponent } from './contenido-informatica/contenido-informatica.component';
-import { ContenidoDisenoComponent } from './contenido-diseno/contenido-diseno.component';
+import { ContenidoComponent } from './contenido/contenido.component';
+import { CursosDinamicosComponent } from './cursos-dinamicos/cursos-dinamicos.component';
 
 
 export const routes: Routes = [
@@ -26,6 +26,6 @@ export const routes: Routes = [
     { path: 'lista-alumnos', component: ListaInscripcionesComponent},
     { path: 'pago', component: PagoComponent},
     { path: 'gracias', component: GraciasComponent},
-    { path: 'contenido-informatica', component: ContenidoInformaticaComponent},
-    { path: 'contenido-diseno', component: ContenidoDisenoComponent},
+    { path: 'curso/contenido/:id', component: ContenidoComponent},
+    { path: 'cursoDinamico', component: CursosDinamicosComponent}
 ];

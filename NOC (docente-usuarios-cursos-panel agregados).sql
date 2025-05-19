@@ -1,5 +1,6 @@
 
--- Tiempo de generación: 10-05-2025 
+-- Tiempo de generación: 19-05-2025 a las 07:38:33
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,6 +47,29 @@ CREATE TABLE `CondicionesAprobacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Contenido`
+--
+
+CREATE TABLE `Contenido` (
+  `id_contenido` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `modulo` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `tipo` enum('pdf','docx','odt','txt','xlsx','ods','pptx','odp','mp4','webm','avi','mp3','wav','jpg','jpeg','png','gif','svg','genially','canva','iframe','url') NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `fecha_publicacion` date DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `Contenido`
+--
+
+INSERT INTO `Contenido` (`id_contenido`, `id_curso`, `modulo`, `nombre`, `tipo`, `url`, `fecha_publicacion`) VALUES
+(1, 3, '1', 'Informatica Basica', 'url', 'https://drive.google.com/file/d/1QweI-zJAP0A3C6YldW60U99i322Qe0k4/view?usp=drive_link', '2025-05-17');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `CursoCredito`
 --
 
@@ -68,23 +92,24 @@ CREATE TABLE `Cursos` (
   `tipo` enum('gratuito','arancelado','capacitacion','entrenamiento') DEFAULT NULL,
   `costo` decimal(10,2) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
-  `fecha_fin` date DEFAULT NULL
+  `fecha_fin` date DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Cursos`
 --
 
-INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `costo`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 'Carpintería', 'Este curso de carpintería está diseñado para enseñar desde lo básico hasta lo avanzado. Aprende a manejar las herramientas y técnicas más importantes para crear proyectos de carpintería con precisión y seguridad.', 60, 'capacitacion', 3000.00, '2025-05-06', '2025-07-06'),
-(2, 'Diseño', 'Para aquellos interesados en desarrollar habilidades en la creación y desarrollo de proyectos visuales impactantes. Aprenderás las herramientas y técnicas esenciales para diseñar piezas gráficas para una amplia gama de medios, desde impresos hasta digitales.', 45, 'gratuito', 8000.00, '2025-06-01', '2025-07-15'),
-(3, 'Informática', 'Dirigido a personas que desean aprender a utilizar las herramientas informáticas esenciales para la vida diaria, el trabajo y la educación. A través de este curso, adquirirás conocimientos fundamentales sobre el uso de la computadora, programas de oficina y navegación en internet, lo que te permitirá desenvolverte con confianza en un mundo digital.', 90, 'arancelado', 9000.00, '2025-05-15', '2025-08-15'),
-(4, 'Mecánica', 'Principios fundamentales de la reparación y mantenimiento de vehículos. Este curso te proporcionará las herramientas y conocimientos esenciales para entender el funcionamiento de los motores, los sistemas de transmisión, frenos, suspensión, y mucho más. Ya sea que busques aprender para uso personal o como base para una carrera en la mecánica, este curso es el primer paso hacia el mundo automotriz.', 75, 'capacitacion', 15000.00, '2025-06-10', '2025-08-24'),
-(5, 'Oratoria', 'Mejora tus habilidades de comunicación y aprende a expresarse de manera efectiva frente a cualquier tipo de audiencia. A lo largo de este curso, desarrollarás herramientas y técnicas para hablar con claridad, seguridad y persuasión, ya sea en presentaciones profesionales, exposiciones académicas o situaciones cotidianas donde se requiere hablar en público.', 30, 'gratuito', 20000.00, '2025-05-20', '2025-06-19'),
-(6, 'Pintura', 'Dirigido a todas las personas que deseen iniciarse en el arte de pintar o perfeccionar sus habilidades artísticas. A través de un enfoque práctico y dinámico, aprenderás a expresarte mediante el color, la forma y la técnica, explorando distintos estilos y materiales.\r\n            Durante el curso, desarrollarás tu creatividad, conocerás las bases del dibujo, el manejo del color y las técnicas esenciales para trabajar con acrílicos, óleos y acuarelas, adaptándote a tu propio estilo personal.', 40, 'arancelado', 20000.00, '2025-07-01', '2025-08-10'),
-(7, 'Administración', 'Ofrece una formación práctica y actualizada para quienes buscan adquirir o perfeccionar habilidades en la gestión de organizaciones. Aprenderás a planificar, organizar, dirigir y controlar recursos de manera eficiente, desarrollando una visión estratégica que te permita liderar proyectos, empresas o emprendimientos exitosamente.\r\n          Ideal para quienes desean fortalecer su perfil profesional, emprender o mejorar la gestión de sus negocios.', 60, 'capacitacion', 18000.00, '2025-05-10', '2025-07-10'),
-(8, 'Caligrafía', 'Para introducirte en el mundo de la escritura artística, combinando técnica y creatividad. Aprenderás a dominar distintos estilos caligráficos, mejorar tu trazo, desarrollar precisión y expresar tu estilo personal a través de la letra escrita. Es ideal tanto para principiantes como para quienes buscan perfeccionar su técnica en proyectos creativos, diseño, invitaciones, arte y más.', 20, 'gratuito', 12000.00, '2025-06-05', '2025-06-25'),
-(9, 'Manicuría', 'Te formarás en las técnicas esenciales para el cuidado y embellecimiento de manos y uñas. Aprenderás desde los conceptos básicos de higiene y preparación hasta las últimas tendencias en esmaltado, decoración y tratamientos de spa para manos. Ideal para quienes desean iniciar su propio emprendimiento o perfeccionar sus habilidades en el mundo de la estética.', 50, 'capacitacion', 15000.00, '2025-05-22', '2025-07-11');
+INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `tipo`, `costo`, `fecha_inicio`, `fecha_fin`, `foto`) VALUES
+(1, 'Carpintería', 'Este curso de carpintería está diseñado para enseñar desde lo básico hasta lo avanzado. Aprende a manejar las herramientas y técnicas más importantes para crear proyectos de carpintería con precisión y seguridad.', 60, 'capacitacion', 3000.00, '2025-05-06', '2025-07-06', NULL),
+(2, 'Diseño', 'Para aquellos interesados en desarrollar habilidades en la creación y desarrollo de proyectos visuales impactantes. Aprenderás las herramientas y técnicas esenciales para diseñar piezas gráficas para una amplia gama de medios, desde impresos hasta digitales.', 45, 'gratuito', 8000.00, '2025-06-01', '2025-07-15', NULL),
+(3, 'Informática', 'Dirigido a personas que desean aprender a utilizar las herramientas informáticas esenciales para la vida diaria, el trabajo y la educación. A través de este curso, adquirirás conocimientos fundamentales sobre el uso de la computadora, programas de oficina y navegación en internet, lo que te permitirá desenvolverte con confianza en un mundo digital.', 90, 'arancelado', 9000.00, '2025-05-15', '2025-08-15', NULL),
+(4, 'Mecánica', 'Principios fundamentales de la reparación y mantenimiento de vehículos. Este curso te proporcionará las herramientas y conocimientos esenciales para entender el funcionamiento de los motores, los sistemas de transmisión, frenos, suspensión, y mucho más. Ya sea que busques aprender para uso personal o como base para una carrera en la mecánica, este curso es el primer paso hacia el mundo automotriz.', 75, 'capacitacion', 15000.00, '2025-06-10', '2025-08-24', NULL),
+(5, 'Oratoria', 'Mejora tus habilidades de comunicación y aprende a expresarse de manera efectiva frente a cualquier tipo de audiencia. A lo largo de este curso, desarrollarás herramientas y técnicas para hablar con claridad, seguridad y persuasión, ya sea en presentaciones profesionales, exposiciones académicas o situaciones cotidianas donde se requiere hablar en público.', 30, 'gratuito', 20000.00, '2025-05-20', '2025-06-19', NULL),
+(6, 'Pintura', 'Dirigido a todas las personas que deseen iniciarse en el arte de pintar o perfeccionar sus habilidades artísticas. A través de un enfoque práctico y dinámico, aprenderás a expresarte mediante el color, la forma y la técnica, explorando distintos estilos y materiales.\r\n            Durante el curso, desarrollarás tu creatividad, conocerás las bases del dibujo, el manejo del color y las técnicas esenciales para trabajar con acrílicos, óleos y acuarelas, adaptándote a tu propio estilo personal.', 40, 'arancelado', 20000.00, '2025-07-01', '2025-08-10', NULL),
+(7, 'Administración', 'Ofrece una formación práctica y actualizada para quienes buscan adquirir o perfeccionar habilidades en la gestión de organizaciones. Aprenderás a planificar, organizar, dirigir y controlar recursos de manera eficiente, desarrollando una visión estratégica que te permita liderar proyectos, empresas o emprendimientos exitosamente.\r\n          Ideal para quienes desean fortalecer su perfil profesional, emprender o mejorar la gestión de sus negocios.', 60, 'capacitacion', 18000.00, '2025-05-10', '2025-07-10', NULL),
+(8, 'Caligrafía', 'Para introducirte en el mundo de la escritura artística, combinando técnica y creatividad. Aprenderás a dominar distintos estilos caligráficos, mejorar tu trazo, desarrollar precisión y expresar tu estilo personal a través de la letra escrita. Es ideal tanto para principiantes como para quienes buscan perfeccionar su técnica en proyectos creativos, diseño, invitaciones, arte y más.', 20, 'gratuito', 12000.00, '2025-06-05', '2025-06-25', NULL),
+(9, 'Manicuría', 'Te formarás en las técnicas esenciales para el cuidado y embellecimiento de manos y uñas. Aprenderás desde los conceptos básicos de higiene y preparación hasta las últimas tendencias en esmaltado, decoración y tratamientos de spa para manos. Ideal para quienes desean iniciar su propio emprendimiento o perfeccionar sus habilidades en el mundo de la estética.', 50, 'capacitacion', 15000.00, '2025-05-22', '2025-07-11', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,7 +216,20 @@ INSERT INTO `Inscripciones` (`id_inscripcion`, `id_usuario`, `id_curso`, `fecha_
 (8, 1, 2, '2025-04-30'),
 (9, 1, 2, '2025-04-30'),
 (10, 2, 4, '2025-04-30'),
-(11, 2, 4, '2025-04-30');
+(11, 2, 4, '2025-04-30'),
+(12, 22, 2, '2025-05-14'),
+(13, 22, 3, '2025-05-14'),
+(14, 22, 8, '2025-05-14'),
+(15, 22, 2, '2025-05-14'),
+(16, 22, 9, '2025-05-14'),
+(17, 22, 5, '2025-05-14'),
+(18, 22, 5, '2025-05-14'),
+(19, 22, 4, '2025-05-14'),
+(20, 22, 1, '2025-05-14'),
+(21, 22, 4, '2025-05-14'),
+(22, 22, 6, '2025-05-14'),
+(23, 22, 8, '2025-05-14'),
+(24, 22, 3, '2025-05-16');
 
 -- --------------------------------------------------------
 
@@ -206,6 +244,17 @@ CREATE TABLE `Pagos` (
   `monto` decimal(10,2) DEFAULT NULL,
   `fecha_pago` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `Pagos`
+--
+
+INSERT INTO `Pagos` (`id_pago`, `id_usuario`, `id_curso`, `monto`, `fecha_pago`) VALUES
+(1, 22, 1, 3000.00, '2025-05-14'),
+(2, 22, 4, 15000.00, '2025-05-14'),
+(3, 22, 6, 20000.00, '2025-05-14'),
+(4, 22, 8, 12000.00, '2025-05-14'),
+(5, 22, 3, 9000.00, '2025-05-16');
 
 -- --------------------------------------------------------
 
@@ -246,27 +295,6 @@ INSERT INTO `Publicaciones` (`id_publicacion`, `titulo`, `contenido`, `fecha_pub
 (2, 'Capacitación en Angular', 'Frontend avanzado con Angular y consumo de APIs.', '2025-05-02', 'capacitacion', 'activo'),
 (3, 'Entrenamiento Fullstack', 'Entrenamiento intensivo para desarrolladores fullstack.', '2025-05-03', 'entrenamiento', 'inactivo'),
 (4, 'Curso de MySQL Avanzado', 'Profundiza en consultas complejas y optimización.', '2025-05-04', 'curso', 'activo');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Sessions`
---
-
-CREATE TABLE `Sessions` (
-  `sid` varchar(36) NOT NULL,
-  `expires` datetime DEFAULT NULL,
-  `data` text DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `Sessions`
---
-
-INSERT INTO `Sessions` (`sid`, `expires`, `data`, `createdAt`, `updatedAt`) VALUES
-('o3MVmOW5DHziV1GmlOtQLra1_8yI-6Ug', '2025-05-11 15:02:16', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"user\":{\"id\":\"205468351\",\"nodeId\":\"U_kgDODD8yvw\",\"displayName\":\"Hector Fernando Calisaya\",\"username\":\"Fe25dev\",\"profileUrl\":\"https://github.com/Fe25dev\",\"emails\":[{\"value\":\"legasy23dream@gmail.com\"}],\"photos\":[{\"value\":\"https://avatars.githubusercontent.com/u/205468351?v=4\"}],\"provider\":\"github\",\"_raw\":\"{\\\"login\\\":\\\"Fe25dev\\\",\\\"id\\\":205468351,\\\"node_id\\\":\\\"U_kgDODD8yvw\\\",\\\"avatar_url\\\":\\\"https://avatars.githubusercontent.com/u/205468351?v=4\\\",\\\"gravatar_id\\\":\\\"\\\",\\\"url\\\":\\\"https://api.github.com/users/Fe25dev\\\",\\\"html_url\\\":\\\"https://github.com/Fe25dev\\\",\\\"followers_url\\\":\\\"https://api.github.com/users/Fe25dev/followers\\\",\\\"following_url\\\":\\\"https://api.github.com/users/Fe25dev/following{/other_user}\\\",\\\"gists_url\\\":\\\"https://api.github.com/users/Fe25dev/gists{/gist_id}\\\",\\\"starred_url\\\":\\\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\\\",\\\"subscriptions_url\\\":\\\"https://api.github.com/users/Fe25dev/subscriptions\\\",\\\"organizations_url\\\":\\\"https://api.github.com/users/Fe25dev/orgs\\\",\\\"repos_url\\\":\\\"https://api.github.com/users/Fe25dev/repos\\\",\\\"events_url\\\":\\\"https://api.github.com/users/Fe25dev/events{/privacy}\\\",\\\"received_events_url\\\":\\\"https://api.github.com/users/Fe25dev/received_events\\\",\\\"type\\\":\\\"User\\\",\\\"user_view_type\\\":\\\"public\\\",\\\"site_admin\\\":false,\\\"name\\\":\\\"Hector Fernando Calisaya\\\",\\\"company\\\":null,\\\"blog\\\":\\\"\\\",\\\"location\\\":null,\\\"email\\\":\\\"legasy23dream@gmail.com\\\",\\\"hireable\\\":null,\\\"bio\\\":\\\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\\\",\\\"twitter_username\\\":null,\\\"notification_email\\\":\\\"legasy23dream@gmail.com\\\",\\\"public_repos\\\":3,\\\"public_gists\\\":0,\\\"followers\\\":0,\\\"following\\\":0,\\\"created_at\\\":\\\"2025-03-29T22:18:31Z\\\",\\\"updated_at\\\":\\\"2025-05-10T13:31:26Z\\\"}\",\"_json\":{\"login\":\"Fe25dev\",\"id\":205468351,\"node_id\":\"U_kgDODD8yvw\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/205468351?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/Fe25dev\",\"html_url\":\"https://github.com/Fe25dev\",\"followers_url\":\"https://api.github.com/users/Fe25dev/followers\",\"following_url\":\"https://api.github.com/users/Fe25dev/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/Fe25dev/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Fe25dev/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Fe25dev/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Fe25dev/orgs\",\"repos_url\":\"https://api.github.com/users/Fe25dev/repos\",\"events_url\":\"https://api.github.com/users/Fe25dev/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Fe25dev/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false,\"name\":\"Hector Fernando Calisaya\",\"company\":null,\"blog\":\"\",\"location\":null,\"email\":\"legasy23dream@gmail.com\",\"hireable\":null,\"bio\":\"Hola soy Desarrollado Web ,me interesan las nuevas tecnologias y su aplicacion en la vida cotidiana,Ademas estudio Data Analitic.\",\"twitter_username\":null,\"notification_email\":\"legasy23dream@gmail.com\",\"public_repos\":3,\"public_gists\":0,\"followers\":0,\"following\":0,\"created_at\":\"2025-03-29T22:18:31Z\",\"updated_at\":\"2025-05-10T13:31:26Z\"}}}', '2025-05-10 12:52:49', '2025-05-10 15:02:16');
 
 -- --------------------------------------------------------
 
@@ -314,7 +342,9 @@ INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, 
 (18, 'Ludmila', 'Palermo', '1999-06-03', 'La paz-Tucuman', '3115986632', 'Lusdmi25@gmail.com', 'li1234', 408569321, 'Pintura', 'docente', NULL),
 (19, 'Josep ', 'Montañes', '1986-07-09', 'La Iliada-Cordoba', '3445785698', 'jo25montaar@gmail.com', 'josep999', 36789654, 'Mecanica', 'docente', NULL),
 (20, 'lucas', 'Yamaha', '1965-09-08', 'la Sierra-La pampa', '3885294632', 'lica3333@gmail.com', 'lu122345', 26895674, 'Carpinteria', 'docente', NULL),
-(21, 'Cristian', 'Peña', '1989-09-04', 'La cruz de laSierra', '3115967321', 'cri25025ar@gmail.com', 'cristian2025', 33596412, 'Caligrafia', 'docente', '/uploads/33596412_1746902468547.jpeg');
+(21, 'Cristian', 'Peña', '1989-09-04', 'La cruz de laSierra', '3115967321', 'cri25025ar@gmail.com', 'cristian2025', 33596412, 'Caligrafia', 'docente', '/uploads/33596412_1746902468547.jpeg'),
+(22, 'Cristiano', 'Peral Peña', '2003-08-07', 'el valle 28', '3445896214', 'Cristi24567@gmail.com', 'cri23romero', 40456978, '', 'alumno', '/uploads/40456978_1747093282657.jpg'),
+(23, 'Leonardo', 'Castillo', '1985-05-04', 'Rosas 123 -Palermo', '3115896741', 'leonardoArg@gmail.com', '1236542123arg', 31456987, '', 'alumno', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -332,6 +362,13 @@ ALTER TABLE `Asistencia`
 --
 ALTER TABLE `CondicionesAprobacion`
   ADD PRIMARY KEY (`id_condicion`),
+  ADD KEY `id_curso` (`id_curso`);
+
+--
+-- Indices de la tabla `Contenido`
+--
+ALTER TABLE `Contenido`
+  ADD PRIMARY KEY (`id_contenido`),
   ADD KEY `id_curso` (`id_curso`);
 
 --
@@ -396,12 +433,6 @@ ALTER TABLE `Publicaciones`
   ADD PRIMARY KEY (`id_publicacion`);
 
 --
--- Indices de la tabla `Sessions`
---
-ALTER TABLE `Sessions`
-  ADD PRIMARY KEY (`sid`);
-
---
 -- Indices de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
@@ -422,6 +453,12 @@ ALTER TABLE `Asistencia`
 --
 ALTER TABLE `CondicionesAprobacion`
   MODIFY `id_condicion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `Contenido`
+--
+ALTER TABLE `Contenido`
+  MODIFY `id_contenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `Cursos`
@@ -445,13 +482,13 @@ ALTER TABLE `EntrenamientosLaborales`
 -- AUTO_INCREMENT de la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
-  MODIFY `id_inscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_inscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `Pagos`
 --
 ALTER TABLE `Pagos`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `ProgramasCredito`
@@ -469,7 +506,7 @@ ALTER TABLE `Publicaciones`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas
@@ -486,6 +523,12 @@ ALTER TABLE `Asistencia`
 --
 ALTER TABLE `CondicionesAprobacion`
   ADD CONSTRAINT `CondicionesAprobacion_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `Cursos` (`id_curso`);
+
+--
+-- Filtros para la tabla `Contenido`
+--
+ALTER TABLE `Contenido`
+  ADD CONSTRAINT `Contenido_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `Cursos` (`id_curso`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `CursoCredito`

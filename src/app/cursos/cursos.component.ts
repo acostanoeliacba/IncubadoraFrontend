@@ -18,7 +18,7 @@ export class CursosComponent {
   constructor(private router: Router,
               private http: HttpClient,
               private authService: AuthService
-    ) {}
+             ) {}
 
   ngOnInit() {
     this.cargarCursos();
@@ -47,4 +47,9 @@ export class CursosComponent {
       this.router.navigate(['/acceso']);
     }
   }
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
 }
+
