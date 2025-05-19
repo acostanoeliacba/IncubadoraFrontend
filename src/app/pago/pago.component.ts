@@ -83,7 +83,7 @@ async pagar() {
     if (datosCompraString) {
       const datos = JSON.parse(datosCompraString);
 
-     //Envio datos del pago a la tabla pagos del backend
+    
       const datosPago = {
         id_usuario: datos.id_usuario,
         id_curso: datos.id_curso,
@@ -94,7 +94,7 @@ async pagar() {
      this.http.post('http://localhost:3000/pagos',datosPago)  
       .subscribe(
         response =>{
-          this.mensaje += '\n ✅ Pago Registrado en base.';
+          this.mensaje += '\n ✅ Pago Registrado .';
         },
         error => {
           this.mensaje = '⚠️ Pago no registrado';

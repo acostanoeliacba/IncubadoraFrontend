@@ -128,22 +128,22 @@ onFileSelected(event: any) {
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(fileType)) {
       this.mensaje = 'Solo se permiten imágenes JPG o PNG';
       this.fotoSeleccionada = null;
-      console.warn('Tipo de archivo no válido');
+      console.log('Tipo de archivo no válido');
       return;
     }
 
     if (file.size > maxSize) {
       this.mensaje = 'El archivo no debe superar los 2MB';
       this.fotoSeleccionada = null;
-      console.warn('Archivo demasiado grande');
+      console.log('Archivo demasiado grande');
       return;
     }
 
     this.fotoSeleccionada = file;
     this.mensaje = '';
-    console.log('Archivo válido y guardado en fotoSeleccionada');
+   
   } else {
-    console.warn('No se seleccionó ningún archivo');
+    console.log('No se seleccionó ningún archivo');
   }
 }
 

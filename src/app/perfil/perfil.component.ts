@@ -51,13 +51,12 @@ export class PerfilComponent implements OnInit {
         return;
       }
 
-      console.log("perfil de usuario:", usuario);
       this.usuario = usuario;
 
       if (this.fotoUrl) {
           console.log("URL de la foto:", this.fotoUrl);
         } else {
-          console.warn("No hay foto para mostrar.");
+          console.log("No hay foto para mostrar.");
       }
 
       if (usuario && usuario.tipo_usuario) {
@@ -66,11 +65,9 @@ export class PerfilComponent implements OnInit {
         this.userId = usuario.id_usuario;
 
         if (this.userId) {
-          console.log(`📡 Solicitando inscripciones desde: http://localhost:3000/inscripciones/cursos${this.userId}`);
-
+          
           this.http.get<any[]>(`http://localhost:3000/inscripciones/cursos/${this.userId}`).subscribe(
             data => {
-              console.log("✅ Inscripciones recibidas:", data);
              
              if (Array.isArray(data) && data.length > 0) {
                   data.forEach((inscripcion, i) => {
@@ -79,7 +76,7 @@ export class PerfilComponent implements OnInit {
               });
 
               } else {
-                  console.warn("⚠️ Inscripciones no encontradas.");
+                  console.log("⚠️ Inscripciones no encontradas.");
               }
 
               this.cursosInscriptos = data;
