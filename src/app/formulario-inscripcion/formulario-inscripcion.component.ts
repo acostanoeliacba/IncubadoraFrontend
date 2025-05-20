@@ -155,4 +155,9 @@ export class FormularioInscripcionComponent implements OnInit {
     }
   }
 
+    cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
+
 }

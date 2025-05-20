@@ -1,8 +1,10 @@
+
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
   <nav>
     <a href="#inicio">INICIO</a>
-    <a [routerLink]="['/cursos']">CURSOS</a>
+    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
+    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
     <a href="#profesores">PROFESORES</a>
     <a href="#testimonios">TESTIMONIOS</a>
     <a href="#contacto">CONTACTO</a>
@@ -11,6 +13,7 @@
     <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
   </nav> 
 </header>
+
 
 <h2>ACCESO</h2>
 
@@ -27,7 +30,7 @@
     <small *ngIf="accesoForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
   </div>
 
-  <button type="submit" [disabled]="accesoForm.invalid">Iniciar sesión</button>
+  <button type="submit" [disabled]="accesoForm.invalid">Iniciar Sesión</button>
 
   <p>¿No tienes una cuenta? <a (click)="irAlRegistro()">Crear cuenta ahora</a></p>
 
@@ -35,6 +38,8 @@
     <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" class="github-icon">
     Acceder con GitHub
   </button>
+
+    <button type="submit" [disabled]="accesoForm.invalid">Sesión Administrador</button>
 
 </form>
 
