@@ -1,4 +1,4 @@
-body {
+/*body {
     font-family: 'Poppins', sans-serif; 
     background-color: #f4f7fa; 
     color: #333;
@@ -11,18 +11,11 @@ body {
   main {
     flex: 1; 
   }
+*/
 
 
-  .logo {
-    background-image: url('/assets/img/logo.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    width: 150px;
-    height: 80px;
-  }
 
-.navbar {
+/*  .navbar {
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center center;  
@@ -34,12 +27,37 @@ body {
     transition: all 0.3s ease;
     overflow: hidden; 
   }
+*/
+
+  .logo {
+    background-image: url('/assets/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 150px;
+    height: 80px;
+    flex-shrink: 0; /* Evita que se reduzca */
+  }
+    
+  .navbar {
+  display: flex;
+  align-items: center;      /* Alinea verticalmente al centro */
+  justify-content: space-between; /* Espacio entre logo y nav */
+  padding: 0 20px;          
+  height: 80px;            
+  background-color: white;  
+  }
 
   .nav-links {
    display: flex;
    gap: 15px;
   }
-    
+  .navbar nav {
+      display: flex;
+      gap: 15px; 
+     align-items: center;
+  }
+  
   .navbar nav a {
     color: #020166;
     margin: 0 10px;
@@ -49,6 +67,7 @@ body {
     text-decoration: none;
     padding: 5px 0;
   }
+
 
   .navbar nav a::after {
     content: "";

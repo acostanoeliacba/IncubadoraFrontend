@@ -64,14 +64,7 @@
   }
 
 /*   desde cambio en navbar */
-.navbar {
-  display: flex;
-  align-items: center;      /* Alinea verticalmente al centro */
-  justify-content: space-between; /* Espacio entre logo y nav */
-  padding: 0 20px;          
-  height: 80px;            
-  background-color: white;  
-}
+
 .logo {
   background-image: url('/assets/img/logo.png');
   background-repeat: no-repeat;
@@ -82,13 +75,22 @@
   flex-shrink: 0; /* Evita que se reduzca */
 }
 
+
+.navbar {
+  display: flex;
+  align-items: center;      /* Alinea verticalmente al centro */
+  justify-content: space-between; /* Espacio entre logo y nav */
+  padding: 0 20px;          
+  height: 80px;            
+  background-color: white;  
+}
+
 .navbar nav {
   display: flex;
   gap: 15px; 
   align-items: center;
 }
 /* hasta aqui cambio en navbar */
-
 
 .navbar nav a {
   color: #020166;

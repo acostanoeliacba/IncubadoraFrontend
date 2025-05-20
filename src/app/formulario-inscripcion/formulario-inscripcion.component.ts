@@ -129,5 +129,10 @@ export class FormularioInscripcionComponent implements OnInit {
       alert('Por favor completa todos los campos.');
     }
   }
+    cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
 
 }
+

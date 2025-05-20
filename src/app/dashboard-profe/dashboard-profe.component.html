@@ -1,4 +1,19 @@
 
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
+    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <a [routerLink]="['/perfil']">PERFIL</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+  </nav> 
+</header>
+
    <div class="tablero">
 
   <!-- ENCABEZADO -->
@@ -12,7 +27,7 @@
     </div>
 
     <div class="acciones">
-      <button [routerLink]="['/cursoDinamico']">CURSOS</button>
+      <button [routerLink]="['/cursoDinamico']" class="boton">CURSOS</button>
       <button (click)="verAlumnos()" class="boton">Alumnos</button>
       <button (click)="verPerfil()" class="boton">Editar perfil</button>
       <button class="boton" (click)="cerrarSesion()">Cerrar sesión</button>
@@ -100,7 +115,7 @@
   <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*">
   
   <br>
-  <button type="submit" [disabled]="cursoForm.invalid">Crear Curso</button>
+  <button type="submit" [disabled]="cursoForm.invalid" class="boton" >Crear Curso</button>
 </form>
 
 
