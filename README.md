@@ -8,5 +8,7 @@ Proyecto Xacademy 2025
     2.       git checkout main
     3.       npm run start
 
+![Inicio](Img/inicio.png)
 
+![Inicio](/Img/inicio.png)
 
