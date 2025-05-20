@@ -164,6 +164,23 @@ transition: width 0.3s ease;
 width: 100%;
 }
 
+.aula0{
+  align-self: center;
+  background-color: #002147;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.aula0 a {
+  color: white;
+}
+.aula0 button:hover {
+  background-color: #f5680e;
+}
 
 
 /* si se decide poner una seccion para foto/
