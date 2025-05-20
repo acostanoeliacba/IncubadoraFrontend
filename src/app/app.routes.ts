@@ -12,6 +12,7 @@ import { PagoComponent } from './pago/pago.component';
 import { GraciasComponent } from './gracias/gracias.component';
 import { ContenidoComponent } from './contenido/contenido.component';
 import { CursosDinamicosComponent } from './cursos-dinamicos/cursos-dinamicos.component';
+import { PublicacionesComponent } from './publicaciones/publicaciones.component';
 
 
 export const routes: Routes = [
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: 'pago', component: PagoComponent},
     { path: 'gracias', component: GraciasComponent},
     { path: 'curso/contenido/:id', component: ContenidoComponent},
-    { path: 'cursoDinamico', component: CursosDinamicosComponent}
+    { path: 'cursoDinamico', component: CursosDinamicosComponent},
+    { path: 'publicacion', component: PublicacionesComponent}
 ];
