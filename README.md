@@ -1,5 +1,5 @@
 # IncubadoraFrontend
-Proyecto Xacademy 2025
+Nuestro proyecto tiene como funcionalidad poder brindar acceso a usuarios a una plataforma online de cursos,la fundacion permitiria la capacitacion de personas para su insercion en el mundo IT 
 
 ## Instrucciones
 * **Reinstalar la base de Datos**
