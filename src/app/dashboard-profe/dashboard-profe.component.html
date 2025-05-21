@@ -1,7 +1,12 @@
 
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-  <nav>
+
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="nav-links">
     <a href="#inicio">INICIO</a>
     <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
     <a [routerLink]="['/cursoDinamico']">CURSOS</a>
@@ -10,7 +15,7 @@
     <a href="#contacto">CONTACTO</a>
     <a [routerLink]="['/registro']">REGISTRARSE</a>
     <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
   </nav> 
 </header>
 
@@ -27,7 +32,7 @@
     </div>
 
     <div class="acciones">
-      <button [routerLink]="['/cursoDinamico']" class="boton">CURSOS</button>
+      <button [routerLink]="['/cursoDinamico']" class="boton">Cursos</button>
       <button (click)="verAlumnos()" class="boton">Alumnos</button>
       <button (click)="verPerfil()" class="boton">Editar perfil</button>
       <button class="boton" (click)="cerrarSesion()">Cerrar sesión</button>
@@ -117,7 +122,6 @@
   <br>
   <button type="submit" [disabled]="cursoForm.invalid" class="boton" >Crear Curso</button>
 </form>
-
 
 
 <footer id="footer" class="footer">
