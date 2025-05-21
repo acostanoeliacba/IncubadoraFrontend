@@ -1,43 +1,104 @@
 
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-   
+
   <input type="checkbox" id="menu-toggle">
   
   <label for="menu-toggle" class="menu-icon">&#9776;</label>
 
-    <nav class="nav-links">
-        <a href="#inicio">INICIO</a>
-        <a [routerLink]="['/cursos']">CURSOS</a>
-        <a href="#profesores">PROFESORES</a>
-        <a href="#testimonios">TESTIMONIOS</a>
-        <a href="#contacto">CONTACTO</a>
-    </nav> 
-  </header>
+  <nav class="nav-links">
+    <a href="#inicio">INICIO</a>
+    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <a [routerLink]="['/perfil']">PERFIL</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
+  </nav> 
+</header>
 
 <div class="pago-container">
   
   <h2>Formulario de Pago</h2>
 
-  <div class="img">
-  <img src="assets/img/ilustracion-tarjeta.png" alt="Ilustración de Tarjeta">
-  </div>
-  
-  <div *ngIf="mensaje" class="mensaje" [ngClass]="{ 'exito': pagoExitoso, 'error': !pagoExitoso }">
-    {{ mensaje }}
-  </div>
+<div class="form-row">
+  <label for="formaPago">Forma:</label>
+ <select [(ngModel)]="formaPago" name="formaPago" id="formaPago">
+  <option value="tarjeta">Tarjeta de crédito</option>
+  <option value="transferencia">Transferencia bancaria</option>
+  <option value="efectivo">Efectivo</option>
+ </select>
+</div>
 
-  <div class="card-element-container">
-    <div #cardElement class="card-element"></div>
+<div *ngIf="formaPago === 'tarjeta'">
+
+<div class="img">
+  <img src="assets/img/ilustracion-tarjeta.png" alt="Ilustración de Tarjeta">
   </div>
 
   <div *ngIf="stripe && elements" class="card-element-container">
     <div #cardElement class="card-element"></div>
   </div>
 
+  <div *ngIf="mensaje" class="mensaje" [ngClass]="{ 'exito': pagoExitoso, 'error': !pagoExitoso }">
+    {{ mensaje }}
+  </div>
+
+  <div class="form-row">
+  <label for="curso">Titular</label>
+  <input type="text" id="titular" [(ngModel)]="nombreTitular" name="titular" required>
+  </div>
+
+  <div class="form-row">
+  <label for="curso">Curso:</label>
+  <input type="text" id="curso" [value]="nombreCurso" readonly>
+  </div>
+
+  <div class="form-row">
+  <label for="costo">Costo:</label>
+  <input type="text" id="costo" [value]="monto" readonly>
+  </div>
+
+  <br>
+
   <button (click)="pagar()" [disabled]="cargando">
-  {{ cargando ? 'Procesando...' : 'Pagar' }}
+    {{ cargando ? 'Procesando...' : 'Pagar' }}
   </button>
+</div>
+
+<div *ngIf="formaPago === 'transferencia'" class="info-pago">
+  <p class="descripcion"><strong>CBU:</strong> 0000003100000001234567</p>
+  <p class="descripcion"><strong>Alias:</strong> incuba.noc.cba</p>
+  <p class="descripcion">Una vez realizada la transferencia, por favor enviá el comprobante a <strong>pagosnoc&#64;tucurso.com</strong></p>
+
+  <div class="form-row">
+  <label for="curso">Curso:</label>
+  <input type="text" id="curso" [value]="nombreCurso" readonly>
+  </div>
+
+  <div class="form-row">
+  <label for="costo">Costo:</label>
+  <input type="text" id="costo" [value]="monto" readonly>
+  </div>
+
+</div>
+
+<div *ngIf="formaPago === 'efectivo'" class="info-pago">
+  <p class="descripcion">Puedes abonar en efectivo en nuestras oficinas. <br> Y te contactaremos luego del registro.</p>
+
+  <div class="form-row">
+  <label for="curso">Curso:</label>
+  <input type="text" id="curso" [value]="nombreCurso" readonly>
+  </div>
+
+  <div class="form-row">
+  <label for="costo">Costo:</label>
+  <input type="text" id="costo" [value]="monto" readonly>
+  </div>
+
+</div>
+
 </div>
 
 <footer id="footer" class="footer">

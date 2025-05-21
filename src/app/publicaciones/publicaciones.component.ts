@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Publicacion } from './Publicacion.model';
 import { PublicacionService } from './serviciopublicaciones';
@@ -10,7 +10,7 @@ import { PublicacionService } from './serviciopublicaciones';
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
@@ -22,7 +22,8 @@ export class PublicacionesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private publicacionService: PublicacionService,
-    private authService: AuthService
+    private authService: AuthService,
+     private router: Router
   ) {
     this.publicacionForm = this.fb.group({
       titulo: ['', Validators.required],
@@ -71,6 +72,13 @@ export class PublicacionesComponent implements OnInit {
         },
         error: (err) => console.error('Error al crear publicación', err)
       });
+
     }
   }
+
+cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
+
 }

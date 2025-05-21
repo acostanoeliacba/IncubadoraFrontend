@@ -27,5 +27,5 @@ export const routes: Routes = [
     { path: 'gracias', component: GraciasComponent},
     { path: 'curso/contenido/:id', component: ContenidoComponent},
     { path: 'cursoDinamico', component: CursosDinamicosComponent},
-    { path: 'publicacion', component: PublicacionesComponent}
+    { path: 'publicaciones', component: PublicacionesComponent}
 ];

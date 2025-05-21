@@ -12,6 +12,10 @@ body {
     flex: 1; 
   }
 
+  .descripcion {
+    color: rgb(206, 134, 0);
+  }
+
 
   .logo {
     background-image: url('/assets/img/logo.png');
@@ -21,6 +25,7 @@ body {
     width: 150px;
     height: 80px;
   }
+
 
   .navbar {
     background-repeat: no-repeat;
@@ -34,8 +39,12 @@ body {
     transition: all 0.3s ease;
     overflow: hidden; 
   }
+
+  .nav-links {
+  display: flex;
+  gap: 15px;
+}
     
-  
   .navbar nav a {
     color: #020166;
     margin: 0 10px;
@@ -60,6 +69,17 @@ body {
   .navbar nav a:hover::after {
     width: 100%;
   }
+
+  .menu-icon {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+  #menu-toggle {
+  display: none;
+}
 
 
 .curso-carpinteria {
@@ -131,14 +151,37 @@ body {
   .main-content {
   margin-bottom: 80px; /* espacio para el footer fijo */
   }
-  .footer {
-      width: 100%; 
-      background-color: #002147; 
-      color: white;
-      text-align: center;
-      padding: 20px 0; 
   
-      position: relative; /* footer fijo abajo */
-      
-    }
+  .footer {
+  width: 100%;
+  background-color: #002147; 
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 20px 0; 
+  margin-top: 40px; 
+  position: relative; 
+}
+
+@media (max-width: 768px) {
+   .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+  }
+
+  #menu-toggle:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+    margin-right: 20px;
+    color: #f5680e;
+  }
+}
        

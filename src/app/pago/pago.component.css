@@ -12,6 +12,10 @@ body {
     flex: 1; 
   }
 
+  .descripcion {
+    color: rgb(206, 134, 0);
+  }
+
 
   .logo {
     background-image: url('/assets/img/logo.png');
@@ -21,6 +25,7 @@ body {
     width: 150px;
     height: 80px;
   }
+
 
   .navbar {
     background-repeat: no-repeat;
@@ -87,11 +92,46 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.form-row {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.form-row label {
+  width: 400px; 
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
+.form-row input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  min-width: 300px;
+}
+
+.form-row select {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  min-width: 325px;
+}
+
+
 img {
   max-width: 400px;
   align-content: center;
   border-radius: 5%;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 h2 {
@@ -133,6 +173,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
 }
 
 button:disabled {
@@ -147,7 +188,7 @@ button:hover:not(:disabled) {
 .footer {
   width: 100%;
   background-color: #002147; 
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 20px 0; 
   margin-top: 40px; 
@@ -171,7 +212,7 @@ button:hover:not(:disabled) {
   }
 
   .menu-icon {
-     display: block;
+    display: block;
     margin-right: 20px;
     color: #f5680e;
   }
