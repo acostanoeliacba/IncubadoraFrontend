@@ -1,29 +1,14 @@
-/*body {
-    font-family: 'Poppins', sans-serif; 
-    background-color: #f4f7fa; 
-    color: #333;
-
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1; 
-  }
-*/
-
-  .logo {
+.logo {
     background-image: url('/assets/img/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     width: 150px;
     height: 80px;
-    flex-shrink: 0; /* Evita que se reduzca */
   }
 
-/*  .navbar {
+
+  .navbar {
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center center;  
@@ -35,22 +20,12 @@
     transition: all 0.3s ease;
     overflow: hidden; 
   }
-    */
-  .navbar {
+
+  .nav-links {
   display: flex;
-  align-items: center;      /* Alinea verticalmente al centro */
-  justify-content: space-between; /* Espacio entre logo y nav */
-  padding: 0 20px;          
-  height: 80px;            
-  background-color: white;  
+  gap: 15px;
 }
- 
-  .navbar nav {
-      display: flex;
-      gap: 15px; 
-     align-items: center;
-  }
-  
+    
   .navbar nav a {
     color: #020166;
     margin: 0 10px;
@@ -60,7 +35,6 @@
     text-decoration: none;
     padding: 5px 0;
   }
-
 
   .navbar nav a::after {
     content: "";
@@ -76,6 +50,17 @@
   .navbar nav a:hover::after {
     width: 100%;
   }
+
+  .menu-icon {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+  #menu-toggle {
+  display: none;
+}
 
   h2 {
     text-align: center;
@@ -167,25 +152,17 @@
 .footer {
   width: 100%;
   background-color: #002147; 
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 20px 0; 
   margin-top: 40px; 
   position: relative; 
 }
 
-  
-
   @media (max-width: 768px) {
     .curso-lista {
       flex-direction: column;
       align-items: center;
-    }
-  
-    .navbar nav {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
     }
 
     .registro-exitoso {
@@ -201,6 +178,27 @@
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+  }
+
+  #menu-toggle:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+    margin-right: 20px;
+    color: #f5680e;
   }
 
 }

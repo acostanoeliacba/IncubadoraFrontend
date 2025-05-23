@@ -7,15 +7,15 @@ import { FormularioInscripcionComponent } from './formulario-inscripcion/formula
 import { InscripcionesPorCursoComponent } from './inscripciones-por-curso/inscripciones-por-curso.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ListaInscripcionesComponent } from './lista-alumnos/lista-alumnos.component';
-
 import { PagoComponent } from './pago/pago.component';
 import { GraciasComponent } from './gracias/gracias.component';
 import { ContenidoComponent } from './contenido/contenido.component';
 import { CursosDinamicosComponent } from './cursos-dinamicos/cursos-dinamicos.component';
+import { PublicacionesComponent } from './publicaciones/publicaciones.component';
+
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
-    { path: 'perfil', component: PerfilComponent },
     { path: 'acceso', component: AccesoComponent},
     { path: 'registro', component: RegistroComponent},
     { path: 'dashboard-profe', component: DashboardProfeComponent},
@@ -23,9 +23,9 @@ export const routes: Routes = [
     { path: 'inscripciones-por-curso', component: InscripcionesPorCursoComponent},
     { path: 'perfil', component: PerfilComponent},
     { path: 'lista-alumnos', component: ListaInscripcionesComponent},
-
     { path: 'pago', component: PagoComponent},
     { path: 'gracias', component: GraciasComponent},
     { path: 'curso/contenido/:id', component: ContenidoComponent},
-    { path: 'cursoDinamico', component: CursosDinamicosComponent}
+    { path: 'cursoDinamico', component: CursosDinamicosComponent},
+    { path: 'publicaciones', component: PublicacionesComponent}
 ];

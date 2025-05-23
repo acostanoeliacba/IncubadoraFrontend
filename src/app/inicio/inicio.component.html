@@ -1,7 +1,12 @@
-  
+
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-  <nav>
+
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="nav-links">
     <a href="#inicio">INICIO</a>
     <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
     <a [routerLink]="['/cursoDinamico']">CURSOS</a>
@@ -10,10 +15,9 @@
     <a href="#contacto">CONTACTO</a>
     <a [routerLink]="['/registro']">REGISTRARSE</a>
     <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
   </nav> 
 </header>
-
 
 
   <!-- Destacado -->
@@ -33,15 +37,15 @@
     <h2>CURSOS DISPONIBLES</h2>
     <br>
     <div class="curso-lista">
-      <button class="curso" (click)="irACarpinteria()">Curso de Carpintería</button>
-      <button class="curso" (click)="irADiseno()">Curso de Diseño</button>
-      <button class="curso" (click)="irAInformatica()" >Curso de Informática</button>
-      <button class="curso" (click)="irAMecanica()">Curso de Mecánica</button>
-      <button class="curso" (click)="irAOratoria()">Curso de Oratoria</button>
-      <button class="curso" (click)="irAPintura()">Curso de Pintura</button>
-      <button class="curso" (click)="irAAdministracion()">Curso de Administración</button>
-      <button class="curso" (click)="irACaligrafia()">Curso de Caligrafía</button>
-      <button class="curso" (click)="irAManicuria()">Curso de Manicuría</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'carpinteria'">Curso de Carpintería</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'diseno'">Curso de Diseño</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'informatica'">Curso de Informática</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'mecanica'">Curso de Mecánica</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'oratoria'">Curso de Oratoria</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'pintura'">Curso de Pintura</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'administracion'">Curso de Administración</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'caligrafia'">Curso de Caligrafía</button>
+      <button class="curso" [routerLink]="['/cursos']" [fragment]="'manicuria'">Curso de Manicuría</button>
     </div>
   </section>
 

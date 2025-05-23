@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
@@ -11,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-dashboard-profe',
   standalone: true,
-  imports: [CommonModule, HttpClientModule,ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, HttpClientModule,ReactiveFormsModule,FormsModule, RouterModule],
   templateUrl: './dashboard-profe.component.html',
   styleUrl: './dashboard-profe.component.css'
 })
@@ -48,6 +49,93 @@ export class DashboardProfeComponent implements OnInit {
       foto: [null] 
     });
   }
+
+mostrarFormularioCrearCurso: boolean = false;
+
+nombreCursoBuscar: string = '';
+mostrarFormularioModificarCurso: boolean = false;
+actualizarIdCurso: string | null = null;
+
+archivoFoto: File | null = null;
+fotoPreviewUrl: string | null = null;
+
+
+mostrarCrearCursoForm() {
+  this.mostrarFormularioCrearCurso = true;
+}
+
+ocultarFormularios() {
+  this.mostrarFormularioCrearCurso = false;
+}
+//*******************Modificar curso
+
+mostrarModificarCursoForm() {
+  this.mostrarFormularioCrearCurso = false; 
+  this.mostrarFormularioModificarCurso = true;
+  this.cursoForm.reset(); 
+}
+
+get fotoUrl(): string {
+    const foto = this.curso?.foto;
+    if (!foto || foto === 'null' || foto === 'undefined') {
+      return 'assets/img/perfilDefault3.jpg';
+    }
+    return `http://localhost:3000${foto}`;
+}
+
+buscarCursoPorNombre() {
+  if (!this.nombreCursoBuscar.trim()) return;
+
+  this.http.get<any>(`http://localhost:3000/cursos?nombre=${this.nombreCursoBuscar}`).subscribe({
+    next: (res) => {
+      console.log('✅ Curso a modificar:', res);
+      this.curso = Array.isArray(res) ? res[0] : res;
+      this.actualizarIdCurso = this.curso.id_curso;
+      console.log('✅ id Curso a modificar:', this.actualizarIdCurso);
+
+      this.mostrarFormularioModificarCurso = true;
+
+      this.cursoForm.patchValue({
+        nombre_curso: this.curso.nombre_curso,
+        descripcion: this.curso.descripcion,
+        duracion: this.curso.duracion,
+        tipo: this.curso.tipo,
+        costo: this.curso.costo,
+        fecha_inicio: this.curso.fecha_inicio?.split('T')[0],
+        fecha_fin: this.curso.fecha_fin?.split('T')[0],
+      });
+    },
+    error: (error) => {
+      console.error('Error al buscar el curso:', error);
+      alert('No se encontró el curso.');
+    }
+  });
+}
+
+
+modificarCurso() {
+  const datos = this.cursoForm.value;
+  const formData = new FormData();
+
+  for (const key in datos) {
+    if (datos[key] !== null && datos[key] !== undefined) {
+      formData.append(key, datos[key]);
+    }
+  }
+
+  const id = this.actualizarIdCurso ;
+
+  this.http.put(`http://localhost:3000/cursos/${id}`, formData).subscribe({
+    next: (response) => {
+      console.log('Curso actualizado correctamente:', response);
+    },
+    error: (error) => {
+      console.error('Error al actualizar curso:', error);
+    }
+  });
+}
+
+//************************fin seccion modificar curso
 
 ngOnInit(): void {
   const usuario = this.authService.getUsuario();

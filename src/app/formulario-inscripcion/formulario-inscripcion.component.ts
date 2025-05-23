@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -68,8 +67,7 @@ export class FormularioInscripcionComponent implements OnInit {
       });
       this.id_usuario=usuarioLogueado.id;
     }
-    console.log('Form después de patch:', this.inscripcionForm.value);
-      console.log('Form después de patch:', this.id_usuario);
+
   }
 
   cargarCursos() {
@@ -85,13 +83,11 @@ export class FormularioInscripcionComponent implements OnInit {
       console.log("cursoseleccionado",curso);
     if (curso) {
       this.costo = curso.costo;
-            console.log("costo",this.costo);
-      this.monto = curso.tipo;
-            console.log("modalidad",this.monto);
+      this.monto = curso.tipo;    
       this.fechaInicio = curso.fecha_inicio;
         const hoy = new Date();
       this.fecha_pago = hoy.toISOString().split('T')[0]; // formato: 'YYYY-MM-DD'
-        console.log("Fecha actual para el pago:", this.fecha_pago);
+        
     } else {
       this.monto = null;
       this.fecha_pago = null;
@@ -116,48 +112,27 @@ export class FormularioInscripcionComponent implements OnInit {
       if (this.fecha_pago !== null) {
        formData.append('fecha_inscripcion', this.fecha_pago);
       }
-
-    const datosCompra = {
-      id_curso: this.inscripcionForm.get('id_curso')?.value,
-      id_usuario: this.inscripcionForm.get('id_usuario')?.value,
-      nombre: this.inscripcionForm.get('nombre')?.value,
-      apellido: this.inscripcionForm.get('apellido')?.value,
-      email: this.inscripcionForm.get('email')?.value,
-      fecha_pago: this.fecha_pago,
-      costo: this.costo,
-      modalidad: this.monto,
-      fecha_inicio: this.fechaInicio
-    };
-
-     console.log("datos antes de guardar",datosCompra);
-     localStorage.setItem('datosCompra', JSON.stringify(datosCompra));
-     console.log("datos guardados almacenados de la compra",localStorage.getItem('datosCompra'));
+      const datosCompra = {
+        id_curso: this.inscripcionForm.get('id_curso')?.value,
+        id_usuario: this.inscripcionForm.get('id_usuario')?.value,
+        nombre: this.inscripcionForm.get('nombre')?.value,
+        apellido: this.inscripcionForm.get('apellido')?.value,
+        email: this.inscripcionForm.get('email')?.value,
+        fecha_pago: this.fecha_pago,
+        costo: this.costo,
+        modalidad: this.monto,
+        fecha_inicio: this.fechaInicio
+      };
+       localStorage.setItem('datosCompra', JSON.stringify(datosCompra));
       this.router.navigate(['/pago']);
-
-      // this.http.post('http://localhost:3000/inscripciones', formData)
-      //   .subscribe(
-      //     response => {
-      //       alert('¡Inscripción exitosa!');
-      //       this.inscripcionForm.reset();
-      //       this.comprobanteFile = null;
-      //       this.monto = null;
-      //       this.costo = null;
-      //       this.fechaInicio = null;
-      //       this.fecha_pago = null;
-      //     },
-      //     error => {
-      //       alert('Error al inscribirse.');
-      //     }
-      //   );
-
     } else {
-      alert('Por favor completa todos los campos y adjunta el comprobante de pago.');
+      alert('Por favor completa todos los campos.');
     }
   }
-
     cerrarSesion(): void {
     this.authService.logout();       
     this.router.navigate(['/acceso']);
   }
 
 }
+

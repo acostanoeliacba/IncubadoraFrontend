@@ -1,7 +1,12 @@
 
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-  <nav>
+
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="nav-links">
     <a href="#inicio">INICIO</a>
     <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
     <a [routerLink]="['/cursoDinamico']">CURSOS</a>
@@ -10,7 +15,7 @@
     <a href="#contacto">CONTACTO</a>
     <a [routerLink]="['/registro']">REGISTRARSE</a>
     <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
   </nav> 
 </header>
 
@@ -27,10 +32,11 @@
     </div>
 
     <div class="acciones">
-      <button [routerLink]="['/cursoDinamico']" class="boton">CURSOS</button>
-      <button (click)="verAlumnos()" class="boton">Alumnos</button>
-      <button (click)="verPerfil()" class="boton">Editar perfil</button>
-      <button class="boton" (click)="cerrarSesion()">Cerrar sesión</button>
+      <button type="button" class="boton" (click)="mostrarCrearCursoForm()">Crear Curso</button>
+      <!-- <button type="submit" class="boton" >Modificar  Curso</button> -->
+      <button type="button" class="boton" (click)="mostrarModificarCursoForm()">Modificar Curso</button>
+      <button type="submit" class="boton" >Listar Cursos</button> 
+      <button (click)="verAlumnos()" class="boton">Listar Alumnos</button>
     </div>
   </div>
 
@@ -64,7 +70,7 @@
     </div>
   </div>
 
-  <!-- MENSAJES -->
+
   <div class="mensajes">
     <h3 class="subtitulo">MENSAJES RECIENTES</h3>
     <ul class="lista-mensajes">
@@ -73,8 +79,71 @@
   </div>
 
 </div>
+<!-- seccion modificar curso -->
+<div *ngIf="mostrarFormularioModificarCurso">
+  <h3>Buscar Curso para Modificar</h3>
+  <input
+    type="text"
+    [(ngModel)]="nombreCursoBuscar"
+    placeholder="Ingrese el nombre del curso"
+    name="buscarCurso"
+  />
+  <button (click)="buscarCursoPorNombre()">Buscar</button>
+</div>
 
-<form [formGroup]="cursoForm" (ngSubmit)="crearCurso()">
+<form *ngIf="mostrarFormularioModificarCurso" [formGroup]="cursoForm" (ngSubmit)="modificarCurso()">
+
+  <h3>Modificar Curso</h3>
+  <div >
+      <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de Curso" style="max-width: 150px; border-radius: 50%;">
+  </div>
+  <label for="foto">Foto:</label>
+    <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*">
+  <label for="nombre_curso">Nombre del Curso:</label>
+  <input id="nombre_curso" formControlName="nombre_curso" required>
+  <div *ngIf="cursoForm.get('nombre_curso')?.invalid && (cursoForm.get('nombre_curso')?.touched || cursoForm.get('nombre_curso')?.dirty)">
+    <small class="error">El nombre del curso es obligatorio.</small>
+  </div>
+
+  <label for="descripcion">Descripción:</label>
+  <textarea id="descripcion" formControlName="descripcion"></textarea>
+
+  <label for="duracion">Duración:</label>
+  <input id="duracion" type="number" formControlName="duracion" placeholder="cantidad de meses">
+  <div *ngIf="cursoForm.get('duracion')?.invalid && (cursoForm.get('duracion')?.touched || cursoForm.get('duracion')?.dirty)">
+    <small class="error">La duración debe ser un número válido.</small>
+  </div>
+
+  <label for="tipo">Tipo:</label>
+  <select id="tipo" formControlName="tipo" required>
+    <option value="">Seleccione un tipo</option>
+    <option value="gratuito">Gratuito</option>
+    <option value="arancelado">Arancelado</option>
+    <option value="capacitacion">Capacitación</option>
+  </select>
+  <div *ngIf="cursoForm.get('tipo')?.invalid && (cursoForm.get('tipo')?.touched || cursoForm.get('tipo')?.dirty)">
+    <small class="error">El tipo es obligatorio.</small>
+  </div>
+
+  <label for="costo">Costo:</label>
+  <input id="costo" type="number" formControlName="costo">
+
+  <label for="fecha_inicio">Fecha de Inicio:</label>
+  <input id="fecha_inicio" type="date" formControlName="fecha_inicio">
+
+  <label for="fecha_fin">Fecha de Fin:</label>
+  <input id="fecha_fin" type="date" formControlName="fecha_fin">
+
+
+  
+  <br>
+  <button type="submit" [disabled]="cursoForm.invalid" class="boton">Guardar Cambios</button>
+</form>
+<!-- Fin seccion modificar curso -->
+
+<!-- Seccion Crear curso -->
+<!-- <form [formGroup]="cursoForm" (ngSubmit)="crearCurso()"> -->
+<form *ngIf="mostrarFormularioCrearCurso" [formGroup]="cursoForm" (ngSubmit)="crearCurso()">
   <h3>Formulario para Crear Curso </h3>
   <label for="nombre_curso">Nombre del Curso:</label>
   <input id="nombre_curso" formControlName="nombre_curso" required>
@@ -117,7 +186,6 @@
   <br>
   <button type="submit" [disabled]="cursoForm.invalid" class="boton" >Crear Curso</button>
 </form>
-
 
 
 <footer id="footer" class="footer">

@@ -1,3 +1,24 @@
+
+<header class="navbar">
+  <a href="/"><div class="logo"></div></a>
+
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="nav-links">
+    <a href="#inicio">INICIO</a>
+    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
+    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
+    <a href="#profesores">PROFESORES</a>
+    <a href="#testimonios">TESTIMONIOS</a>
+    <a href="#contacto">CONTACTO</a>
+    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <a [routerLink]="['/perfil']">PERFIL</a>
+    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
+  </nav> 
+</header>
+
 <p>lista-alumnos works!</p>
 <div>
     <button (click)="filtrarPorCurso(1)">Pintura</button>
@@ -22,4 +43,10 @@
   <ng-template #noData>
     <p>No hay inscripciones para este curso.</p>
   </ng-template>
+
+   <footer id="footer" class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+    </div>
+  </footer>
   

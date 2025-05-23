@@ -25,6 +25,7 @@ export class RegistroComponent {
                private authService: AuthService,
                private router: Router,
                private http: HttpClient) {
+
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -54,16 +55,16 @@ export class RegistroComponent {
     const fechaNacimiento = new Date(control.value);
 
     if (isNaN(fechaNacimiento.getTime())) {
-      return { invalidDate: true }; 
+      return { invalidDate: true };
     }
 
     const edad = this.calcularEdad(fechaNacimiento);
     if (edad < 18) {
-      return { menorDeEdad: true }; 
+      return { menorDeEdad: true };
     }
-    return null; 
+    return null;
   }
-  
+
   calcularEdad(fechaNacimiento: Date) {
     const hoy = new Date();
     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
@@ -73,7 +74,6 @@ export class RegistroComponent {
     }
     return edad;
   }
-
 
 onSubmit() {
   if (this.registroForm.valid) {
@@ -110,10 +110,10 @@ onSubmit() {
       }
     });
 
-  } else {
-    console.log('Formulario inválido');
+    } else {
+      console.log('Formulario inválido');
+    }
   }
-}
 
 onFileSelected(event: any) {
   console.log('Evento de selección de archivo recibido:', event);
@@ -125,28 +125,25 @@ onFileSelected(event: any) {
     const fileType = file.type;
     const maxSize = 2 * 1024 * 1024; // 2 MB
 
-    console.log('Tipo de archivo:', fileType);
-    console.log('Tamaño del archivo:', file.size);
-
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(fileType)) {
       this.mensaje = 'Solo se permiten imágenes JPG o PNG';
       this.fotoSeleccionada = null;
-      console.warn('Tipo de archivo no válido');
+      console.log('Tipo de archivo no válido');
       return;
     }
 
     if (file.size > maxSize) {
       this.mensaje = 'El archivo no debe superar los 2MB';
       this.fotoSeleccionada = null;
-      console.warn('Archivo demasiado grande');
+      console.log('Archivo demasiado grande');
       return;
     }
 
     this.fotoSeleccionada = file;
     this.mensaje = '';
-    console.log('Archivo válido y guardado en fotoSeleccionada');
+   
   } else {
-    console.warn('No se seleccionó ningún archivo');
+    console.log('No se seleccionó ningún archivo');
   }
 }
 

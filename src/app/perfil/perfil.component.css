@@ -1,162 +1,202 @@
 
-.perfil-container {
+body {
+  font-family: 'Poppins', sans-serif; 
+  background-color: #f4f7fa; 
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; 
+}
+
+  .logo {
+    background-image: url('/assets/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 150px;
+    height: 80px;
+  }
+
+
+  .navbar {
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center center;  
+    height: 100px;  
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    margin: 40px auto;
-    padding: 50px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-  }
-  
-  .perfil-container h2 {
-    font-size: 2em;
-    color: #002147;
-    margin-bottom: 20px;
-  }
-  
-  .perfil-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .perfil-form label {
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .perfil-form input[type="text"],
-  .perfil-form input[type="email"],
-  .perfil-form input[type="password"],
-  .perfil-form input[type="file"],
-  .perfil-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-  }
-  
-  .perfil-form textarea {
-    resize: vertical;
-  }
-  
-  .perfil-form button {
-    align-self: center;
-    background-color: #002147;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .perfil-form button:hover {
-    background-color: #f5680e;
+    padding: 0; 
+    transition: all 0.3s ease;
+    overflow: hidden; 
   }
 
-/*   desde cambio en navbar */
+  .nav-links {
+  display: flex;
+  gap: 15px;
+}
+    
+  .navbar nav a {
+    color: #020166;
+    margin: 0 10px;
+    text-decoration: none;
+    position: relative;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 5px 0;
+  }
 
-.logo {
-  background-image: url('/assets/img/logo.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  width: 150px;
-  height: 80px;
-  flex-shrink: 0; /* Evita que se reduzca */
+  .navbar nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 3px;
+    background-color: orange;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar nav a:hover::after {
+    width: 100%;
+  }
+
+  .menu-icon {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
 }
 
-
-.navbar {
-  display: flex;
-  align-items: center;      /* Alinea verticalmente al centro */
-  justify-content: space-between; /* Espacio entre logo y nav */
-  padding: 0 20px;          
-  height: 80px;            
-  background-color: white;  
+  #menu-toggle {
+  display: none;
 }
 
-.navbar nav {
+.perfil-container {
   display: flex;
-  gap: 15px; 
+  flex-direction: column;
   align-items: center;
-}
-/* hasta aqui cambio en navbar */
-
-.navbar nav a {
-  color: #020166;
-  margin: 0 10px;
-  text-decoration: none;
-  position: relative;
-  margin: 0 10px;
-  text-decoration: none;
-  padding: 5px 0;
+  justify-content: center;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
 }
 
-.navbar nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0%;
-  height: 3px;
-  background-color: orange;
-  transition: width 0.3s ease;
+.perfil-container h2 {
+  font-size: 2em;
+  color: #002147;
+  margin-bottom: 20px;
 }
 
-.navbar nav a:hover::after {
+.perfil-form {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.cursoAlumno{
-    align-self: center;
-    background-color: #002147;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 200px; 
+.perfil-form label {
+  font-weight: 500;
+  color: #333;
 }
-.cursoAlumno a {
-    color: white;
+
+.perfil-form input[type="text"],
+.perfil-form input[type="email"],
+.perfil-form input[type="password"],
+.perfil-form input[type="file"],
+.perfil-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
 }
-.cursoAlumno:hover {
-    background-color: #f5680e;
+
+.perfil-form textarea {
+  resize: vertical;
 }
+
+.perfil-form button {
+  align-self: center;
+  background-color: #002147;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-form button:hover {
+  background-color: #f5680e;
+}
+
+
 .aula0{
-    align-self: center;
-    background-color: #002147;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 200px; 
+  align-self: center;
+  background-color: #002147;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 .aula0 a {
-  color:white;
+  color: white;
 }
-  
-  /* Comentario para futura carga de foto de perfil */
-  /*
-  .perfil-form input[type="file"] {
-    display: block;
+
+.aula0 button:hover {
+  background-color: #f5680e;
+}
+
+.footer {
+  width: 100%;
+  background-color: #002147; 
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 20px 0; 
+  margin-top: 40px; 
+  position: relative; 
+}
+
+@media (max-width: 768px) {
+   .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 200px;
+    padding: 20px;
   }
-  */
-  
+
+  #menu-toggle:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+    margin-right: 20px;
+    color: #f5680e;
+  }
+}
+
+
+/* si se decide poner una seccion para foto/
+/*
+.perfil-form input[type="file"] {
+  display: block;
+}
+*/
