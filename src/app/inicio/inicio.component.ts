@@ -1,7 +1,6 @@
 import { Component, Inject, PLATFORM_ID, AfterViewInit, Renderer2 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-inicio',
@@ -16,8 +15,7 @@ export class InicioComponent implements AfterViewInit {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router,
-    private authService: AuthService
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -87,10 +85,6 @@ export class InicioComponent implements AfterViewInit {
 
   irAManicuria() {
     this.router.navigate(['/manicuria']);
-  }
-  cerrarSesion(): void {
-    this.authService.logout();       
-    this.router.navigate(['/acceso']);
   }
 
 }

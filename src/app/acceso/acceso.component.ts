@@ -72,4 +72,3 @@ export class AccesoComponent {
     this.router.navigate(['/registro']);
   }
 }
-

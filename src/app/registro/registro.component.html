@@ -1,19 +1,19 @@
 
-
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-  <nav>
-    <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
-  </nav> 
-</header>
+
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <nav class="nav-links">
+        <a href="#inicio">INICIO</a>
+        <a [routerLink]="['/cursos']">CURSOS</a>
+        <a href="#profesores">PROFESORES</a>
+        <a href="#testimonios">TESTIMONIOS</a>
+        <a href="#contacto">CONTACTO</a>
+    </nav> 
+  </header>
 
 <h2>REGISTRO</h2>
 <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
@@ -58,7 +58,7 @@
   </div>
 
   
-  <input type="password" placeholder="Contraseña" formControlName="password" required   autocomplete="off">
+  <input type="password" placeholder="Contraseña" formControlName="password" required>
   <div *ngIf="registroForm.controls['password'].hasError('required') && registroForm.controls['password'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>

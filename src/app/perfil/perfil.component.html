@@ -2,13 +2,11 @@
   <a href="/"><div class="logo"></div></a>
   <nav>
     <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
+    <a [routerLink]="['/cursos']">CURSOS</a>
     <a href="#profesores">PROFESORES</a>
     <a href="#testimonios">TESTIMONIOS</a>
     <a href="#contacto">CONTACTO</a>
     <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
     <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
   </nav> 
 </header>
@@ -27,11 +25,13 @@
   -->
 
   <div >
+    <label>Foto de perfil:</label><br>
     <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de perfil" style="max-width: 150px; border-radius: 50%;">
+
   </div>
 
   <form [formGroup]="perfilForm" *ngIf="perfilForm" class="perfil-form">
-    
+
     <div>
       <label>Nombre:</label>
       <input type="text" formControlName="nombre" [readonly]="!modoEdicion">
@@ -80,19 +80,6 @@
     <div *ngIf="!modoEdicion">
       <button type="button" (click)="activarEdicion()">Editar Perfil</button>
     </div>
-  
-    <div *ngFor="let inscripcion of cursosInscriptos" class="cursoAlumno">
-      <a [routerLink]="['/curso/contenido', inscripcion.id_curso]">
-        Curso: {{ inscripcion.curso?.nombre_curso }}
-      </a>
-    </div>  
-    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'alumno'" class="aula0">
-           No estás inscrito en ningún curso.
-    </div>
-    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'docente'" class="aula0">
-        <a [routerLink]="['/dashboard-profe']">Panel del Profesor </a>
-    </div>
-          
-  </form>
 
+  </form>
 </div>

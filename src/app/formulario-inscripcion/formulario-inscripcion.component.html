@@ -1,19 +1,18 @@
-
 <header class="navbar">
   <a href="/"><div class="logo"></div></a>
-  <nav>
-    <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESÍON</a>
-  </nav> 
-</header>
 
+  <input type="checkbox" id="menu-toggle">
+  
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <nav class="nav-links">
+        <a href="#inicio">INICIO</a>
+        <a [routerLink]="['/cursos']">CURSOS</a>
+        <a href="#profesores">PROFESORES</a>
+        <a href="#testimonios">TESTIMONIOS</a>
+        <a href="#contacto">CONTACTO</a>
+    </nav> 
+  </header>
 
 <form [formGroup]="inscripcionForm" (ngSubmit)="inscribirse()">
   
@@ -46,7 +45,18 @@
       <strong>Fecha de Pago actual:</strong> {{ fecha_pago | date }}
     </div>
      <br>
-
+<!--     <label for="formaPago">Forma de pago:</label>
+    <select id="formaPago" formControlName="forma_pago">
+      <option value="" disabled selected>-- Selecciona una forma de pago --</option>
+      <option value="tarjeta">Tarjeta de crédito/débito</option>
+      <option value="transferencia">Transferencia bancaria</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="mercadopago">Mercado Pago</option>
+    </select>
+ -->
+<!--     <label for="comprobante">Adjuntar comprobante de pago:</label>
+    <input id="comprobante" type="file" (change)="onFileSelected($event)" />
+   -->
     <label>
       <input type="checkbox" formControlName="acepta_politica" />
       Acepto la política de privacidad

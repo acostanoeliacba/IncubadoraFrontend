@@ -5,6 +5,8 @@ import { CursoService } from '../services/curso.service';
 import { InscripcionService } from '../services/inscripcion.service';
 import { Curso } from '../models/curso.model';
 import { AuthService } from './services/auth.service'; 
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inscripcion',
@@ -16,12 +18,12 @@ import { AuthService } from './services/auth.service';
 export class InscripcionComponent implements OnInit {
   inscripcionForm: FormGroup;
   cursos: Curso[] = [];
-  id_usuario: number = 0; //  carga luego del login
+  id_usuario: number = 0; // Este lo cargás luego del login
 
   constructor(
               private fb: FormBuilder,
               private cursoService: CursoService,
-              private inscripcionService: InscripcionService
+              private inscripcionService: InscripcionService,
               private http: HttpClient,
               private router: Router,
               private authService: AuthService
@@ -34,7 +36,7 @@ export class InscripcionComponent implements OnInit {
   ngOnInit(): void {
       const usuarioLogueado = this.authService.getUsuario();
       console.log("usuario-inscripcion",usuarioLogueado);
-        // if (!usuarioLogueado) {
+        //   if (!usuarioLogueado) {
         //   alert("Sesión no válida");
         //   this.router.navigate(['/acceso']);
         //   return;

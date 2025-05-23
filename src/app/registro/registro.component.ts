@@ -1,15 +1,17 @@
+
 import { Component } from '@angular/core';
-import { FormBuilder,  FormGroup, ReactiveFormsModule,  Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-import { Router,RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { AuthService } from '../services/auth.service'; 
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterModule, HttpClientModule], 
+
+  imports: [RouterModule, CommonModule, ReactiveFormsModule, HttpClientModule], 
+
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
@@ -21,10 +23,10 @@ export class RegistroComponent {
   mensaje: string = '';
   fotoSeleccionada: File | null = null;
 
-  constructor( private fb: FormBuilder, 
-               private authService: AuthService,
-               private router: Router,
-               private http: HttpClient) {
+  constructor( private http: HttpClient,
+               private fb: FormBuilder, 
+               private router: Router) {
+
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -54,16 +56,16 @@ export class RegistroComponent {
     const fechaNacimiento = new Date(control.value);
 
     if (isNaN(fechaNacimiento.getTime())) {
-      return { invalidDate: true }; 
+      return { invalidDate: true };
     }
 
     const edad = this.calcularEdad(fechaNacimiento);
     if (edad < 18) {
-      return { menorDeEdad: true }; 
+      return { menorDeEdad: true };
     }
-    return null; 
+    return null;
   }
-  
+
   calcularEdad(fechaNacimiento: Date) {
     const hoy = new Date();
     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
@@ -73,7 +75,6 @@ export class RegistroComponent {
     }
     return edad;
   }
-
 
 onSubmit() {
   if (this.registroForm.valid) {
@@ -101,7 +102,7 @@ onSubmit() {
         console.log('Usuario registrado correctamente:', response);
         this.registroExitoso = true;
         this.mensaje = '¡Registro exitoso!';
-        setTimeout(() => this.router.navigate(['/acceso']), 3000);
+        setTimeout(() => this.router.navigate(['/acceso']), 2000);
       },
       error: (error) => {
         console.error('Error al registrar usuario:', error);
@@ -110,10 +111,10 @@ onSubmit() {
       }
     });
 
-  } else {
-    console.log('Formulario inválido');
+    } else {
+      console.log('Formulario inválido');
+    }
   }
-}
 
 onFileSelected(event: any) {
   console.log('Evento de selección de archivo recibido:', event);
@@ -151,10 +152,6 @@ onFileSelected(event: any) {
 }
 
   irAlAcceso() {
-    this.router.navigate(['/acceso']);
-  }
-  cerrarSesion(): void {
-    this.authService.logout();       
     this.router.navigate(['/acceso']);
   }
 }
