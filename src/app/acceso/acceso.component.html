@@ -19,10 +19,10 @@
   </nav> 
 </header>
 
-<h2>ACCESO</h2>
 
 <form [formGroup]="accesoForm" (ngSubmit)="onSubmit()">
 
+  <h2>ACCESO</h2>
   <input type="email" formControlName="email" placeholder="Correo electrónico" required>
   <div *ngIf="accesoForm.get('email')?.touched && accesoForm.get('email')?.invalid" class="error-mensaje">
     <small *ngIf="accesoForm.get('email')?.errors?.['required']">El correo es obligatorio.</small>

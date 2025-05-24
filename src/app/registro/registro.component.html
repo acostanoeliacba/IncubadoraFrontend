@@ -19,9 +19,9 @@
   </nav> 
 </header>
 
-<h2>REGISTRO</h2>
+
 <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-  
+  <h2>REGISTRO</h2>
   <input type="text" placeholder="Nombre" formControlName="nombre" required>
   <div *ngIf="registroForm.controls['nombre'].hasError('required') && registroForm.controls['nombre'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>

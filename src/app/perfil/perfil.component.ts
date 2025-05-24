@@ -10,6 +10,10 @@ import { AuthService } from '../services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-perfil',
   standalone: true,
@@ -18,6 +22,7 @@ import { PLATFORM_ID, Inject } from '@angular/core';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+
   perfilForm!: FormGroup;
   usuario: any;
   tipoUsuario!: 'alumno' | 'docente';
@@ -31,6 +36,7 @@ export class PerfilComponent implements OnInit {
               private perfilService: PerfilService,
               private authService: AuthService,
               private router: Router,
+              private dialogService: DialogService,
               private http: HttpClient,
               @Inject(PLATFORM_ID) private platformId: Object
               ) {}
@@ -45,14 +51,11 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
       const usuario = this.authService.getUsuario();
 
-
       if (!usuario && isPlatformBrowser(this.platformId)) {
-        alert("Sesión no válida");
-        //this.snackBar.open("Sesión no válida", "Cerrar", { duration: 3000 });
-        setTimeout(() => {
-          this.router.navigate(['/acceso']);
-        }, 500);
-        return;
+         this.dialogService.showError('Sesión no válida').subscribe(() => {
+         this.router.navigate(['/acceso']);
+       });
+          return;
       }
 
       this.usuario = usuario;
@@ -105,11 +108,9 @@ export class PerfilComponent implements OnInit {
 
   initForm(): void {
     if ((!this.usuario || !this.usuario.nombre) && isPlatformBrowser(this.platformId )) {
-    //if (!this.usuario || !this.usuario.nombre) {
-      alert("Sesión no válida");
-      setTimeout(() => {
-        this.router.navigate(['/acceso']);
-      }, 500);
+      this.dialogService.showError('Sesión no válida').subscribe(() => {
+         this.router.navigate(['/acceso']);
+      });
       return;
     }
     this.perfilForm = this.fb.group({
@@ -146,10 +147,12 @@ export class PerfilComponent implements OnInit {
       next: (res) => {
         this.usuario = res;
         this.modoEdicion = false;
-        alert('Perfil actualizado correctamente');
+        //alert('Perfil actualizado correctamente');
+        this.dialogService.showError('Perfil Actualizado Correctamente').subscribe(() => {});
       },
       error: () => {
-        alert('Error al actualizar perfil');
+        //alert('Error al actualizar perfil');
+        this.dialogService.showError('Error Al Actualizar Perfil').subscribe(() => {});
       }
     });
   }
