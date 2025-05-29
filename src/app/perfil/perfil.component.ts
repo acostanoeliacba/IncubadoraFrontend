@@ -83,7 +83,7 @@ export class PerfilComponent implements OnInit {
               });
 
               } else {
-                  console.log("⚠️ Inscripciones no encontradas.");
+                  console.log(" Inscripciones no encontradas.");
               }
 
               this.cursosInscriptos = data;
@@ -95,14 +95,14 @@ export class PerfilComponent implements OnInit {
             }
           );
         } else {
-          console.warn("⚠️ ID de usuario no encontrado.");
+          console.warn(" ID de usuario no encontrado.");
         }
 
         this.initForm(); 
         this.cargando = false;
 
       } else {
-        console.warn("⚠️ Usuario no encontrado o inválido");
+        console.warn("Usuario no encontrado o inválido");
       }
   }
 

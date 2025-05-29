@@ -6,6 +6,14 @@ import { Router,RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
 
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+
 @Component({
   selector: 'app-registro',
   standalone: true,
@@ -21,10 +29,14 @@ export class RegistroComponent {
   mensaje: string = '';
   fotoSeleccionada: File | null = null;
 
-  constructor( private fb: FormBuilder, 
-               private authService: AuthService,
-               private router: Router,
-               private http: HttpClient) {
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private router: Router,
+              private dialogService: DialogService,
+              private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object
+              ) {
+
 
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -101,17 +113,21 @@ onSubmit() {
         console.log('Usuario registrado correctamente:', response);
         this.registroExitoso = true;
         this.mensaje = '¡Registro exitoso!';
-        setTimeout(() => this.router.navigate(['/acceso']), 3000);
+        this.dialogService.showSuccess('Registro Exitoso.').subscribe(() => { 
+          setTimeout(() => this.router.navigate(['/acceso']), 2000);});
       },
       error: (error) => {
         console.error('Error al registrar usuario:', error);
         this.registroExitoso = false;
         this.mensaje = 'Error al registrar usuario. Intenta nuevamente.';
+        this.dialogService.showError('Error al registrar usuario. Intenta nuevamente.').subscribe(() => { 
+          setTimeout(() => this.router.navigate(['/registro']), 2000);});
       }
     });
 
     } else {
       console.log('Formulario inválido');
+      this.mensaje = 'Formulario inválido. Intenta nuevamente.';
     }
   }
 

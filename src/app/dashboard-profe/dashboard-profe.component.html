@@ -32,11 +32,10 @@
     </div>
 
     <div class="acciones">
-      <button type="button" class="boton" (click)="mostrarCrearCursoForm()">Crear Curso</button>
-      <!-- <button type="submit" class="boton" >Modificar  Curso</button> -->
-      <button type="button" class="boton" (click)="mostrarModificarCursoForm()">Modificar Curso</button>
-      <button type="submit" class="boton" >Listar Cursos</button> 
-      <button (click)="verAlumnos()" class="boton">Listar Alumnos</button>
+      <button type="button" class="boton" (click)="mostrarFormulario('crearCurso')">Crear Curso</button> 
+      <button type="button" class="boton" (click)="mostrarFormulario('modificarCurso')">Modificar Curso</button> 
+      <button type="button" class="boton" (click)="mostrarFormulario('listarUsuarios')">Listar Usuarios</button> 
+      <button type="button" class="boton" (click)="mostrarFormulario('listarPagos')">Listar Pagos</button> 
     </div>
   </div>
 
@@ -79,9 +78,11 @@
   </div>
 
 </div>
+
 <!-- seccion modificar curso -->
-<div *ngIf="mostrarFormularioModificarCurso">
-  <h3>Buscar Curso para Modificar</h3>
+
+<div *ngIf="formularioActivo === 'modificarCurso'" class="buscarContainer" >
+  <h3>Ingresar Nombre de Curso para Modificar</h3>
   <input
     type="text"
     [(ngModel)]="nombreCursoBuscar"
@@ -91,14 +92,16 @@
   <button (click)="buscarCursoPorNombre()">Buscar</button>
 </div>
 
-<form *ngIf="mostrarFormularioModificarCurso" [formGroup]="cursoForm" (ngSubmit)="modificarCurso()">
 
+<form *ngIf="formularioActivo === 'modificarCurso'" [formGroup]="cursoForm" (ngSubmit)="modificarCurso()">
   <h3>Modificar Curso</h3>
-  <div >
-      <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de Curso" style="max-width: 150px; border-radius: 50%;">
+  <div class="fotoImage">
+      <img *ngIf="fotoUrl" [src]="fotoUrl" alt="Foto de Curso" style="max-width: 150px; border-radius: 50%;" >
   </div>
+
   <label for="foto">Foto:</label>
-    <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*">
+    <input id="foto" type="file"  (change)="onFileChange($event)" accept="image/*" name="foto">
+
   <label for="nombre_curso">Nombre del Curso:</label>
   <input id="nombre_curso" formControlName="nombre_curso" required>
   <div *ngIf="cursoForm.get('nombre_curso')?.invalid && (cursoForm.get('nombre_curso')?.touched || cursoForm.get('nombre_curso')?.dirty)">
@@ -133,24 +136,34 @@
 
   <label for="fecha_fin">Fecha de Fin:</label>
   <input id="fecha_fin" type="date" formControlName="fecha_fin">
-
-
   
   <br>
   <button type="submit" [disabled]="cursoForm.invalid" class="boton">Guardar Cambios</button>
 </form>
+
 <!-- Fin seccion modificar curso -->
 
 <!-- Seccion Crear curso -->
-<!-- <form [formGroup]="cursoForm" (ngSubmit)="crearCurso()"> -->
-<form *ngIf="mostrarFormularioCrearCurso" [formGroup]="cursoForm" (ngSubmit)="crearCurso()">
+
+  <form *ngIf="formularioActivo === 'crearCurso'" [formGroup]="cursoForm" (ngSubmit)="crearCurso()">
+  
   <h3>Formulario para Crear Curso </h3>
+ 
   <label for="nombre_curso">Nombre del Curso:</label>
   <input id="nombre_curso" formControlName="nombre_curso" required>
+  <button type="button" (click)="buscarCurso()" class="boton">Buscar Curso</button>
+    
   <div *ngIf="cursoForm.get('nombre_curso')?.invalid && (cursoForm.get('nombre_curso')?.touched || cursoForm.get('nombre_curso')?.dirty)">
     <small class="error">El nombre del curso es obligatorio.</small>
   </div>
 
+ <div class="fotoImage">
+      <img *ngIf="fotoPreviewUrl" [src]="fotoPreviewUrl" alt="Foto de Curso" style="max-width: 150px; border-radius: 50%;" >
+  </div>
+  
+  <label for="foto">Foto:</label>
+  <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*" name="foto">
+  
   <label for="descripcion">Descripción:</label>
   <textarea id="descripcion" formControlName="descripcion"></textarea>
 
@@ -180,14 +193,124 @@
   <label for="fecha_fin">Fecha de Fin:</label>
   <input id="fecha_fin" type="date" formControlName="fecha_fin">
 
-  <label for="foto">Foto:</label>
-  <input id="foto" type="file" (change)="onFileChange($event)" accept="image/*">
-  
+
   <br>
   <button type="submit" [disabled]="cursoForm.invalid" class="boton" >Crear Curso</button>
 </form>
 
+<!-- ***************************Inicio listar usuarios -->
+<div *ngIf="formularioActivo === 'listarUsuarios'" class="busqueda-usuarios">
+  <h3>Buscar Usuarios</h3>
+  <div class="filtros">
 
+    <div class="campo-dato">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" [(ngModel)]="filtros.nombre" placeholder="Nombre" class="input-grande"/>
+    </div>
+
+    <div class="campo-dato">
+      <label for="apellido">Apellido</label>
+      <input id="apellido" [(ngModel)]="filtros.apellido" placeholder="Apellido" class="input-grande"/>
+    </div>
+
+    <div class="campo">
+      <label for="dni">DNI</label>
+      <input id="dni" type="number" [(ngModel)]="filtros.dni" placeholder="DNI" />
+    </div>
+
+    <div class="boton-container">
+      <button (click)="buscar()" class="boton">Buscar</button>
+    </div>
+  </div>
+
+  <div class="tabla-container" *ngIf="usuarios.length > 0">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha Nacimiento</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>DNI</th>
+          <th>Especialidad</th>
+          <th>Tipo Usuario</th>
+          <th>Foto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usuarios">
+          <td>{{ user.id_usuario }}</td>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.apellido }}</td>
+          <td>{{ user.fecha_nacimiento | date }}</td>
+          <td>{{ user.direccion }}</td>
+          <td>{{ user.telefono }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.dni }}</td>
+          <td>{{ user.especialidad || '-' }}</td>
+          <td>{{ user.tipo_usuario }}</td>
+          <td>
+            <img *ngIf="user.foto" [src]="user.foto" alt="foto" width="50" />
+            <span *ngIf="!user.foto">-</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ***************************Fin seccion listar usuarios -->
+<!-- ***************************Inicio seccion listar Pagos -->
+<div *ngIf="formularioActivo === 'listarPagos'" class="busqueda-usuarios">
+  <h3>Buscar Pagos</h3>
+  <div class="filtros">
+    <div class="campo-dato">
+      <label for="id_usuario">ID Usuario</label>
+      <input id="id_usuario" type="number" [(ngModel)]="filtrosPago.id_usuario" class="input-grande"/>
+    </div>
+
+    <div class="campo-dato">
+      <label for="id_curso">ID Curso</label>
+      <input id="id_curso" type="number" [(ngModel)]="filtrosPago.id_curso" class="input-grande"/>
+    </div>
+
+    <div class="campo">
+      <label for="fecha_pago">Fecha Pago</label>
+      <input id="fecha_pago" type="date" [(ngModel)]="filtrosPago.fecha_pago" />
+    </div>
+
+    <div class="boton-container">
+      <button (click)="buscarPagos()" class="boton">Buscar</button>
+    </div>
+  </div>
+  <div class="tabla-container" *ngIf="pagos.length > 0">
+  <table *ngIf="pagos.length > 0" border="1" class="tabla-pagos">
+    <thead>
+      <tr>
+        <th>ID Pago</th>
+        <th>ID Usuario</th>
+        <th>ID Curso</th>
+        <th>Monto</th>
+        <th>Fecha Pago</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pago of pagos">
+        <td>{{ pago.id_pago }}</td>
+        <td>{{ pago.id_usuario }}</td>
+        <td>{{ pago.id_curso }}</td>
+        <td>{{ pago.monto }}</td>
+        <td>{{ pago.fecha_pago }}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+<!-- ***************************Fin seccion listar Pagos -->
 <footer id="footer" class="footer">
   <div class="footer-content">
     <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>

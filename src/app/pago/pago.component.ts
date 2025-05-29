@@ -66,6 +66,9 @@ export class PagoComponent implements OnInit {
     this.idCurso = datos.id_curso;
     this.fechaPago = datos.fecha_pago;
     this.nombreTitular = `${datos.nombre} ${datos.apellido}`;
+    // la convercion a centavos solo es nesesaria para stripe
+    // no para la tabla que guarda en formato decimal por eso variables distintas
+    const montoCentavos = Math.round(this.monto * 100);
 
     this.http.get('http://localhost:3000/cursos').subscribe((cursos: any) => {
       this.cursos = cursos;
@@ -73,7 +76,7 @@ export class PagoComponent implements OnInit {
       this.nombreCurso = cursoSeleccionado ? cursoSeleccionado.nombre_curso : 'Curso no encontrado';
     });
 
-    this.http.post<any>('http://localhost:3000/pagos/create-payment-intent', { amount: this.monto })
+    this.http.post<any>('http://localhost:3000/pagos/create-payment-intent', { amount: montoCentavos })
   .subscribe(res => {
     this.clientSecret = res.clientSecret;
   });
@@ -130,17 +133,21 @@ async pagar() {
       this.http.post('http://localhost:3000/inscripciones', inscripcionPayload)
         .subscribe(
           response => {
-            console.log('✅ Inscripción guardada');
+            console.log(' Inscripción guardada');
+            //la siguiente constante permite eligir el ultimo curso cargado
+            //const idInscripcion = response.id_inscripcion;
             localStorage.removeItem('datosCompra');
-            this.mensaje += '\n✅ Inscripción registrada.';
+            this.mensaje += '\n Inscripción registrada.';
             setTimeout(() => {
-              console.log('⏩ Redirigiendo a /gracias...');
-              this.router.navigate(['/gracias']);
+              console.log(' Redirigiendo a /gracias... con curso:',inscripcionPayload.id_curso);
+              //this.router.navigate(['/gracias', idInscripcion]); 
+              this.router.navigate(['/gracias', inscripcionPayload.id_curso]); 
+              //this.router.navigate(['/gracias']);
             }, 4000);
           },
           error => {
-            console.error('⚠️ Error en /inscripciones:', error);
-            this.mensaje = '⚠️ Hubo un error al registrar la inscripción.';
+            console.error(' Error en /inscripciones:', error);
+            this.mensaje = ' Hubo un error al registrar la inscripción.';
           }
         );
 

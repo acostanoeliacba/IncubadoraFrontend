@@ -23,7 +23,7 @@
 <form [formGroup]="accesoForm" (ngSubmit)="onSubmit()">
 
   <h2>ACCESO</h2>
-  <input type="email" formControlName="email" placeholder="Correo electrónico" required>
+  <input type="email" formControlName="email" placeholder="Correo electrónico" required  autocomplete="off">
   <div *ngIf="accesoForm.get('email')?.touched && accesoForm.get('email')?.invalid" class="error-mensaje">
     <small *ngIf="accesoForm.get('email')?.errors?.['required']">El correo es obligatorio.</small>
     <small *ngIf="accesoForm.get('email')?.errors?.['email']">Correo no válido.</small>
@@ -42,8 +42,6 @@
     <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" class="github-icon">
     Acceder con GitHub
   </button>
-
-    <button type="submit" [disabled]="accesoForm.invalid">Sesión Administrador</button>
 
 </form>
 

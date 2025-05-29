@@ -7,6 +7,13 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
 
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-acceso',
   standalone: true,
@@ -20,12 +27,20 @@ export class AccesoComponent {
   inicioExitoso: boolean = false;
   inicioError: string | null = null;
 
-  constructor(  private http: HttpClient,
-                private fb: FormBuilder, 
-                private router: Router,
-                private authService: AuthService
-                ) {
+  // constructor(  private http: HttpClient,
+  //               private fb: FormBuilder, 
+  //               private router: Router,
+  //               private authService: AuthService
+  //               ) {
    
+  constructor(
+              private fb: FormBuilder,
+              private authService: AuthService,
+              private dialogService: DialogService,
+              private router: Router,
+              private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object
+              ) {
     this.accesoForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]], 
       password: ['', [Validators.required, Validators.minLength(6)]] 
@@ -44,12 +59,14 @@ export class AccesoComponent {
         this.authService.setUsuario(response);
         this.inicioExitoso = true;
         this.inicioError = null;
-        this.router.navigate(['/perfil']);
+        this.dialogService.showSuccess('Registro Exitoso.').subscribe(() => { this.router.navigate(['/perfil']);});
+       
       },
       error: (error) => {
         console.error('Error en el login:', error);
         this.inicioExitoso = false;
-        this.inicioError = 'Error al iniciar sesión. Verifica tus credenciales.';
+        this.inicioError = 'Error al iniciar sesión. Ingresa tus credenciales.';
+        this.dialogService.showError('Error al iniciar sesión. Ingresa tus credenciales.').subscribe(() => { });
       }
     });
     } else {
