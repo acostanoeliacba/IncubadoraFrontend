@@ -1,30 +1,38 @@
-
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Publicacion } from './Publicacion.model';
 import { PublicacionService } from './serviciopublicaciones';
 
 @Component({
-  selector: 'app-publicaciones',
+  selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
-  templateUrl: './publicaciones.component.html',
-  styleUrls: ['./publicaciones.component.css']
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  templateUrl: 'publicaciones.component.html',
+  styleUrls: ['publicaciones.component.css']
 })
-export class PublicacionesComponent implements OnInit {
+export class PublicacionesComponent implements OnInit, OnDestroy {
   publicaciones: Publicacion[] = [];
   publicacionForm: FormGroup;
-  imagenSeleccionada: File | null = null;
+  currentIndex = 0;
+  intervaloCarrusel: any;
+  esDocente = false;
+  usuario: any = null;
+  private usuarioSubscription?: Subscription;
+  private isBrowser: boolean;
 
   constructor(
     private fb: FormBuilder,
     private publicacionService: PublicacionService,
     private authService: AuthService,
-     private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
     this.publicacionForm = this.fb.group({
       titulo: ['', Validators.required],
       contenido: ['', Validators.required],
@@ -33,52 +41,69 @@ export class PublicacionesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.cargarPublicaciones();
-  }
+  async ngOnInit(): Promise<void> {
+    await this.cargarPublicacionesAsync();
 
-  get esDocente(): boolean {
-    return this.authService.esDocente();
-  }
-
-  cargarPublicaciones(): void {
-    this.publicacionService.getPublicaciones().subscribe({
-      next: (data) => (this.publicaciones = data),
-      error: (err) => console.error('Error al cargar publicaciones', err)
+    this.usuarioSubscription = this.authService.usuario$.subscribe(usuario => {
+      this.usuario = usuario;
+      console.log('Usuario desde AuthService:', usuario);
+      this.esDocente = this.authService.esUsuarioDocente();
+      console.log('esDocente:', this.esDocente);
     });
-  }
 
-  onArchivoSeleccionado(event: Event): void {
-    const archivo = (event.target as HTMLInputElement).files?.[0] || null;
-    this.imagenSeleccionada = archivo;
-  }
-
-  crearPublicacion(): void {
-    if (this.publicacionForm.valid) {
-      const formData = new FormData();
-      formData.append('titulo', this.publicacionForm.value.titulo);
-      formData.append('contenido', this.publicacionForm.value.contenido);
-      formData.append('tipo', this.publicacionForm.value.tipo);
-      formData.append('estado', this.publicacionForm.value.estado);
-      if (this.imagenSeleccionada) {
-        formData.append('imagen', this.imagenSeleccionada);
-      }
-
-      this.publicacionService.crearPublicacion(formData).subscribe({
-        next: () => {
-          this.publicacionForm.reset();
-          this.imagenSeleccionada = null;
-          this.cargarPublicaciones();
-        },
-        error: (err) => console.error('Error al crear publicación', err)
-      });
-
+    if (this.isBrowser) {
+      this.iniciarCarrusel();
     }
   }
 
-cerrarSesion(): void {
-    this.authService.logout();       
-    this.router.navigate(['/acceso']);
+  ngOnDestroy(): void {
+    if (this.intervaloCarrusel) {
+      clearInterval(this.intervaloCarrusel);
+    }
+    this.usuarioSubscription?.unsubscribe();
   }
 
+  cargarPublicacionesAsync(): Promise<void> {
+    return new Promise((resolve) => {
+      this.publicacionService.getPublicaciones().subscribe({
+        next: (data) => {
+          this.publicaciones = data;
+          this.currentIndex = 0;
+          resolve();
+        },
+        error: (err) => {
+          console.error(err);
+          resolve();
+        }
+      });
+    });
+  }
+
+  crearPublicacion(): void {
+    if (this.publicacionForm.invalid) {
+      return;
+    }
+
+    const nuevaPublicacion = {
+      titulo: this.publicacionForm.value.titulo,
+      contenido: this.publicacionForm.value.contenido,
+      tipo: this.publicacionForm.value.tipo,
+      estado: this.publicacionForm.value.estado
+    };
+
+    this.publicacionService.crearPublicacion(nuevaPublicacion).subscribe({
+      next: () => {
+        this.cargarPublicacionesAsync();
+        this.publicacionForm.reset();
+      },
+      error: (err) => console.error('Error al crear publicación:', err)
+    });
+  }
+
+  iniciarCarrusel(): void {
+    this.intervaloCarrusel = setInterval(() => {
+      if (this.publicaciones.length === 0) return;
+      this.currentIndex = (this.currentIndex + 1) % this.publicaciones.length;
+    }, 3000);
+  }
 }
