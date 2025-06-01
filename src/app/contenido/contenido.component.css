@@ -1,4 +1,56 @@
 
+/*   desde cambio en navbar */
+/*.navbar {
+  display: flex;
+  align-items: center;      
+  justify-content: space-between;
+  padding: 0 20px;          
+  height: 80px;            
+  background-color: white;  
+}
+.logo {
+  background-image: url('/assets/img/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 150px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 15px; 
+  align-items: center;
+}
+
+.navbar nav a {
+  color: #020166;
+  margin: 0 10px;
+  text-decoration: none;
+  position: relative;
+  margin: 0 10px;
+  text-decoration: none;
+  padding: 5px 0;
+}
+
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background-color: orange;
+  transition: width 0.3s ease;
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+*/
+/*********hasta aqui cambio nabvar fer */
+
 .revisar-contenido {
   background: rgba(255, 255, 255, 0.95);
   padding: 20px;
@@ -68,6 +120,18 @@ h3 {
   justify-content: center;
   margin-top: 20px;
 }
+/************************************************/
+.revisar-contenido {
+  background-color: #e9f5e9; /* verde claro */
+  padding: 20px;
+  border-radius: 12px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/*************************************************/
 
 @media (max-width: 768px) {
   .secciones-grid {

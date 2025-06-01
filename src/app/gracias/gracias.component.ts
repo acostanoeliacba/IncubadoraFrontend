@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
 export class GraciasComponent implements OnInit {
   idInscripcion!: number;
   inscripcion: any;
-  idCurso!: number;
+  id_curso!: number;
 
   constructor(private route: ActivatedRoute, 
               private http: HttpClient, 
@@ -27,10 +27,16 @@ export class GraciasComponent implements OnInit {
 
 
   ngOnInit() {
-    this.idCurso = Number(this.route.snapshot.paramMap.get('id_curso'));
 
-    setTimeout(() => {
-      this.router.navigate(['/curso/contenido', this.idCurso]);
-    }, 4000);
+    const idParam = this.route.snapshot.paramMap.get('id_curso');
+    this.id_curso = idParam ? Number(idParam) : 0;
+    console.log('paremetro id curso recibido',this.id_curso);
+    if (!this.id_curso) {
+      console.error(' ID de curso no válido');
+       setTimeout(() => {
+          this.router.navigate(['/curso/contenido', this.id_curso]);
+        }, 2000);
+      return;
+    }
   }
 }

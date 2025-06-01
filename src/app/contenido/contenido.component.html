@@ -19,13 +19,16 @@
     <!-- Temario -->
     <section class="temario">
       <h3>📚 Temario</h3>
-      <ul *ngIf="contenidoInfo?.modulo && contenidoInfo?.nombre; else sinTemario">
-        <li>✅ Módulo {{ contenidoInfo.modulo }}: {{ contenidoInfo.nombre }}</li>
+      <ul *ngIf="contenidoInfo?.length > 0; else sinTemario">
+        <li *ngFor="let modulo of contenidoInfo">
+          ✅ {{ modulo.modulo }}: {{ modulo.nombre }}
+        </li>
       </ul>
       <ng-template #sinTemario>
         <p>No hay temario disponible.</p>
       </ng-template>
     </section>
+
 
     <!-- Agenda -->
     <section class="agenda">
@@ -42,15 +45,16 @@
     <!-- Materiales -->
     <section class="materiales">
       <h3>📂 Materiales</h3>
-      <ul *ngIf="contenidoInfo?.url; else sinMateriales">
-        <li>
-          📎 <a [href]="contenidoInfo.url" target="_blank">{{ contenidoInfo.url }}</a>
+      <ul *ngIf="contenidoInfo?.length > 0; else sinMateriales">
+        <li *ngFor="let modulo of contenidoInfo">
+          📎 <a [href]="modulo.url" target="_blank">{{ modulo.nombre }}</a>
         </li>
       </ul>
       <ng-template #sinMateriales>
         <p>No hay materiales disponibles.</p>
       </ng-template>
     </section>
+
 
     <!-- Mensajes -->
     <section class="mensajes">
@@ -64,3 +68,8 @@
     </section>
   </div>
 </div>
+
+
+
+
+

@@ -28,59 +28,81 @@ export class ContenidoComponent implements OnInit {
               private http: HttpClient,
               ) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
+  const usuario = this.authService.getUsuario();
 
-    const usuario = this.authService.getUsuario();
-      if (usuario && usuario.tipo_usuario) {
-        this.tipoUsuario = usuario.tipo_usuario;
-      }
-    this.idCurso = this.route.snapshot.paramMap.get('id');
-        console.log('ID del curso recibido:', this.idCurso);
-  
-    this.http.get<any[]>(`http://localhost:3000/contenidos/curso/${this.idCurso}`).subscribe(
+  if (usuario && usuario.tipo_usuario) {
+    this.tipoUsuario = usuario.tipo_usuario;
+  }
+
+  this.idCurso = this.route.snapshot.paramMap.get('id');
+  console.log('ID del curso recibido:', this.idCurso);
+
+  // Obtener información del curso
+  this.http.get<any>(`http://localhost:3000/cursos/info/${this.idCurso}`).subscribe(
+    cursoI => {
+      console.log("✅ Información de Curso recibida:", cursoI);
+      this.cursoInfo = cursoI;
+
+      this.curso = {
+        nombre: cursoI.nombre_curso,
+        modalidad: cursoI.tipo,
+        alumnos: 60,
+        fechaInicio: cursoI.fecha_inicio,
+        fechaFin: cursoI.fecha_fin,
+        unidades: [],
+        proximaClase: { fecha: '15/05/2025', tema: 'Herramientas básicas' },
+        materiales: [],
+        mensajes: [
+          'Reunión el viernes 18:00 hs.',
+          'Consulta sobre la tarea.'
+        ]
+      };
+
+      // Obtener contenidos del curso
+      this.http.get<any[]>(`http://localhost:3000/contenidos/curso/${this.idCurso}`).subscribe(
         contenidoI => {
-             if (contenidoI.length > 0) {
-              console.log("✅ Contenidos recibidos:", contenidoI);
-              this.contenidoInfo = contenidoI[0];
-              }
-              else{
-                console.error("❌ Sin contenido del curso:"); 
-              }           
-        },
-          error => {
-            console.error("❌ Error al cargar el contenido del curso:", error);
-        }
-    );
+          if (contenidoI.length > 0) {
+            console.log("Contenidos recibidos:", contenidoI);
+            this.contenidoInfo = contenidoI;
 
-    this.http.get<any>(`http://localhost:3000/cursos/info/${this.idCurso}`).subscribe(
-        cursoI => {
-            console.log("✅ Información de Curso recibida:", cursoI);
-            this.cursoInfo = cursoI;
+            this.curso.materiales = contenidoI.map((modulo: any) => ({
+              nombre: `${modulo.modulo}: ${modulo.nombre}`,
+              link: modulo.url
+            }));
 
-            // Aquí ya podemos usar los datos de cursoInfo
-            this.curso = {
-              nombre: cursoI.nombre_curso,
-              modalidad: cursoI.tipo,
-              alumnos: 60,
-              fechaInicio: cursoI.fecha_inicio,
-              fechaFin: cursoI.fecha_fin,
-              unidades: ['Introducción', 'Herramientas básicas', 'Procesadores de texto'],
-              proximaClase: { fecha: '15/05/2025', tema: 'Herramientas básicas' },
-              materiales: [
-                { nombre: 'Programa PDF', link: '/assets/programa-informatica.pdf' },
-                { nombre: 'Presentación PPT', link: '/assets/unidad1-informatica.ppt' }
-              ],
-              mensajes: [
-                'Reunión el viernes 18:00 hs.',
-                'Consulta sobre la tarea.'
-              ]
+            this.curso.unidades = contenidoI.map((modulo: any) => modulo.nombre);
+
+            const ultimoModulo = contenidoI[contenidoI.length - 1];
+
+            const fechaActual = new Date();
+            fechaActual.setDate(fechaActual.getDate() + 7);
+            const fechaFormateada = fechaActual.toLocaleDateString('es-AR', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric'
+            });
+
+            this.curso.proximaClase = {
+              fecha: fechaFormateada,
+              tema: ultimoModulo.nombre
             };
+
+          } else {
+            console.warn("Sin contenido del curso:");
+          }
         },
         error => {
-            console.error("❌ Error al cargar la información del curso:", error);
+          console.error("Error al cargar el contenido del curso:", error);
         }
-    );
-  }
+      );
+    },
+    error => {
+      console.error("Error al cargar la información del curso:", error);
+    }
+  );
+}
+
 
   editarCurso() {
     alert('Funcionalidad para editar curso');
