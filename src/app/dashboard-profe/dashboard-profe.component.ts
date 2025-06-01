@@ -466,6 +466,12 @@ buscarPagos() {
 
 //**********************Fin Seccion Listar Pagos***********
 
+/*********************pagos Admin*********************************/
+  graficoPagos() {
+    this.router.navigate(['/pagos-admin']);
+  }
+
+/**********************pagos Admin********************************/
   verCurso(id: number) {
     this.router.navigate(['/curso', id]);
   }
