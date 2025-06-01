@@ -1,26 +1,5 @@
 
-<header class="navbar">
-  <a href="/"><div class="logo"></div></a>
-
-  <input type="checkbox" id="menu-toggle">
-  
-  <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-  <nav class="nav-links">
-    <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-  </nav> 
-</header>
-
-
-  <!-- Destacado -->
+<!-- Destacado -->
   <section id="inicio" class="hero">
     <div class="hero-text"> 
       <h1>BIENVENIDO/A</h1>
@@ -37,15 +16,15 @@
     <h2>CURSOS DISPONIBLES</h2>
     <br>
     <div class="curso-lista">
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'carpinteria'">Curso de Carpintería</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'diseno'">Curso de Diseño</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'informatica'">Curso de Informática</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'mecanica'">Curso de Mecánica</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'oratoria'">Curso de Oratoria</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'pintura'">Curso de Pintura</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'administracion'">Curso de Administración</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'caligrafia'">Curso de Caligrafía</button>
-      <button class="curso" [routerLink]="['/cursos']" [fragment]="'manicuria'">Curso de Manicuría</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'carpinteria'">Curso de Carpintería</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'diseno'">Curso de Diseño</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'informatica'">Curso de Informática</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'mecanica'">Curso de Mecánica</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'oratoria'">Curso de Oratoria</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'pintura'">Curso de Pintura</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'administracion'">Curso de Administración</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'caligrafia'">Curso de Caligrafía</button>
+      <button class="curso" [routerLink]="['/cursoDinamico']" [fragment]="'manicuria'">Curso de Manicuría</button>
     </div>
   </section>
 
@@ -106,22 +85,4 @@
 </div>
 </section>
 
-  <!-- Pie de página / Footer -->
-  <footer id="contacto" class="footer">
-    <div class="contacto">
-      <p>Dirección: Cruz del Eje - Mitre 757 | Teléfono: 351487678</p>
-
-      <div class="social-icons">
-        <a href="https://accounts.google.com/signin" target="_blank" class="social-icon">
-          <i class="fab fa-google"></i> <!-- Icono de Gmail -->
-        </a>
-        <a href="https://www.facebook.com/login" target="_blank" class="social-icon">
-          <i class="fab fa-facebook"></i> <!-- Icono de Facebook -->
-        </a>
-        <a href="https://www.instagram.com/accounts/login/" target="_blank" class="social-icon">
-          <i class="fab fa-instagram"></i> <!-- Icono de Instagram -->
-        </a>
-      </div>
-    </div>
-  </footer>
   

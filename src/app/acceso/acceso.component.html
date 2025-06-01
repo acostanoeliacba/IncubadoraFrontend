@@ -1,25 +1,4 @@
 
-<header class="navbar">
-  <a href="/"><div class="logo"></div></a>
-
-  <input type="checkbox" id="menu-toggle">
-  
-  <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-  <nav class="nav-links">
-    <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-  </nav> 
-</header>
-
-
 <form [formGroup]="accesoForm" (ngSubmit)="onSubmit()">
 
   <h2>ACCESO</h2>
@@ -54,11 +33,5 @@
 </div>
 
 <br>
-
-<footer id="footer" class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
-  </div>
-</footer>
 
 

@@ -1,31 +1,11 @@
 
-<header class="navbar">
-  <a href="/"><div class="logo"></div></a>
-
-  <input type="checkbox" id="menu-toggle">
-  
-  <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-  <nav class="nav-links">
-    <a href="#inicio">INICIO</a>
-    <!-- <a [routerLink]="['/cursos']">CURSOS</a> -->
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-  </nav> 
-</header>
-
 <div *ngFor="let curso of cursos" class="curso-carpinteria">
   <div class="curso-carpinteria-contenido">    
     <div class="curso-carpinteria-imagen">
        <img [src]="curso.foto ? 'http://localhost:3000' + curso.foto : 'assets/img/default.jpg'" [alt]="curso.nombre_curso">
     </div>
 
-    <div class="curso-carpinteria-info">
+    <div [id]="curso.id_fragmento" class="curso-carpinteria-info">
       <h2>{{ curso.nombre_curso }}</h2>
       <p>{{ curso.descripcion }}</p>
       <ul>
@@ -34,14 +14,8 @@
         <li><strong>Fecha de Inicio:</strong> {{ curso.fecha_inicio | date:'longDate' }}</li>
         <li><strong>Valor: $</strong>{{ curso.costo }}</li>
       </ul>
-      <button (click)="irAInscripcion()">Inscribirse</button>
+      <button (click)="irAInscripcion(curso.id_curso)">Inscribirse</button>
     </div>
   </div>
 </div>
-
-<footer id="footer" class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
-  </div>
-</footer>
 

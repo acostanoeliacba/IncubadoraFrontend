@@ -1,23 +1,14 @@
 
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service'; 
-import { CommonModule } from '@angular/common'; 
-
-
-import { isPlatformBrowser } from '@angular/common';
-import { PLATFORM_ID, Inject } from '@angular/core';
-
-import { DialogService } from '../services/dialog.service';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-
+import { CommonModule, ViewportScroller } from '@angular/common'; 
 
 @Component({
   selector: 'app-cursos-dinamicos',
   standalone: true,
-  imports: [  RouterModule,CommonModule ],
+  imports: [  RouterModule, CommonModule ],
   templateUrl: './cursos-dinamicos.component.html',
   styleUrls: ['./cursos-dinamicos.component.css']
 })
@@ -27,38 +18,59 @@ export class CursosDinamicosComponent implements OnInit {
     
   constructor(private http: HttpClient,
               private router: Router,
-              private dialogService: DialogService,
               private authService: AuthService,
-               @Inject(PLATFORM_ID) private platformId: Object
+              private route: ActivatedRoute,             
+              private viewportScroller: ViewportScroller 
               ) {}
 
   ngOnInit(): void {
 
     this.http.get<any[]>('http://localhost:3000/cursos').subscribe(
       data => {
-        console.log("Cursos recibidos:", data);
-        this.cursos = data;
+       console.log("✅ Cursos recibidos:", data);
+
+        this.cursos = data.map(curso => ({
+          ...curso,
+          id_fragmento: this.generarFragmento(curso.nombre_curso)
+        }));
+
+        setTimeout(() => {
+          this.route.fragment.subscribe(fragment => {
+            if (fragment) {
+              console.log("🧭 Navegando al fragmento:", fragment);
+              this.viewportScroller.scrollToAnchor(fragment);
+            }
+          });
+        }, 100);
       },
       error => {
-        console.error('Error al obtener cursos:', error);
+        console.error('❌ Error al obtener cursos:', error);
       }
     );
   }
+  
+  generarFragmento(nombre: string): string {
+    return nombre.toLowerCase()
+                 .normalize('NFD')                      
+                 .replace(/[\u0300-\u036f]/g, '')       
+                 .replace(/[^a-z0-9]/g, '');            
+  }
 
-  irAInscripcion() {
+  irAInscripcion (idCurso: number) {
     const usuario = this.authService.getUsuario();
     console.log("usuario almacenado inscripcion cursos",usuario);
 
-    if (!usuario && isPlatformBrowser(this.platformId)) {
-         this.dialogService.showError('Login nesesario,para Inscripcion').subscribe(() => {
-         this.router.navigate(['/acceso']);
-       });
-          return;
+    if (!usuario) {
+        alert("Sesión no válida");
+        setTimeout(() => {
+          this.router.navigate(['/acceso']);
+          }, 500);
+        return
     }
   
     if (usuario) {
        // Usuario logueado va al formulario de inscripción
-       this.router.navigate(['/formulario-inscripcion']);
+       this.router.navigate(['/formulario-inscripcion'], { queryParams: { id_curso: idCurso } });
      } else {
        // No logueado lo dirige a iniciar sesión
        this.router.navigate(['/acceso']);

@@ -12,6 +12,9 @@ import { GraciasComponent } from './gracias/gracias.component';
 import { ContenidoComponent } from './contenido/contenido.component';
 import { CursosDinamicosComponent } from './cursos-dinamicos/cursos-dinamicos.component';
 import { PublicacionesComponent } from './publicaciones/publicaciones.component';
+import { PagosAdminComponent } from './pagos-admin/pagos-admin.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 export const routes: Routes = [
@@ -27,5 +30,8 @@ export const routes: Routes = [
     { path: 'gracias/:id', component: GraciasComponent},
     { path: 'curso/contenido/:id', component: ContenidoComponent},
     { path: 'cursoDinamico', component: CursosDinamicosComponent},
-    { path: 'publicaciones', component: PublicacionesComponent}
+    { path: 'publicaciones', component: PublicacionesComponent},
+    { path: 'pagos-admin', component: PagosAdminComponent},
+    { path: 'navbar', component: NavbarComponent},
+    { path: 'footer', component: FooterComponent},
 ];

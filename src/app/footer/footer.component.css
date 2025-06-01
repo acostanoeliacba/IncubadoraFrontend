@@ -1,0 +1,26 @@
+.footer {
+    background-color: #002147;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    
+  }
+
+   .contacto {
+    font-size: larger;
+  }
+
+  .social-icons {
+    margin-top: 10px;
+  }
+  
+  .social-icon {
+    font-size: 30px;
+    margin: 0 10px;
+    color: #ffffff;
+    transition: color 0.3s;
+  }
+  
+  .social-icon:hover {
+    color: #d75400; 
+  }

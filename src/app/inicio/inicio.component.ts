@@ -2,11 +2,12 @@ import { Component, Inject, PLATFORM_ID, AfterViewInit, Renderer2 } from '@angul
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })

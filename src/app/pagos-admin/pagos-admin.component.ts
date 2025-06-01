@@ -1,0 +1,154 @@
+
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { PagosService, Pago } from '../services/pagos.service';
+import { FormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChartData, ChartType, ChartOptions } from 'chart.js';
+import { AuthService } from '../services/auth.service'; 
+import { Router, RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-pagos-admin',
+  standalone: true,
+  imports: [CommonModule, FormsModule, NgChartsModule, RouterModule],
+  templateUrl: './pagos-admin.component.html',
+  styleUrls: ['./pagos-admin.component.css']
+})
+export class PagosAdminComponent implements OnInit {
+  loading: boolean = true;
+  isBrowser = false;
+  pagos: Pago[] = [];
+  pagosFiltrados: Pago[] = [];
+  cursos: { id: number, nombre: string }[] = [];
+  cursoSeleccionado: string = '';
+  usuarioFiltro: string = '';
+  totalRecaudado: number = 0;
+
+  chartType: ChartType = 'bar';
+  chartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+    }
+  };
+
+  chartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Recaudación por curso ($)',
+        backgroundColor: '#4CAF50'
+      }
+    ]
+  };
+
+  chartMensualData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Ingresos por mes ($)',
+        backgroundColor: '#2196F3'
+      }
+    ]
+  };
+
+  constructor(
+    private pagosService: PagosService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
+    if (this.isBrowser) {
+      this.pagosService.obtenerPagos().subscribe((data) => {
+        this.pagos = data;
+        this.pagosFiltrados = data;
+        this.extraerCursos();
+        this.actualizarGraficos();
+      });
+    }
+  }
+
+  extraerCursos() {
+    const cursosUnicos = Array.from(new Set(this.pagos.map(p => p.curso)));
+    this.cursos = cursosUnicos.map((nombre, index) => ({
+      id: index,
+      nombre
+    }));
+  }
+
+  filtrarPagos() {
+    this.pagosFiltrados = this.pagos.filter(p =>
+      (this.cursoSeleccionado === '' || p.curso === this.obtenerNombreCursoPorId(+this.cursoSeleccionado)) &&
+      (this.usuarioFiltro === '' || p.usuario.toLowerCase().includes(this.usuarioFiltro.toLowerCase()))
+    );
+    this.actualizarGraficos();
+  }
+
+  obtenerNombreCursoPorId(id: number): string {
+    const curso = this.cursos.find(c => c.id === id);
+    return curso ? curso.nombre : '';
+  }
+
+  actualizarGraficos() {
+    this.totalRecaudado = this.pagosFiltrados.reduce((total, pago) => total + pago.monto, 0);
+
+    // Gráfico por curso
+    const recaudacionPorCurso = this.pagosFiltrados.reduce((acc, pago) => {
+      acc[pago.curso] = (acc[pago.curso] || 0) + pago.monto;
+      return acc;
+    }, {} as { [curso: string]: number });
+
+    this.chartData = {
+      labels: Object.keys(recaudacionPorCurso),
+      datasets: [
+        {
+          data: Object.values(recaudacionPorCurso),
+          label: 'Recaudación por curso ($)',
+          backgroundColor: '#4CAF50'
+        }
+      ]
+    };
+
+    // Gráfico por mes
+    const recaudacionPorMes = this.pagosFiltrados.reduce((acc, pago) => {
+      const fecha = new Date(pago.fecha);
+      const mes = fecha.toLocaleString('default', { month: 'short' });
+      const clave = `${mes} ${fecha.getFullYear()}`;
+      acc[clave] = (acc[clave] || 0) + pago.monto;
+      return acc;
+    }, {} as { [mes: string]: number });
+
+    const mesesOrdenados = Object.keys(recaudacionPorMes).sort((a, b) => {
+      const [mesA, añoA] = a.split(' ');
+      const [mesB, añoB] = b.split(' ');
+      const fechaA = new Date(`${mesA} 1, ${añoA}`);
+      const fechaB = new Date(`${mesB} 1, ${añoB}`);
+      return fechaA.getTime() - fechaB.getTime();
+    });
+
+    this.chartMensualData = {
+      labels: mesesOrdenados,
+      datasets: [
+        {
+          data: mesesOrdenados.map(mes => recaudacionPorMes[mes]),
+          label: 'Ingresos por mes ($)',
+          backgroundColor: '#2196F3'
+        }
+      ]
+    };
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();       
+    this.router.navigate(['/acceso']);
+  }
+}

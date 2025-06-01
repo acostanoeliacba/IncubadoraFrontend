@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
@@ -32,6 +33,7 @@ export class FormularioInscripcionComponent implements OnInit {
               private http: HttpClient,
               private router: Router,
               private authService: AuthService,
+              private route: ActivatedRoute,
               @Inject(PLATFORM_ID) private platformId: Object
               ) {
 
@@ -50,6 +52,20 @@ export class FormularioInscripcionComponent implements OnInit {
     this.cargarCursos();
     const usuarioLogueado = this.authService.getUsuario();
     console.log("usuario-formulario-inscripcion",usuarioLogueado);
+
+      this.route.queryParams.subscribe(params => {
+  const idCursoParam = params['id_curso'];
+  if (idCursoParam) {
+    // 👇 Cuando ya estén cargados los cursos, lo seleccionamos
+    const interval = setInterval(() => {
+      if (this.cursos.length > 0) {
+        this.inscripcionForm.patchValue({ id_curso: idCursoParam });
+        this.actualizarCostoYFecha(); // Para actualizar costo y fechas
+        clearInterval(interval);
+      }
+    }, 100);
+  }
+});
 
     if (!usuarioLogueado && isPlatformBrowser(this.platformId)) {
     alert('Sesión no válida');

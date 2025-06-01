@@ -1,0 +1,68 @@
+
+<div class="container p-4">
+
+  <h2 class="text-2xl font-bold mb-4">Gestión de Pagos</h2>
+
+  <div *ngIf="loading" class="text-center text-gray-500 mb-4">Cargando datos...</div>
+
+  <div *ngIf="!loading && pagosFiltrados.length > 0" class="mb-4 text-xl font-semibold text-green-700">
+    Total recaudado: ${{ totalRecaudado }}
+  </div>
+
+  <div *ngIf="!loading && pagosFiltrados.length === 0" class="mb-4 text-lg text-red-600">
+    No se encontraron pagos registrados con los filtros aplicados.
+  </div>
+
+  <!-- Filtros -->
+  <div class="mb-6 flex flex-wrap gap-4 items-center">
+    <select [(ngModel)]="cursoSeleccionado" (change)="filtrarPagos()" class="border p-2 rounded">
+      <option value="">Todos los cursos</option>
+      <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
+    </select>
+
+    <input [(ngModel)]="usuarioFiltro" placeholder="Buscar por usuario" (input)="filtrarPagos()" class="border p-2 rounded" />
+  </div>
+
+  <!-- Gráfico general -->
+  <div class="mb-8">
+    <ng-container *ngIf="isBrowser && pagosFiltrados.length > 0">
+      <canvas baseChart
+        [data]="chartData"
+        [type]="chartType">
+      </canvas>
+    </ng-container>
+  </div>
+
+  <h3 class="text-lg font-bold mb-2">Ingresos por mes</h3>
+  <div class="mb-8">
+    <ng-container *ngIf="isBrowser && pagosFiltrados.length > 0">
+      <canvas baseChart
+        [data]="chartMensualData"
+        [type]="'bar'">
+      </canvas>
+    </ng-container>
+  </div>
+
+  <!-- Tabla de pagos -->
+  <div *ngIf="!loading && pagosFiltrados.length > 0" class="overflow-x-auto">
+    <table class="table-auto w-full border">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border p-2">Usuario</th>
+          <th class="border p-2">Curso</th>
+          <th class="border p-2">Monto</th>
+          <th class="border p-2">Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pago of pagosFiltrados">
+          <td class="border p-2">{{ pago.usuario }}</td>
+          <td class="border p-2">{{ pago.curso }}</td>
+          <td class="border p-2">${{ pago.monto }}</td>
+          <td class="border p-2">{{ pago.fecha | date:'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
