@@ -253,9 +253,14 @@
           <td>{{ user.especialidad || '-' }}</td>
           <td>{{ user.tipo_usuario }}</td>
           <td>
-            <img *ngIf="user.foto" [src]="user.foto" alt="foto" width="50" />
+            <img
+              *ngIf="user.foto"
+              [src]="'http://localhost:3000' + user.foto"
+              alt="foto de usuario"
+              width="50"
+            />
             <span *ngIf="!user.foto">-</span>
-          </td>
+          </td>  
         </tr>
       </tbody>
     </table>

@@ -1,7 +1,4 @@
-
-
-
-  .logo {
+ .logo {
     background-image: url('/assets/img/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -27,7 +24,7 @@
   .nav-links {
   display: flex;
   gap: 15px;
-}
+  }
     
   .navbar nav a {
     color: #020166;

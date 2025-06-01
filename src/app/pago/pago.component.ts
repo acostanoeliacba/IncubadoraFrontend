@@ -143,7 +143,7 @@ async pagar() {
               //this.router.navigate(['/gracias', idInscripcion]); 
               this.router.navigate(['/gracias', inscripcionPayload.id_curso]); 
               //this.router.navigate(['/gracias']);
-            }, 4000);
+            }, 3000);
           },
           error => {
             console.error(' Error en /inscripciones:', error);

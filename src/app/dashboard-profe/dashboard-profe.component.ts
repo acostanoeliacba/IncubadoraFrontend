@@ -41,9 +41,6 @@ interface User {
   styleUrl: './dashboard-profe.component.css'
 })
 
-
-
-
 export class DashboardProfeComponent implements OnInit {
   curso: any;
   idCurso: string | null = null;
@@ -399,7 +396,6 @@ onFileChange(event: any) {
 
 //**********************Fin Seccion Crear Curso***********
 
-
 //**********************Inicio Seccion Listar Usuarios***********
   filtros = {
     nombre: '',
@@ -422,6 +418,7 @@ onFileChange(event: any) {
 
     this.http.get<User[]>('http://localhost:3000/user/find', { params }).subscribe({
       next: (usuarios) => {
+        console.log('Usuarios recibidos:', usuarios); 
         this.usuarios = usuarios;
       },
       error: (err) => {
@@ -432,6 +429,7 @@ onFileChange(event: any) {
   }
 
 //**********************Fin Seccion Listar Usuarios***********
+
 //**********************Inicio Seccion Listar Pagos***********
 
 filtrosPago = {

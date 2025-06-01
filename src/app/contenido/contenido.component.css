@@ -2,8 +2,8 @@
 /*   desde cambio en navbar */
 .navbar {
   display: flex;
-  align-items: center;      /* Alinea verticalmente al centro */
-  justify-content: space-between; /* Espacio entre logo y nav */
+  align-items: center;      
+  justify-content: space-between;
   padding: 0 20px;          
   height: 80px;            
   background-color: white;  
@@ -15,7 +15,7 @@
   background-position: center;
   width: 150px;
   height: 80px;
-  flex-shrink: 0; /* Evita que se reduzca */
+  flex-shrink: 0;
 }
 
 .navbar nav {
@@ -121,6 +121,18 @@ h3 {
   justify-content: center;
   margin-top: 20px;
 }
+/************************************************/
+.revisar-contenido {
+  background-color: #e9f5e9; /* verde claro */
+  padding: 20px;
+  border-radius: 12px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/*************************************************/
 
 @media (max-width: 768px) {
   .secciones-grid {
