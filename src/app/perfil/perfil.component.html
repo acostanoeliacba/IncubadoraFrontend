@@ -66,6 +66,10 @@
     <div *ngIf="!modoEdicion">
       <button type="button" (click)="activarEdicion()">Editar Perfil</button>
     </div>
+
+     <div *ngIf=" tipoUsuario === 'docente'" class="bloque-curso">
+        <a [routerLink]="['/dashboard-profe']" >Panel del Profesor </a>
+    </div>
        
      <label *ngIf="cursosInscriptos && cursosInscriptos.length > 0 && tipoUsuario === 'alumno'  "> Cursos a los que estas Inscripto</label>
     <div *ngFor="let inscripcion of cursosInscriptos" class="bloque-curso">
@@ -76,9 +80,7 @@
     <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'alumno'" class="bloque-curso">
            No estás inscrito en ningún curso.
     </div>
-    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'docente'" class="bloque-curso">
-        <a [routerLink]="['/dashboard-profe']" >Panel del Profesor </a>
-    </div>
+
           
   </form>
 </div>
