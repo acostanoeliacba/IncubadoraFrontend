@@ -68,12 +68,14 @@
     </div>
   
     <div *ngFor="let inscripcion of cursosInscriptos" class="cursoAlumno">
+      <h4>Cursos a los que estas inscripto:</h4>
       <a [routerLink]="['/curso/contenido', inscripcion.id_curso]">
         Curso: {{ inscripcion.curso?.nombre_curso }}
       </a>
     </div>  
-    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'alumno'" class="aula0">
-           No estás inscrito en ningún curso.
+    <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'alumno'">
+    <p class="nocurso">No estás inscrito en ningún curso.</p>
+    <button class="aula0" [routerLink]="['/cursoDinamico']">Elegir Curso</button>
     </div>
     <div *ngIf="!cargandoCursos && (!cursosInscriptos || cursosInscriptos.length === 0) && tipoUsuario === 'docente'" class="aula0">
         <a [routerLink]="['/dashboard-profe']">Panel del Profesor </a>

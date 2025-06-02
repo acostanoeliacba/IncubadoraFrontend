@@ -87,6 +87,10 @@ main {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+.nocurso
+{
+  color: #002147;
+}
 
 .aula0 a {
   color: white;
