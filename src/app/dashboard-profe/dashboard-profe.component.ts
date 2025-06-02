@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ChatComponent } from '../chat/chat.component';
 
 interface User {
   id_usuario: number;
@@ -36,7 +37,7 @@ interface User {
 @Component({
   selector: 'app-dashboard-profe',
   standalone: true,
-  imports: [CommonModule, HttpClientModule,ReactiveFormsModule,FormsModule, RouterModule],
+  imports: [CommonModule, HttpClientModule,ReactiveFormsModule,FormsModule, RouterModule,ChatComponent],
   templateUrl: './dashboard-profe.component.html',
   styleUrl: './dashboard-profe.component.css'
 })

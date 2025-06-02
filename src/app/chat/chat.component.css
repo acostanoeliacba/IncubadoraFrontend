@@ -1,0 +1,63 @@
+#chat {
+  bottom: 1rem;
+  right: 1rem;
+  width: 400px;
+  height: 200px;
+  background-color: #ffffff;
+  border:1px solid #acacac;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  box-shadow: 0 0 8px rgba(8, 8, 8, 0.1);
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* Lista de mensajes */
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#messages li {
+  padding: 6px 8px;
+  word-wrap: break-word;
+}
+
+/* Formulario de entrada */
+#form {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 6px;
+  background-color: #d4d0d0;
+}
+
+#input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 18px;
+  outline: none;
+}
+
+#form button {
+  margin-left: 4px;
+  padding: 2px 6px;
+  border: none;
+  background-color: #002147;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#form button:hover {
+  background-color: #001022;
+}
+
+#messages > li:nth-child(odd) { background: #efefef; }

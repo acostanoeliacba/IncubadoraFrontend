@@ -1,0 +1,15 @@
+<div id="chat">
+  <ul id="messages">
+    <li *ngFor="let msg of messages">{{ msg }}</li>
+  </ul>
+  <form (submit)="sendMessage(); $event.preventDefault();" id="form">
+    <input
+      id="input"
+      autocomplete="off"
+      [(ngModel)]="inputMessage"
+      name="message"
+      required
+    />
+    <button type="submit">Send</button>
+  </form>
+</div>

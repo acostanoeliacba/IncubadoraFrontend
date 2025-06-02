@@ -6,11 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-contenido',
   standalone: true,
-  imports: [CommonModule, HttpClientModule,ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, HttpClientModule,ReactiveFormsModule, RouterModule, ChatComponent],
   templateUrl: './contenido.component.html',
   styleUrl: './contenido.component.css'
 })

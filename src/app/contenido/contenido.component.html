@@ -55,12 +55,14 @@
     <!-- Mensajes -->
     <section class="mensajes">
       <h3>💬 Mensajes recientes</h3>
-      <ul *ngIf="curso?.mensajes?.length > 0; else sinMensajes">
-        <li *ngFor="let mensaje of curso.mensajes">{{ mensaje }}</li>
-      </ul>
-      <ng-template #sinMensajes>
-        <p>No hay mensajes recientes.</p>
-      </ng-template>
+      <!-- <ul *ngIf="curso?.mensajes?.length > 0; else sinMensajes"> -->
+        <!-- <li *ngFor="let mensaje of curso.mensajes">{{ mensaje }}</li> -->
+      <!-- </ul> -->
+      <!-- <ng-template #sinMensajes> -->
+        <!-- <p>No hay mensajes recientes.</p> -->
+      <!-- </ng-template> -->
+       <app-chat></app-chat>
+      
     </section>
   </div>
 </div>
