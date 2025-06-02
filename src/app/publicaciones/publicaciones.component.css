@@ -1,171 +1,309 @@
-body {
-    font-family: 'Poppins', sans-serif; 
-    background-color: #f4f7fa; 
-    color: #333;
-
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1; 
-  }
-
-  .descripcion {
-    color: rgb(206, 134, 0);
-  }
-
-
-  .logo {
-    background-image: url('/assets/img/logo.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    width: 150px;
-    height: 80px;
-  }
-
-
-  .navbar {
-    background-repeat: no-repeat;
-    background-size: cover; 
-    background-position: center center;  
-    height: 100px;  
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0; 
-    transition: all 0.3s ease;
-    overflow: hidden; 
-  }
-
-  .nav-links {
-  display: flex;
-  gap: 15px;
+html {
+  scroll-behavior: smooth;
 }
-    
-  .navbar nav a {
-    color: #020166;
-    margin: 0 10px;
-    text-decoration: none;
-    position: relative;
-    margin: 0 10px;
-    text-decoration: none;
-    padding: 5px 0;
-  }
 
-  .navbar nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 3px;
-    background-color: orange;
-    transition: width 0.3s ease;
-  }
-  
-  .navbar nav a:hover::after {
-    width: 100%;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  .menu-icon {
-  display: none;
-  font-size: 28px;
-  color: white;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  color: #020166;
+}
+
+/* Navbar */
+.navbar {
+  height: 100px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  width: 150px;
+  height: 80px;
+  background-image: url('/assets/img/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   cursor: pointer;
 }
 
-  #menu-toggle {
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #020166;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: #f5680e;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 3px;
+  background-color: #f5680e;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Menu toggle (mobile) */
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  color: #f5680e;
+  cursor: pointer;
+}
+
+#menu-toggle {
   display: none;
 }
 
-
-.perfil-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-  }
-  
-  .perfil-container h2 {
-    font-size: 2em;
-    color: #002147;
-    margin-bottom: 20px;
-  }
-  
-  .perfil-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .perfil-form label {
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .perfil-form input[type="text"],
-  .perfil-form input[type="email"],
-  .perfil-form input[type="password"],
-  .perfil-form input[type="file"],
-  .perfil-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-  }
-  
-  .perfil-form textarea {
-    resize: vertical;
-  }
-  
-  .perfil-form button {
-    align-self: center;
-    background-color: #002147;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .perfil-form button:hover {
-    background-color: #f5680e;
-  }
-
-  .footer {
-  width: 100%;
-  background-color: #002147; 
-  color: rgb(255, 255, 255);
-  text-align: center;
-  padding: 20px 0; 
-  margin-top: 40px; 
-  position: relative; 
+/* Contenedor principal */
+.contenedor {
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
+/* Título */
+.contenedor h2 {
+  margin-bottom: 25px;
+  color: #020166;
+  text-align: center;
+  font-size: 2em;
+}
+
+/* Formulario */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.formulario label {
+  font-weight: 600;
+  color: #020166;
+}
+
+.formulario input[type="text"],
+.formulario textarea,
+.formulario select {
+  padding: 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.formulario input[type="text"]:focus,
+.formulario textarea:focus,
+.formulario select:focus {
+  border-color: #f5680e;
+  outline: none;
+}
+
+.formulario textarea {
+  min-height: 80px;
+}
+
+.formulario button {
+  width: 180px;
+  align-self: flex-start;
+  padding: 10px 15px;
+  background-color: #f5680e;
+  border: none;
+  border-radius: 30px;
+  color: black;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.formulario button:not(:disabled):hover {
+  background-color: #d75400;
+  color: white;
+}
+
+/* Carousel */
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
+
+.carousel-item {
+  min-width: 100%;
+  background: #020166;
+  color: white;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  position: relative;
+}
+
+.carousel-item h3 {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+.carousel-item p {
+  font-size: 1.1em;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.carousel-item .info {
+  font-size: 0.9em;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Botón Ver */
+.carousel-item button {
+  padding: 8px 16px;
+  background-color: #f5680e;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.carousel-item button:hover {
+  background-color: #d75400;
+  color: white;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  position: relative;
+  color: #020166;
+  font-family: 'Poppins', sans-serif;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.8em;
+  color: #020166;
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #f5680e;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-content .close:hover {
+  color: #d75400;
+}
+
+/* Footer */
+.footer {
+  background-color: #002147;
+  color: white;
+  text-align: center;
+  padding: 20px 15px;
+  margin-top: 60px;
+  font-size: 0.9em;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-   .nav-links {
+
+  .nav-links {
     display: none;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: white;
     position: absolute;
     top: 100px;
     right: 0;
-    width: 200px;
+    width: 220px;
     padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 0 0 0 10px;
   }
 
   #menu-toggle:checked + .menu-icon + .nav-links {
@@ -174,15 +312,14 @@ body {
 
   .menu-icon {
     display: block;
-    margin-right: 20px;
-    color: #f5680e;
+  }
+
+  .contenedor {
+    margin: 20px 15px;
+    padding: 20px;
+  }
+
+  .formulario button {
+    width: 100%;
   }
 }
-    
-  /* CPor las dudas de una imagen */
-  /*
-  .perfil-form input[type="file"] {
-    display: block;
-  }
-  */
-  
