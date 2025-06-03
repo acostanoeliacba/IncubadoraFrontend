@@ -164,6 +164,10 @@ main {
   text-align: center;
   font-size: 16px;
 }
+.nocurso
+{
+  color: #002147;
+}
 
 .bloque-curso a {
   color: white;

@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ChatComponent } from '../chat/chat.component';
 
 import { PagosAdminComponent } from '../pagos-admin/pagos-admin.component';
 
@@ -38,12 +39,16 @@ interface User {
 @Component({
   selector: 'app-dashboard-profe',
   standalone: true,
+
   imports: [CommonModule,
             HttpClientModule,
             ReactiveFormsModule,
             FormsModule, 
             RouterModule,
-            PagosAdminComponent],
+            PagosAdminComponent,
+            ChatComponent
+          ],
+
   templateUrl: './dashboard-profe.component.html',
   styleUrl: './dashboard-profe.component.css'
 })
