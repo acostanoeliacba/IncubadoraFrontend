@@ -8,6 +8,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service'; 
 import { ChatComponent } from '../chat/chat.component';
 
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-contenido',
   standalone: true,
@@ -27,6 +34,8 @@ export class ContenidoComponent implements OnInit {
               private authService: AuthService,
               private router: Router,
               private http: HttpClient,
+              private dialogService: DialogService,
+              @Inject(PLATFORM_ID) private platformId: Object 
               ) {}
 
 ngOnInit(): void {
@@ -106,19 +115,19 @@ ngOnInit(): void {
 
 
   editarCurso() {
-    alert('Funcionalidad para editar curso');
+    this.dialogService.showError('Funcionalidad para editar curso').subscribe(() => {});
   }
 
   subirMaterial() {
-    alert('Funcionalidad para subir material');
+    this.dialogService.showError('Funcionalidad para subir material').subscribe(() => {});
   }
 
   verAlumnos() {
-    alert('Funcionalidad para ver alumnos');
+    this.dialogService.showError('Funcionalidad para ver alumnos').subscribe(() => {});
   }
 
   enviarMensaje() {
-    alert('Funcionalidad para enviar mensaje grupal');
+    this.dialogService.showError('Funcionalidad para enviar mensaje grupal').subscribe(() => {});
   }
 
   cerrarSesion(): void {

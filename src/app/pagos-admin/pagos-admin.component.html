@@ -54,9 +54,17 @@
   </div>
 
   <div class="grafico-item">
-    <canvas baseChart
+<!--     <canvas baseChart
       [data]="chartMensualData"
       [type]="'bar'"
+      width="400"
+      height="300">
+    </canvas>
+ -->
+    <canvas baseChart
+      [data]="chartMensualData"
+      [type]="'line'"
+      [options]="chartOptions"
       width="400"
       height="300">
     </canvas>

@@ -8,6 +8,8 @@ import { ChartData, ChartType, ChartOptions } from 'chart.js';
 import { AuthService } from '../services/auth.service'; 
 import { Router, RouterModule } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-pagos-admin',
   standalone: true,
@@ -46,13 +48,26 @@ export class PagosAdminComponent implements OnInit {
     ]
   };
 
-  chartMensualData: ChartData<'bar'> = {
+  // chartMensualData: ChartData<'bar'> = {
+  //   labels: [],
+  //   datasets: [
+  //     {
+  //       data: [],
+  //       label: 'Ingresos por mes ($)',
+  //       backgroundColor: '#2196F3'
+  //     }
+  //   ]
+  // };
+
+  chartMensualData: ChartData<'line'> = {
     labels: [],
     datasets: [
       {
-        data: [],
+        data: [], 
         label: 'Ingresos por mes ($)',
-        backgroundColor: '#2196F3'
+        borderColor: '#2196F3',  
+        fill: false,               
+        tension: 0.3            
       }
     ]
   };

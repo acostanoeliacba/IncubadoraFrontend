@@ -147,11 +147,9 @@ export class PerfilComponent implements OnInit {
       next: (res) => {
         this.usuario = res;
         this.modoEdicion = false;
-        //alert('Perfil actualizado correctamente');
         this.dialogService.showError('Perfil Actualizado Correctamente').subscribe(() => {});
       },
       error: () => {
-        //alert('Error al actualizar perfil');
         this.dialogService.showError('Error Al Actualizar Perfil').subscribe(() => {});
       }
     });

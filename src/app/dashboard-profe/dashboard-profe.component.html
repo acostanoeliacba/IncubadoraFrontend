@@ -16,7 +16,7 @@
       <button type="button" class="boton" (click)="mostrarFormulario('modificarCurso')">Modificar Curso</button> 
       <button type="button" class="boton" (click)="mostrarFormulario('listarUsuarios')">Listar Usuarios</button> 
       <button type="button" class="boton" (click)="mostrarFormulario('listarPagos')">Listar Pagos</button> 
-      <button type="button" class="boton" (click)="graficoPagos()">Grafico Pagos</button> 
+      <!-- <button type="button" class="boton" (click)="graficoPagos()">Grafico Pagos</button>  -->
     </div>
   </div>
 
@@ -38,7 +38,7 @@
         <h4 class="curso-titulo">Curso: {{ curso.nombre_curso }}</h4>
         <p>Modalidad: {{ curso.tipo }}</p>
         <p>Alumnos: {{ curso.alumnos || 0 }}</p>
-        <button (click)="verCurso(curso.id_curso)" class="boton">Ver detalles</button>
+        <!-- <button (click)="verCurso(curso.id_curso)" class="boton">Ver detalles</button> -->
       </div>
     </div>
   </div>

@@ -5,6 +5,13 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service'; 
 import { CommonModule, ViewportScroller } from '@angular/common'; 
 
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-cursos-dinamicos',
   standalone: true,
@@ -19,8 +26,10 @@ export class CursosDinamicosComponent implements OnInit {
   constructor(private http: HttpClient,
               private router: Router,
               private authService: AuthService,
+              private dialogService: DialogService,
               private route: ActivatedRoute,             
-              private viewportScroller: ViewportScroller 
+              private viewportScroller: ViewportScroller,
+              @Inject(PLATFORM_ID) private platformId: Object 
               ) {}
 
   ngOnInit(): void {
@@ -61,10 +70,9 @@ export class CursosDinamicosComponent implements OnInit {
     console.log("usuario almacenado inscripcion cursos",usuario);
 
     if (!usuario) {
-        alert("Sesión no válida");
-        setTimeout(() => {
-          this.router.navigate(['/acceso']);
-          }, 500);
+           this.dialogService.showError('Iniciar Sesion para Inscribirse').subscribe(() => {
+           this.router.navigate(['/acceso']);
+          });
         return
     }
   
