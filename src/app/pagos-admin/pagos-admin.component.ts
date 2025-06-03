@@ -70,82 +70,157 @@ export class PagosAdminComponent implements OnInit {
     if (this.isBrowser) {
       this.pagosService.obtenerPagos().subscribe((data) => {
         this.pagos = data;
+        console.log('Pagos:', this.pagos)
         this.pagosFiltrados = data;
+        console.log('Pagos:', this.pagosFiltrados)
         this.extraerCursos();
         this.actualizarGraficos();
       });
     }
   }
 
-  extraerCursos() {
-    const cursosUnicos = Array.from(new Set(this.pagos.map(p => p.curso)));
-    this.cursos = cursosUnicos.map((nombre, index) => ({
-      id: index,
-      nombre
-    }));
-  }
+  // extraerCursos() {
+    // const cursosUnicos = Array.from(new Set(this.pagos.map(p => p.curso)));
+    // this.cursos = cursosUnicos.map((nombre, index) => ({
+    //   id: index,
+    //   nombre
+    // }));
+   //}
+extraerCursos() {
+  const idsUnicos = Array.from(new Set(this.pagos.map(p => p.id_curso)));
 
-  filtrarPagos() {
-    this.pagosFiltrados = this.pagos.filter(p =>
-      (this.cursoSeleccionado === '' || p.curso === this.obtenerNombreCursoPorId(+this.cursoSeleccionado)) &&
-      (this.usuarioFiltro === '' || p.usuario.toLowerCase().includes(this.usuarioFiltro.toLowerCase()))
-    );
-    this.actualizarGraficos();
-  }
+  this.cursos = idsUnicos.map(id => ({
+    id,
+    nombre: `Curso ${id}` // O nombre real 
+  }));
+
+  console.log('Cursos únicos extraídos:', this.cursos);
+}
+
+
+  // filtrarPagos() {
+  //   this.pagosFiltrados = this.pagos.filter(p =>
+  //     (this.cursoSeleccionado === '' || p.curso === this.obtenerNombreCursoPorId(+this.cursoSeleccionado)) &&
+  //     (this.usuarioFiltro === '' || p.usuario.toLowerCase().includes(this.usuarioFiltro.toLowerCase()))
+  //   );
+  //   // this.actualizarGraficos();
+  // }
+
+filtrarPagos() {
+  this.pagosFiltrados = this.pagos.filter(p =>
+    (this.cursoSeleccionado === '' || p.id_curso === +this.cursoSeleccionado) &&
+    (this.usuarioFiltro === '' || String(p.id_usuario).includes(this.usuarioFiltro))
+  );
+
+  this.actualizarGraficos();
+}
+
 
   obtenerNombreCursoPorId(id: number): string {
     const curso = this.cursos.find(c => c.id === id);
     return curso ? curso.nombre : '';
   }
 
-  actualizarGraficos() {
-    this.totalRecaudado = this.pagosFiltrados.reduce((total, pago) => total + pago.monto, 0);
+actualizarGraficos() {
+  // Total recaudado
+  this.totalRecaudado = this.pagosFiltrados.reduce((total, pago) => total + +pago.monto, 0);
 
-    // Gráfico por curso
-    const recaudacionPorCurso = this.pagosFiltrados.reduce((acc, pago) => {
-      acc[pago.curso] = (acc[pago.curso] || 0) + pago.monto;
-      return acc;
-    }, {} as { [curso: string]: number });
+  // Gráfico por curso (usando id_curso como "nombre temporal")
+  const recaudacionPorCurso = this.pagosFiltrados.reduce((acc, pago) => {
+    const nombreCurso = `Curso ${pago.id_curso}`; // temporal
+    acc[nombreCurso] = (acc[nombreCurso] || 0) + +pago.monto;
+    return acc;
+  }, {} as { [curso: string]: number });
 
-    this.chartData = {
-      labels: Object.keys(recaudacionPorCurso),
-      datasets: [
-        {
-          data: Object.values(recaudacionPorCurso),
-          label: 'Recaudación por curso ($)',
-          backgroundColor: '#4CAF50'
-        }
-      ]
-    };
+  this.chartData = {
+    labels: Object.keys(recaudacionPorCurso),
+    datasets: [
+      {
+        data: Object.values(recaudacionPorCurso),
+        label: 'Recaudación por curso ($)',
+        backgroundColor: '#4CAF50'
+      }
+    ]
+  };
+
+  // Gráfico por mes
+  const recaudacionPorMes = this.pagosFiltrados.reduce((acc, pago) => {
+    const fecha = new Date(pago.fecha_pago); // usar fecha_pago porque es tu campo real
+    const mes = fecha.toLocaleString('default', { month: 'short' });
+    const clave = `${mes} ${fecha.getFullYear()}`;
+    acc[clave] = (acc[clave] || 0) + +pago.monto;
+    return acc;
+  }, {} as { [mes: string]: number });
+
+  const mesesOrdenados = Object.keys(recaudacionPorMes).sort((a, b) => {
+    const [mesA, añoA] = a.split(' ');
+    const [mesB, añoB] = b.split(' ');
+    const fechaA = new Date(`${mesA} 1, ${añoA}`);
+    const fechaB = new Date(`${mesB} 1, ${añoB}`);
+    return fechaA.getTime() - fechaB.getTime();
+  });
+
+  this.chartMensualData = {
+    labels: mesesOrdenados,
+    datasets: [
+      {
+        data: mesesOrdenados.map(mes => recaudacionPorMes[mes]),
+        label: 'Ingresos por mes ($)',
+        backgroundColor: '#2196F3'
+      }
+    ]
+  };
+}
+
+
+  // actualizarGraficos() {
+  //   this.totalRecaudado = this.pagosFiltrados.reduce((total, pago) => total + pago.monto, 0);
+
+  //   // Gráfico por curso
+  //   const recaudacionPorCurso = this.pagosFiltrados.reduce((acc, pago) => {
+  //     acc[pago.curso] = (acc[pago.curso] || 0) + pago.monto;
+  //     return acc;
+  //   }, {} as { [curso: string]: number });
+
+  //   this.chartData = {
+  //     labels: Object.keys(recaudacionPorCurso),
+  //     datasets: [
+  //       {
+  //         data: Object.values(recaudacionPorCurso),
+  //         label: 'Recaudación por curso ($)',
+  //         backgroundColor: '#4CAF50'
+  //       }
+  //     ]
+  //   };
 
     // Gráfico por mes
-    const recaudacionPorMes = this.pagosFiltrados.reduce((acc, pago) => {
-      const fecha = new Date(pago.fecha);
-      const mes = fecha.toLocaleString('default', { month: 'short' });
-      const clave = `${mes} ${fecha.getFullYear()}`;
-      acc[clave] = (acc[clave] || 0) + pago.monto;
-      return acc;
-    }, {} as { [mes: string]: number });
+    // const recaudacionPorMes = this.pagosFiltrados.reduce((acc, pago) => {
+    //   const fecha = new Date(pago.fecha);
+    //   const mes = fecha.toLocaleString('default', { month: 'short' });
+    //   const clave = `${mes} ${fecha.getFullYear()}`;
+    //   acc[clave] = (acc[clave] || 0) + pago.monto;
+    //   return acc;
+    // }, {} as { [mes: string]: number });
 
-    const mesesOrdenados = Object.keys(recaudacionPorMes).sort((a, b) => {
-      const [mesA, añoA] = a.split(' ');
-      const [mesB, añoB] = b.split(' ');
-      const fechaA = new Date(`${mesA} 1, ${añoA}`);
-      const fechaB = new Date(`${mesB} 1, ${añoB}`);
-      return fechaA.getTime() - fechaB.getTime();
-    });
+    // const mesesOrdenados = Object.keys(recaudacionPorMes).sort((a, b) => {
+    //   const [mesA, añoA] = a.split(' ');
+    //   const [mesB, añoB] = b.split(' ');
+    //   const fechaA = new Date(`${mesA} 1, ${añoA}`);
+    //   const fechaB = new Date(`${mesB} 1, ${añoB}`);
+    //   return fechaA.getTime() - fechaB.getTime();
+    // });
 
-    this.chartMensualData = {
-      labels: mesesOrdenados,
-      datasets: [
-        {
-          data: mesesOrdenados.map(mes => recaudacionPorMes[mes]),
-          label: 'Ingresos por mes ($)',
-          backgroundColor: '#2196F3'
-        }
-      ]
-    };
-  }
+    // this.chartMensualData = {
+    //   labels: mesesOrdenados,
+    //   datasets: [
+    //     {
+    //       data: mesesOrdenados.map(mes => recaudacionPorMes[mes]),
+    //       label: 'Ingresos por mes ($)',
+    //       backgroundColor: '#2196F3'
+    //     }
+    //   ]
+    // };
+  // }
 
   cerrarSesion(): void {
     this.authService.logout();       

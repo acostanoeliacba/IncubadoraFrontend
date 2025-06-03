@@ -1,7 +1,7 @@
 
 <div class="container p-4">
-
-  <h2 class="text-2xl font-bold mb-4">Gestión de Pagos</h2>
+    <br>
+  <h2 class="text-2xl font-bold mb-4">Graficos de Pagos Recibidos</h2>
 
   <div *ngIf="loading" class="text-center text-gray-500 mb-4">Cargando datos...</div>
 
@@ -24,7 +24,7 @@
   </div>
 
   <!-- Gráfico general -->
-  <div class="mb-8">
+<!--   <div class="mb-8">
     <ng-container *ngIf="isBrowser && pagosFiltrados.length > 0">
       <canvas baseChart
         [data]="chartData"
@@ -41,28 +41,71 @@
         [type]="'bar'">
       </canvas>
     </ng-container>
+  </div> -->
+
+<div class="graficos-flex-container mb-8">
+  <div class="grafico-item">
+    <canvas baseChart
+      [data]="chartData"
+      [type]="chartType"
+      width="400"
+      height="300">
+    </canvas>
   </div>
+
+  <div class="grafico-item">
+    <canvas baseChart
+      [data]="chartMensualData"
+      [type]="'bar'"
+      width="400"
+      height="300">
+    </canvas>
+  </div>
+</div>
+
+
 
   <!-- Tabla de pagos -->
   <div *ngIf="!loading && pagosFiltrados.length > 0" class="overflow-x-auto">
-    <table class="table-auto w-full border">
+<!--   <table class="table-auto w-full border-collapse border border-gray-400 mt-4">
+      <thead class="bg-gray-100">
+       <tr>
+        <th class="border p-2">Usuario</th>
+          <th class="border p-2">Curso</th>
+          <th class="border p-2">Monto</th>
+          <th class="border p-2">Fecha</th> 
+        </tr> 
+      </thead>
+      <tbody>
+        <tr *ngFor="let pago of pagosFiltrados">          
+          <td class="border p-2">{{ pago.usuario }}</td>
+          <td class="border p-2">{{ pago.curso }}</td>
+          <td class="border p-2">${{ pago.monto }}</td>
+          <td class="border p-2">{{ pago.fecha | date:'dd/MM/yyyy' }}</td> 
+        </tr>
+      </tbody>
+    </table> -->
+
+    <table class="table-auto w-full border-collapse border border-gray-400 mt-4">
       <thead class="bg-gray-100">
         <tr>
-          <th class="border p-2">Usuario</th>
-          <th class="border p-2">Curso</th>
+          <th class="border p-2">ID Usuario</th>
+          <th class="border p-2">ID Curso</th>
           <th class="border p-2">Monto</th>
           <th class="border p-2">Fecha</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let pago of pagosFiltrados">
-          <td class="border p-2">{{ pago.usuario }}</td>
-          <td class="border p-2">{{ pago.curso }}</td>
-          <td class="border p-2">${{ pago.monto }}</td>
-          <td class="border p-2">{{ pago.fecha | date:'dd/MM/yyyy' }}</td>
+          <td class="border p-2">{{ pago.id_usuario }}</td>
+          <td class="border p-2">{{ pago.id_curso }}</td>
+          <td class="border p-2">{{ pago.monto }}</td>
+          <td class="border p-2">{{ pago.fecha_pago | date:'dd/MM/yyyy' }}</td>
         </tr>
       </tbody>
     </table>
+
+
   </div>
 
 </div>

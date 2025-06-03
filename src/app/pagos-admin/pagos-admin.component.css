@@ -84,9 +84,37 @@ tbody tr:hover {
   cursor: default;
 }
 
+.graficos-flex-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
 
-/* Responsive */
+.grafico-item {
+  flex: 1 1 45%;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+canvas {
+  width: 100% !important; 
+  height: 400px !important; 
+
+}
+
 @media (max-width: 768px) {
+
+  .graficos-flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .grafico-item {
+    flex: 1 1 100%;
+    max-width: 90%;
+  }
   .flex {
     flex-direction: column !important;
   }

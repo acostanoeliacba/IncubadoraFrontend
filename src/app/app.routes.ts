@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 
 
+
 export const routes: Routes = [
     { path: '', component: InicioComponent },
     { path: 'acceso', component: AccesoComponent},
