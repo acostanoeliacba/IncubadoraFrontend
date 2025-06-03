@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Publicacion } from './Publicacion.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class PublicacionService {
   private apiUrl = 'http://localhost:3000/publicaciones';
@@ -14,7 +13,13 @@ export class PublicacionService {
     return this.http.get<Publicacion[]>(this.apiUrl);
   }
 
-  crearPublicacion(data: FormData): Observable<Publicacion> {
+  crearPublicacion(data: {
+    titulo: string;
+    contenido: string;
+    tipo: string;
+    estado: string;
+  }): Observable<Publicacion> {
+    
     return this.http.post<Publicacion>(this.apiUrl, data);
   }
 }
