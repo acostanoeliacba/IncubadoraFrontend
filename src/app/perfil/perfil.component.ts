@@ -25,7 +25,7 @@ export class PerfilComponent implements OnInit {
 
   perfilForm!: FormGroup;
   usuario: any;
-  tipoUsuario!: 'alumno' | 'docente';
+  tipoUsuario!: 'alumno' | 'docente' | 'admin';
   cargando: boolean = true;
   modoEdicion: boolean = false;
 
@@ -147,7 +147,7 @@ export class PerfilComponent implements OnInit {
       next: (res) => {
         this.usuario = res;
         this.modoEdicion = false;
-        this.dialogService.showError('Perfil Actualizado Correctamente').subscribe(() => {});
+        this.dialogService.showSuccess('Perfil Actualizado Correctamente').subscribe(() => {});
       },
       error: () => {
         this.dialogService.showError('Error Al Actualizar Perfil').subscribe(() => {});

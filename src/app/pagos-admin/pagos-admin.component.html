@@ -2,98 +2,48 @@
 <div class="container p-4">
     <br>
   <h2 class="text-2xl font-bold mb-4">Graficos de Pagos Recibidos</h2>
-
   <div *ngIf="loading" class="text-center text-gray-500 mb-4">Cargando datos...</div>
-
+  
   <div *ngIf="!loading && pagosFiltrados.length > 0" class="mb-4 text-xl font-semibold text-green-700">
     Total recaudado: ${{ totalRecaudado }}
   </div>
-
   <div *ngIf="!loading && pagosFiltrados.length === 0" class="mb-4 text-lg text-red-600">
     No se encontraron pagos registrados con los filtros aplicados.
   </div>
-
   <!-- Filtros -->
   <div class="mb-6 flex flex-wrap gap-4 items-center">
+     <label>Ingresar id de Curso para Visualizar pagos </label>
     <select [(ngModel)]="cursoSeleccionado" (change)="filtrarPagos()" class="border p-2 rounded">
       <option value="">Todos los cursos</option>
       <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
     </select>
-
-    <input [(ngModel)]="usuarioFiltro" placeholder="Buscar por usuario" (input)="filtrarPagos()" class="border p-2 rounded" />
+    <label>Ingresar id de Usuario para Visualizar pagos </label>
+    <input [(ngModel)]="usuarioFiltro" placeholder="Buscar por id de usuario" (input)="filtrarPagos()" class="border p-2 rounded" />
   </div>
 
-  <!-- Gráfico general -->
-<!--   <div class="mb-8">
-    <ng-container *ngIf="isBrowser && pagosFiltrados.length > 0">
+  <div class="graficos-flex-container mb-8">
+    <div class="grafico-item">
       <canvas baseChart
         [data]="chartData"
-        [type]="chartType">
+        [options]="chartOptions"
+        [type]="'bar'"
+        width="400"
+        height="300">
       </canvas>
-    </ng-container>
-  </div>
+    </div>
 
-  <h3 class="text-lg font-bold mb-2">Ingresos por mes</h3>
-  <div class="mb-8">
-    <ng-container *ngIf="isBrowser && pagosFiltrados.length > 0">
+    <div class="grafico-item">
       <canvas baseChart
         [data]="chartMensualData"
-        [type]="'bar'">
+        [options]="chartMensualOptions"
+        [type]="'line'"
+        width="400"
+        height="300">>
       </canvas>
-    </ng-container>
-  </div> -->
-
-<div class="graficos-flex-container mb-8">
-  <div class="grafico-item">
-    <canvas baseChart
-      [data]="chartData"
-      [type]="chartType"
-      width="400"
-      height="300">
-    </canvas>
+    </div>
   </div>
-
-  <div class="grafico-item">
-<!--     <canvas baseChart
-      [data]="chartMensualData"
-      [type]="'bar'"
-      width="400"
-      height="300">
-    </canvas>
- -->
-    <canvas baseChart
-      [data]="chartMensualData"
-      [type]="'line'"
-      [options]="chartOptions"
-      width="400"
-      height="300">
-    </canvas>
-  </div>
-</div>
-
-
-
   <!-- Tabla de pagos -->
   <div *ngIf="!loading && pagosFiltrados.length > 0" class="overflow-x-auto">
-<!--   <table class="table-auto w-full border-collapse border border-gray-400 mt-4">
-      <thead class="bg-gray-100">
-       <tr>
-        <th class="border p-2">Usuario</th>
-          <th class="border p-2">Curso</th>
-          <th class="border p-2">Monto</th>
-          <th class="border p-2">Fecha</th> 
-        </tr> 
-      </thead>
-      <tbody>
-        <tr *ngFor="let pago of pagosFiltrados">          
-          <td class="border p-2">{{ pago.usuario }}</td>
-          <td class="border p-2">{{ pago.curso }}</td>
-          <td class="border p-2">${{ pago.monto }}</td>
-          <td class="border p-2">{{ pago.fecha | date:'dd/MM/yyyy' }}</td> 
-        </tr>
-      </tbody>
-    </table> -->
-
     <table class="table-auto w-full border-collapse border border-gray-400 mt-4">
       <thead class="bg-gray-100">
         <tr>
@@ -112,8 +62,5 @@
         </tr>
       </tbody>
     </table>
-
-
   </div>
-
 </div>

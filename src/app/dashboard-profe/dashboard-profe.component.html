@@ -280,7 +280,11 @@
       <tr>
         <th>ID Pago</th>
         <th>ID Usuario</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
         <th>ID Curso</th>
+        <th>Nombre Curso</th>
         <th>Monto</th>
         <th>Fecha Pago</th>
       </tr>
@@ -289,7 +293,11 @@
       <tr *ngFor="let pago of pagos">
         <td>{{ pago.id_pago }}</td>
         <td>{{ pago.id_usuario }}</td>
+        <td>{{ pago.nombre }}</td>
+        <td>{{ pago.apellido }}</td>
+        <td>{{ pago.dni }}</td>
         <td>{{ pago.id_curso }}</td>
+        <td>{{ pago.nombre_curso }}</td>
         <td>{{ pago.monto }}</td>
         <td>{{ pago.fecha_pago }}</td>
       </tr>

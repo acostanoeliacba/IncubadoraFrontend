@@ -201,9 +201,11 @@ modificarCurso() {
   this.http.put(`http://localhost:3000/cursos/${id}`, formData).subscribe({
     next: (response) => {
       console.log('Curso actualizado correctamente:', response);
+      this.dialogService.showSuccess('Curso Actualizado.').subscribe(() => {});
     },
     error: (error) => {
       console.error('Error al actualizar curso:', error);
+      this.dialogService.showError('Error al actualizar su curso.').subscribe(() => {});
     }
   });
 }
@@ -452,23 +454,65 @@ filtrosPago = {
 
 pagos: any[] = [];
 
-buscarPagos() {
-  let params = new HttpParams();
-  
-  if (this.filtrosPago.id_usuario) {
-    params = params.set('id_usuario', this.filtrosPago.id_usuario.toString());
-  }
-  if (this.filtrosPago.id_curso) {
-    params = params.set('id_curso', this.filtrosPago.id_curso.toString());
-  }
-  if (this.filtrosPago.fecha_pago) {
-    params = params.set('fecha_pago', this.filtrosPago.fecha_pago);
-  }
+cursos: any[] = [];
 
-  this.http.get<any[]>('http://localhost:3000/pagos/', { params }).subscribe({
-    next: (data) => this.pagos = data,
-    error: (err) => {
-      console.error('Error al buscar pagos:', err);
+buscarPagos() {
+  let userParams = new HttpParams();
+
+  if (this.filtros.nombre) userParams = userParams.set('nombre', this.filtros.nombre);
+  if (this.filtros.dni) userParams = userParams.set('dni', this.filtros.dni.toString());
+  if (this.filtros.apellido) userParams = userParams.set('apellido', this.filtros.apellido);
+
+  this.http.get<User[]>('http://localhost:3000/user/find', { params: userParams }).subscribe({
+    next: (usuarios) => {
+      this.usuarios = usuarios;
+
+      this.http.get<any[]>('http://localhost:3000/cursos').subscribe({
+        next: (cursos) => {
+          this.cursos = cursos;
+
+          let pagoParams = new HttpParams();
+          if (this.filtrosPago.id_usuario) {
+            pagoParams = pagoParams.set('id_usuario', this.filtrosPago.id_usuario.toString());
+          }
+          if (this.filtrosPago.id_curso) {
+            pagoParams = pagoParams.set('id_curso', this.filtrosPago.id_curso.toString());
+          }
+          if (this.filtrosPago.fecha_pago) {
+            pagoParams = pagoParams.set('fecha_pago', this.filtrosPago.fecha_pago);
+          }
+
+          this.http.get<any[]>('http://localhost:3000/pagos/', { params: pagoParams }).subscribe({
+            next: (pagos) => {
+              this.pagos = pagos.map(pago => {
+                const usuario = this.usuarios.find(u => u.id_usuario === pago.id_usuario);
+                const curso = this.cursos.find(c => c.id_curso === pago.id_curso);
+                return {
+                  ...pago,
+                  nombre: usuario?.nombre || '',
+                  apellido: usuario?.apellido || '',
+                  dni: usuario?.dni || '',
+                  nombre_curso: curso?.nombre_curso || ''
+                };
+              });
+            },
+            error: err => {
+              console.error('Error al buscar pagos:', err);
+              this.pagos = [];
+            }
+          });
+
+        },
+        error: err => {
+          console.error('Error al obtener cursos:', err);
+          this.cursos = [];
+        }
+      });
+
+    },
+    error: err => {
+      console.error('Error al obtener usuarios:', err);
+      this.usuarios = [];
       this.pagos = [];
     }
   });
