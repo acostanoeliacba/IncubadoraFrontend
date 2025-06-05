@@ -27,7 +27,7 @@
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>
 
- <input type="text" placeholder="Telefono" formControlName="telefono" required>
+ <input type="text" placeholder="Telefono sin 0 o 15 al inicio" formControlName="telefono" required>
   <div *ngIf="registroForm.controls['telefono'].hasError('required') && registroForm.controls['telefono'].touched">
     <p style="color: red;">Este campo es obligatorio.</p>
   </div>

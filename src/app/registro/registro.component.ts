@@ -43,7 +43,7 @@ export class RegistroComponent {
       apellido: ['', Validators.required],
       fechaNacimiento: ['', [Validators.required, this.validarEdad.bind(this)]],
       direccion: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
+      telefono: ['', [ Validators.required, Validators.pattern(/^[1-9]\d{9}$/)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       dni: ['', [Validators.required, Validators.pattern(/^\d{7,10}$/)]],
