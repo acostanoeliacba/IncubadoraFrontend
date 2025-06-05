@@ -65,14 +65,14 @@
   <h2>Noticias y Novedades</h2>
 
   <!-- Mensaje que indica si es docente o no -->
-  <div *ngIf="esDocente; else noDocente" class="mensaje-docente">
-    Estás logueado como <strong>Docente</strong>.
-  </div>
-  <ng-template #noDocente>
-    <div class="mensaje-no-docente">
-      No tienes permisos de docente.
-    </div>
-  </ng-template>
+  <!-- <div *ngIf="esDocente; else noDocente" class="mensaje-docente"> -->
+    <!-- Estás logueado como <strong>Docente</strong>. -->
+  <!-- </div> -->
+  <!-- <ng-template #noDocente> -->
+    <!-- <div class="mensaje-no-docente"> -->
+      <!-- No tienes permisos de docente. -->
+    <!-- </div> -->
+  <!-- </ng-template> -->
 
   <!-- Formulario solo visible si es docente -->
   <form *ngIf="esDocente"
