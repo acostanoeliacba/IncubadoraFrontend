@@ -102,9 +102,8 @@
   <label for="tipo">Tipo:</label>
   <select id="tipo" formControlName="tipo" required>
     <option value="">Seleccione un tipo</option>
-    <option value="gratuito">Gratuito</option>
-    <option value="arancelado">Arancelado</option>
-    <option value="capacitacion">Capacitación</option>
+    <option value="presencial">Presencial</option>
+    <option value="a distancia">A distancia</option>
   </select>
   <div *ngIf="cursoForm.get('tipo')?.invalid && (cursoForm.get('tipo')?.touched || cursoForm.get('tipo')?.dirty)">
     <small class="error">El tipo es obligatorio.</small>
@@ -158,9 +157,8 @@
   <label for="tipo">Tipo:</label>
   <select id="tipo" formControlName="tipo" required>
     <option value="">Seleccione un tipo</option>
-    <option value="gratuito">Gratuito</option>
-    <option value="arancelado">Arancelado</option>
-    <option value="capacitacion">Capacitación</option>
+    <option value="presencial">Presencial</option>
+    <option value="a distancia">A distancia</option>
   </select>
   <div *ngIf="cursoForm.get('tipo')?.invalid && (cursoForm.get('tipo')?.touched || cursoForm.get('tipo')?.dirty)">
     <small class="error">El tipo es obligatorio.</small>

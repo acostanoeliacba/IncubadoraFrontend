@@ -220,7 +220,7 @@ ngOnInit(): void {
     console.log('Tipo de usuario:', this.tipoUsuario);
   }
 
-  if (this.tipoUsuario === 'docente' && this.idUsuario) {
+  if (this.tipoUsuario === 'docente' || this.tipoUsuario === 'admin' && this.idUsuario) {
     this.http.get<any>(`http://localhost:3000/docentes/cursos/${this.idUsuario}`).subscribe({
       next: (res) => {
         console.log('Respuesta completa:', res);
