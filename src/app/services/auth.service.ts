@@ -1,6 +1,7 @@
 
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,16 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private readonly isBrowser: boolean;
   usuario: any;
+  private usuarioSubject = new BehaviorSubject<any>(null);
+  usuario$ = this.usuarioSubject.asObservable();
 
   constructor() {
     const platformId: Object = inject(PLATFORM_ID);
     this.isBrowser = isPlatformBrowser(platformId);
 
+    const usuario = this.getUsuario();
     this.usuario = this.getUsuario();
+    this.usuarioSubject.next(usuario);
   }
 
   setUsuario(usuario: any): void {
@@ -23,24 +28,38 @@ export class AuthService {
       const jsonString = JSON.stringify(usuario);
       const parsed = JSON.parse(jsonString);
       const userOnly = parsed?.user ?? parsed;
+
+      const usuarioConEstado = {
+      ...userOnly,
+      logueado: true
+    };
+
       localStorage.setItem('usuario', JSON.stringify(userOnly));
-      this.usuario = userOnly; 
+      this.usuarioSubject.next(usuarioConEstado);
+      // this.usuario = userOnly; 
+      this.usuario = usuarioConEstado;
     } catch (error) {
       console.error('Error al guardar el usuario:', error);
     }
   }
 
   getUsuario(): any | null {
-    if (!this.isBrowser) return null;
+  if (!this.isBrowser) return null;
 
-    try {
-      const data = localStorage.getItem('usuario');
-      return data ? JSON.parse(data) : null;
-    } catch (error) {
-      console.error('Error al leer el usuario:', error);
-      return null;
+  try {
+    const data = localStorage.getItem('usuario');
+    const user = data ? JSON.parse(data) : null;
+
+    if (user && user.logueado !== true) {
+      user.logueado = true;
     }
+
+    return user;
+  } catch (error) {
+    console.error('Error al leer el usuario:', error);
+    return null;
   }
+}
 
   estaLogueado(): boolean {
     return !!this.usuario?.logueado; 
@@ -55,5 +74,6 @@ export class AuthService {
       localStorage.removeItem('usuario');
     }
     this.usuario = null; 
+    this.usuarioSubject.next(null);
   }
 }

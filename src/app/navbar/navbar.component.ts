@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIf], 
+  imports: [CommonModule, RouterLink, NgIf ], 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -25,4 +25,7 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();       
     this.router.navigate(['/acceso']);
   }
+
+
 }
+

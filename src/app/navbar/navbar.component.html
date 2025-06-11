@@ -13,11 +13,12 @@
     <a href="#contacto">CONTACTO</a>
 
    <!-- Mostrar solo si NO está logueado -->
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
+    <!-- <a [routerLink]="['/registro']">REGISTRARSE</a> -->
+    <a [routerLink]="['/registro']" *ngIf="!estaLogueado">REGISTRARSE</a>
 
     <!-- Mostrar solo si está logueado -->
-    <a [routerLink]="['/perfil']">PERFIL</a>
-    <a href="#" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-
+    <!-- <a [routerLink]="['/perfil']">PERFIL</a> -->
+    <a [routerLink]="['/perfil']" *ngIf="estaLogueado">PERFIL</a>
+    <a href="#" (click)="cerrarSesion()" *ngIf="estaLogueado">CERRAR SESIÓN</a>    
   </nav> 
 </header>

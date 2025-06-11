@@ -132,7 +132,7 @@
  
   <label for="nombre_curso">Nombre del Curso:</label>
   <input id="nombre_curso" formControlName="nombre_curso" required>
-  <button type="button" (click)="buscarCurso()" class="boton">Buscar Curso</button>
+  <button type="button" (click)="buscarCurso()" class="boton">Buscar nombre disponible</button>
     
   <div *ngIf="cursoForm.get('nombre_curso')?.invalid && (cursoForm.get('nombre_curso')?.touched || cursoForm.get('nombre_curso')?.dirty)">
     <small class="error">El nombre del curso es obligatorio.</small>
