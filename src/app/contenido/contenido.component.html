@@ -1,11 +1,115 @@
 
+
+<!-- ****************** seccion fija inicial*******************  -->
 <div class="revisar-contenido">
-  <div class="acciones" *ngIf="tipoUsuario === 'docente'">
-    <button class="boton" (click)="editarCurso()">Editar contenido</button>
-    <button class="boton" (click)="subirMaterial()">Subir material</button>
-    <button class="boton" (click)="verAlumnos()">Ver alumnos</button>
-    <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button>
+
+  <div class="acciones" *ngIf="tipoUsuario === 'docente' || tipoUsuario === 'admin'">
+    <button class="boton" (click)="formularioEdicion = !formularioEdicion">Editar contenido</button>
+    <button class="boton" (click)="formularioCarga = !formularioCarga">Cargar contenido</button>
+    <button class="boton" (click)="mostrarPanel = !mostrarPanel">Participantes</button>
+
+    <!-- <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button> -->
   </div>
+
+
+<!--  *********** Inicio Seccion Crear Contenido   *********** -->
+<div class="formulario-contenido" *ngIf="formularioCarga && (tipoUsuario === 'docente' || tipoUsuario === 'admin')">
+
+  <button type="button" class="cerrar-formulario" (click)="cerrarFormulario()">✕</button>
+  <form (ngSubmit)="subirMaterial()" #contenidoForm="ngForm">
+
+    <label>
+      Módulo:
+      <input type="text" name="modulo" [(ngModel)]="nuevoContenido.modulo" maxlength="20" required>
+    </label>
+
+    <label>
+      Nombre del contenido:
+      <input type="text" name="nombre" [(ngModel)]="nuevoContenido.nombre" maxlength="100" required>
+    </label>
+
+    <label>
+      Tipo de archivo:
+      <select name="tipo" [(ngModel)]="nuevoContenido.tipo" required>
+        <option value="" disabled selected>Seleccione un tipo</option>
+        <option value="pdf">PDF</option>
+        <option value="docx">DOCX</option>
+        <option value="odt">ODT</option>
+        <option value="txt">TXT</option>
+        <option value="xlsx">XLSX</option>
+        <option value="ods">ODS</option>
+        <option value="pptx">PPTX</option>
+        <option value="odp">ODP</option>
+        <option value="mp4">MP4</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="mp3">MP3</option>
+        <option value="wav">WAV</option>
+        <option value="jpg">JPG</option>
+        <option value="jpeg">JPEG</option>
+        <option value="png">PNG</option>
+        <option value="gif">GIF</option>
+        <option value="svg">SVG</option>
+        <option value="genially">Genially</option>
+        <option value="canva">Canva</option>
+        <option value="iframe">Iframe</option>
+        <option value="url">URL</option>
+      </select>
+    </label>
+
+    <label>
+      URL del contenido:
+      <input type="url" name="url" [(ngModel)]="nuevoContenido.url" maxlength="255" required>
+    </label>
+
+    <button class="boton" type="submit" [disabled]="!contenidoForm.form.valid">Guardar contenido</button>
+
+  </form>
+</div>
+<!--  *********** Fin Seccion Crear Contenido   *********** -->
+<!--  *********** Inicio Seccion Actualizar Contenido   *********** -->
+
+<div class="formulario-contenido" *ngIf="formularioEdicion && contenidosPorModulo && (tipoUsuario === 'docente' || tipoUsuario === 'admin')">
+ <button type="button" class="cerrar-formulario" (click)="cerrarFormularioEdicion()">✕</button>
+<!-- <div *ngIf="contenidosPorModulo && tipoUsuario === 'docente' || tipoUsuario === 'admin'" class="contenedor-edicion"> -->
+  <label for="moduloSeleccionado">Selecciona un módulo:</label>
+  <select id="moduloSeleccionado" [(ngModel)]="moduloSeleccionado">
+    <option *ngFor="let modulo of modulosDisponibles" [value]="modulo">{{ modulo }}</option>
+  </select>
+
+  <div class="solapas-contenido" *ngIf="moduloSeleccionado">
+    <button
+      *ngFor="let contenido of contenidosPorModulo[moduloSeleccionado]"
+      (click)="seleccionarContenido(contenido)"
+      [class.activo]="contenidoSeleccionado?.id === contenido.id"
+    >
+      {{ contenido.nombre }}
+    </button>
+  </div>
+    <br>
+  <form *ngIf="contenidoSeleccionado" (ngSubmit)="editarContenido()" #editForm="ngForm" class="formulario-edicion">
+    <label>
+      Nombre:
+      <input type="text" name="nombre" [(ngModel)]="contenidoSeleccionado.nombre" required>
+    </label>
+
+    <label>
+      Tipo:
+      <select name="tipo" [(ngModel)]="contenidoSeleccionado.tipo" required>
+        <option *ngFor="let tipo of tiposArchivo" [value]="tipo">{{ tipo.toUpperCase() }}</option>
+      </select>
+    </label>
+
+    <label>
+      URL:
+      <input type="url" name="url" [(ngModel)]="contenidoSeleccionado.url" required>
+    </label>
+
+    <button  class="boton"  type="submit" [disabled]="!editForm.form.valid">Actualizar contenido</button>
+  </form>
+</div>
+
+<!--  *********** Fin Seccion Actualizar Contenido   *********** -->
 
   <h2 *ngIf="curso">{{ curso.nombre }}</h2>
 
@@ -15,20 +119,8 @@
     <p *ngIf="!curso">No hay información del curso disponible.</p>
   </div>
 
-  <div class="secciones-grid">
-    <!-- Temario -->
-    <section class="temario">
-      <h3>📚 Temario</h3>
-      <ul *ngIf="contenidoInfo?.length > 0; else sinTemario">
-        <li *ngFor="let modulo of contenidoInfo">
-          ✅ {{ modulo.modulo }}: {{ modulo.nombre }}
-        </li>
-      </ul>
-      <ng-template #sinTemario>
-        <p>No hay temario disponible.</p>
-      </ng-template>
-    </section>
 
+  <div class="secciones-grid">
 
     <!-- Agenda -->
     <section class="agenda">
@@ -42,21 +134,7 @@
       </ng-template>
     </section>
 
-    <!-- Materiales -->
-    <section class="materiales">
-      <h3>📂 Materiales</h3>
-      <ul *ngIf="contenidoInfo?.length > 0; else sinMateriales">
-        <li *ngFor="let modulo of contenidoInfo">
-          📎 <a [href]="modulo.url" target="_blank">{{ modulo.nombre }}</a>
-        </li>
-      </ul>
-      <ng-template #sinMateriales>
-        <p>No hay materiales disponibles.</p>
-      </ng-template>
-    </section>
-
-
-    <!-- Mensajes -->
+   <!-- Mensajes -->
     <section class="mensajes">
       <h3>💬 Mensajes recientes</h3>
       <!-- <ul *ngIf="curso?.mensajes?.length > 0; else sinMensajes"> -->
@@ -68,10 +146,67 @@
        <app-chat></app-chat>
       
     </section>
+
+    <section class="temario">
+      <h3>📂 Materiales</h3>
+      <ul *ngIf="contenidoInfo?.length > 0; else sinTemario">
+        <li *ngFor="let modulo of contenidoInfo">
+          <p>📎 {{ modulo.nombre }}</p>
+           <br>
+          <!-- Video YouTube -->
+          <iframe
+            *ngIf="isBrowser && (modulo.url?.includes('youtube.com') || modulo.url?.includes('youtu.be'))"
+            [src]="getYoutubeEmbedUrl(modulo.url) | safeUrl"
+            width="100%"
+            height="400"
+            style="border:none;">
+          </iframe>
+           <br>
+          <!-- Archivo Google Drive -->
+<!--           <iframe
+            *ngIf="isBrowser && modulo.url?.includes('drive.google.com')"
+            [src]="'https://drive.google.com/file/d/' + getDriveId(modulo.url) + '/preview' | safeUrl"
+            width="100%"
+            height="600"
+            style="border:none;">
+          </iframe> -->
+
+            <iframe
+              *ngIf="isDriveEmbeddable(modulo.url)"
+              [src]="getDriveEmbedUrl(modulo.url) | safeUrl"
+              width="100%"
+              height="600"
+              style="border:none;">
+            </iframe>
+            <a *ngIf="!isDriveEmbeddable(modulo.url)" [href]="modulo.url" target="_blank">
+              Ver material en otra pestaña
+            </a>
+
+            <br>
+          <!-- Otro archivo o link -->
+          <ng-container *ngIf="isBrowser && !(modulo.url?.includes('youtube.com') || modulo.url?.includes('youtu.be') || modulo.url?.includes('drive.google.com'))">
+              <a [href]="modulo.url" target="_blank">Ver material</a>
+          </ng-container>
+           <br>
+        </li>
+      </ul>
+         <br>
+      <ng-template #sinTemario>
+        <p>No hay temarios disponibles.</p>
+      </ng-template>
+    </section>
+
+
   </div>
 </div>
+<!-- *********   seccion  fija  inical    **********   -->
 
-
+<!-- Panel lateral deslizable -->
+<div class="panel-lateral-derecho" [class.visible]="mostrarPanel">
+  <button class="cerrar-panel" (click)="mostrarPanel = false">✖</button>
+  <h3>Participantes</h3>
+  <p> </p>
+</div>
 
 
 

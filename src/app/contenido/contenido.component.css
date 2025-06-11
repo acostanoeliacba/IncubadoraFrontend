@@ -1,56 +1,4 @@
 
-/*   desde cambio en navbar */
-/*.navbar {
-  display: flex;
-  align-items: center;      
-  justify-content: space-between;
-  padding: 0 20px;          
-  height: 80px;            
-  background-color: white;  
-}
-.logo {
-  background-image: url('/assets/img/logo.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  width: 150px;
-  height: 80px;
-  flex-shrink: 0;
-}
-
-.navbar nav {
-  display: flex;
-  gap: 15px; 
-  align-items: center;
-}
-
-.navbar nav a {
-  color: #020166;
-  margin: 0 10px;
-  text-decoration: none;
-  position: relative;
-  margin: 0 10px;
-  text-decoration: none;
-  padding: 5px 0;
-}
-
-.navbar nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0%;
-  height: 3px;
-  background-color: orange;
-  transition: width 0.3s ease;
-}
-
-.navbar nav a:hover::after {
-  width: 100%;
-}
-*/
-/*********hasta aqui cambio nabvar fer */
-
 .revisar-contenido {
   background: rgba(255, 255, 255, 0.95);
   padding: 20px;
@@ -130,8 +78,174 @@ h3 {
   max-width: 1000px;
   text-align: center;
 }
-
 /*************************************************/
+/*******************inicio carga contenido********************/
+
+.formulario-contenido {
+  position: fixed; /* o absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 400px;
+  margin: 0; 
+  padding: 40px 40px; 
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.cerrar-formulario {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cerrar-formulario:hover {
+  color: #333;
+}
+
+.formulario-contenido form label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.formulario-contenido form input,
+.formulario-contenido form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formulario-contenido .boton {
+  margin-top: 1rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario-contenido .boton:disabled {
+  background-color: #a1c2f7;
+  cursor: not-allowed;
+}
+
+.formulario-contenido .boton:not(:disabled):hover {
+  background-color: #357abd;
+}
+
+/***************** fin seccion carga contenido  *******************/
+/***************** Inicio seccion actualizar contenido  *******************/
+
+
+.solapas-contenido {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;    
+  justify-content: center; 
+  gap: 10px;               
+  margin-top: 1rem;
+}
+
+.solapas-contenido button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.solapas-contenido button.activo {
+  background-color: #4caf50;
+  color: white;
+}
+
+/***************** Inicio seccion actualizar contenido  *******************/
+/***************** inicio seccion temario  *******************/
+
+.temario {
+  grid-column: 1 / -1; 
+  max-width: 1200px;
+  width: 90%;     
+  margin: 0 auto; 
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; 
+}
+
+.temario p{
+  background-color: #c5edd4;
+}
+
+/***************** fin seccion temario  *******************/
+
+/***************** inicio panel lateral  *******************/
+.toggle-panel-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.panel-lateral-derecho {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  background-color: #ffffff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  padding-top: 60px; 
+  transition: right 0.3s ease-in-out;
+  z-index: 999;
+  overflow-y: auto;
+  margin-top: 125px;
+  height: calc(100vh - 60px);
+
+}
+
+.panel-lateral-derecho.visible {
+  right: 0;
+}
+
+.cerrar-panel {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/***************** fin panel lateral  *******************/
 
 @media (max-width: 768px) {
   .secciones-grid {
