@@ -1,11 +1,19 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { Publicacion } from './Publicacion.model';
 import { PublicacionService } from './serviciopublicaciones';
 import { AuthService } from '../services/auth.service';
+
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
+import { DialogService } from '../services/dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-inicio',
@@ -21,6 +29,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   intervaloCarrusel: any;
   esDocente = false;
   usuario: any = null;
+  tipoUsuario: string | null = null;
   private isBrowser: boolean;
 
   // Modal
@@ -32,31 +41,31 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     private publicacionService: PublicacionService,
     private authService: AuthService,
     private router: Router,
+    private dialogService: DialogService,
+    private http: HttpClient,  
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-
     this.publicacionForm = this.fb.group({
-      titulo: ['', Validators.required],
-      contenido: ['', Validators.required],
-      tipo: ['', Validators.required],
-      estado: ['', Validators.required]
+      titulo: ['', [Validators.required, Validators.maxLength(100)]],
+      contenido: ['', [Validators.required, Validators.minLength(10)]],
+      tipo: ['', [Validators.required, Validators.pattern('^(curso|capacitacion|entrenamiento)$')]],
+      estado: ['', [Validators.required, Validators.pattern('^(activo|inactivo)$')]]
     });
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.cargarPublicacionesAsync();
-
+  ngOnInit(): void {
     this.usuario = this.authService.getUsuario();
-    this.esDocente = this.authService.esDocente();
-
-    console.log('Usuario:', this.usuario);
-    console.log('esDocente:', this.esDocente);
-
-    if (this.isBrowser) {
-      this.iniciarCarrusel();
-    }
+    this.tipoUsuario = this.usuario?.tipo_usuario;
+    this.esDocente = this.tipoUsuario === 'docente' || this.tipoUsuario === 'admin';
+        console.log('Usuario:', this.usuario);
+        console.log('Es docente:', this.esDocente);
+    this.cargarPublicacionesAsync();
+     if (this.isBrowser) {
+          this.iniciarCarrusel();
+      }
   }
+
 
   ngOnDestroy(): void {
     if (this.intervaloCarrusel) {
@@ -90,14 +99,20 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
       contenido: this.publicacionForm.value.contenido,
       tipo: this.publicacionForm.value.tipo,
       estado: this.publicacionForm.value.estado
+
     };
 
     this.publicacionService.crearPublicacion(nuevaPublicacion).subscribe({
       next: () => {
         this.cargarPublicacionesAsync();
-        this.publicacionForm.reset();
+        this.dialogService.showSuccess('Publicación creada exitosamente').subscribe(() => {
+          this.publicacionForm.reset();
+        });
       },
-      error: (err) => console.error('Error al crear publicación:', err)
+      error: (err) => {
+        console.error('Error al crear publicación:', err);
+        this.dialogService.showError('Error al crear publicación').subscribe(() => {});
+      }
     });
   }
 

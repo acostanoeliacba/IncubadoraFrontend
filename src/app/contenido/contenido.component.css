@@ -8,7 +8,6 @@
   max-width: 1000px;
   text-align: center;
 }
-
 h2 {
   color: #218838;
   margin-bottom: 10px;
@@ -65,9 +64,20 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 20px;
 }
+
+/*.acciones {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  justify-content: flex-end;
+}
+*/
+
 /************************************************/
 .revisar-contenido {
   background-color: #e9f5e9; /* verde claro */

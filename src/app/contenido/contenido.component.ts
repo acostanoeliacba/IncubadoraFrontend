@@ -18,6 +18,13 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
 
+interface Usuario {
+  id_usuario: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+}
+
 @Component({
   selector: 'app-contenido',
   standalone: true,
@@ -32,6 +39,7 @@ import { SafeUrlPipe } from '../pipes/safe-url.pipe';
   templateUrl: './contenido.component.html',
   styleUrl: './contenido.component.css'
 })
+
 export class ContenidoComponent implements OnInit {
   curso: any;
   idCurso: string | null = null;
@@ -94,6 +102,7 @@ ngOnInit(): void {
     this.tipoUsuario = usuario.tipo_usuario;
   }
 
+
   this.idCurso = this.route.snapshot.paramMap.get('id');
   console.log('ID del curso recibido:', this.idCurso);
 
@@ -104,6 +113,7 @@ ngOnInit(): void {
       this.cursoInfo = cursoI;
 
       this.curso = {
+        id_curso: this.idCurso,
         nombre: cursoI.nombre_curso,
         modalidad: cursoI.tipo,
         alumnos: 60,
@@ -120,11 +130,13 @@ ngOnInit(): void {
 
      
       this.cargarContenido()
+      this.mostrarPanelParticipantes();
     },
     error => {
       console.error("Error al cargar la información del curso:", error);
     }
   );
+
 }
 cargarContenido(): void {
     this.formularioCarga = false;
@@ -183,16 +195,6 @@ contenidosPorModulo: { [key: string]: any[] } = {};
 modulosDisponibles: string[] = [];
 tiposArchivo: string[] = ['pdf', 'docx', 'odt', 'txt', 'xlsx', 'ods', 'pptx', 'odp', 'mp4', 'webm', 'avi', 'mp3', 'wav', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'genially', 'canva', 'iframe', 'url'];
 
-// organizarPorModulo(contenidos: any[]) {
-//   this.contenidosPorModulo = {};
-//   contenidos.forEach(c => {
-//     if (!this.contenidosPorModulo[c.modulo]) {
-//       this.contenidosPorModulo[c.modulo] = [];
-//     }
-//     this.contenidosPorModulo[c.modulo].push(c);
-//   });
-//   this.modulosDisponibles = Object.keys(this.contenidosPorModulo);
-// }
 
 organizarPorModulo(contenidos: any[]) {
   this.contenidosPorModulo = {};
@@ -210,19 +212,6 @@ organizarPorModulo(contenidos: any[]) {
   }
   this.contenidoSeleccionado = null;
 }
-
-
-// seleccionarContenido(contenido: any) {
-//   if (!contenido || !contenido.id_contenido) {
-//     console.warn('Contenido inválido al seleccionar:', contenido);
-//     return;
-//   }
-
-//   this.contenidoSeleccionado = {
-//     ...contenido,
-//     id: contenido.id_contenido 
-//   };
-// }
 
 seleccionarContenido(contenido: any) {
   // Limpiar el formulario
@@ -248,7 +237,7 @@ seleccionarContenido(contenido: any) {
   if (contenido && contenido.id_contenido) {
     this.contenidoSeleccionado = {
       ...contenido,
-      id: contenido.id_contenido // adaptar para el backend
+      id: contenido.id_contenido 
     };
   }
 }
@@ -337,6 +326,41 @@ editarContenido() {
               };
   }
 
+
+  alumnosCurso: Usuario[] = [];
+
+mostrarPanelParticipantes() {
+  if (!this.curso || !this.curso.id_curso) {
+    console.warn('⚠ No se encontró el ID del curso.');
+    return;
+  }
+
+  const idCurso = this.curso.id_curso;
+  console.log(' ID del curso para cargar alumnos:', idCurso);
+
+
+  this.http.get<Usuario[]>(`http://localhost:3000/inscripciones/curso/${idCurso}/alumnos`)
+    .subscribe({
+      next: (data) => {
+        console.log(' Lista de alumnos recibida:', data);
+
+        if (!Array.isArray(data) || data.length === 0) {
+          console.info('ℹNo hay alumnos inscriptos para este curso.');
+        }
+
+        this.alumnosCurso = data;
+        this.mostrarPanel = true;
+      },
+      error: (err) => {
+        console.error(' Error al obtener alumnos:', err);
+        if (err.status === 404) {
+          console.warn(' No se encontraron alumnos para este curso.');
+        } else if (err.status === 0) {
+          console.warn(' No se pudo conectar con el servidor. ¿Está levantado el backend?');
+        }
+      }
+    });
+}
 
   verAlumnos() {
     this.dialogService.showError('Funcionalidad para ver alumnos').subscribe(() => {});

@@ -230,12 +230,44 @@ ngOnInit(): void {
         this.docente = res.docente;
         this.cursosAsignados = res.cursos;
 
-        //this.totalAlumnos = this.cursosAsignados.reduce((total, curso) => total + (curso.alumnos || 0), 0);
-         this.totalAlumnos  = 77
-        
+        let solicitudesCompletadas = 0;
+
+        const verificarFinalizacion = () => {
+          if (solicitudesCompletadas === this.cursosAsignados.length) {
+            this.totalAlumnos = this.cursosAsignados.reduce((total, curso) => total + (curso.alumnos || 0), 0);
+            console.log('Total de alumnos en todos los cursos:', this.totalAlumnos);
+          }
+        };
+
+        this.cursosAsignados.forEach(curso => {
+          if (!curso.id_curso) {
+            console.warn('Curso sin ID detectado, omitiendo...');
+            solicitudesCompletadas++;
+            verificarFinalizacion();
+            return;
+          }
+
+          this.http.get<any[]>(`http://localhost:3000/inscripciones/curso/${curso.id_curso}/alumnos`)
+            .subscribe({
+              next: (alumnos) => {
+                curso.alumnos = alumnos.length;
+                solicitudesCompletadas++;
+                verificarFinalizacion();
+              },
+              error: (err) => {
+                console.warn(`⚠ Error en curso ${curso.id}:`, err);
+                curso.alumnos = 0;
+                solicitudesCompletadas++;
+                verificarFinalizacion();
+              }
+            });
+        });
+
         if (this.cursosAsignados.length > 0) {
-          this.proximaClase = this.cursosAsignados[0].fecha_inicio; // o similar
+          this.proximaClase = this.cursosAsignados[0].fecha_inicio; 
         }
+
+
       },
       error: (err) => {
         console.error('Error al cargar cursos del docente:', err);
@@ -319,7 +351,7 @@ crearCurso() {
           console.log('Curso creado correctamente:', response);
           this.dialogService.showSuccess('Curso Creado Correctamente.').subscribe(() => {});
           
-          // Busco curso recién creado
+
           this.http.get<any[]>(`http://localhost:3000/cursos?nombre=${nombreCurso}`).subscribe({
             next: (cursos) => {
               const cursoCreado = cursos.find(c => c.nombre_curso === nombreCurso);

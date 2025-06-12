@@ -61,13 +61,30 @@ export class AuthService {
   }
 }
 
+  // estaLogueado(): boolean {
+  //   return !!this.usuario?.logueado; 
+  // }
+
+  // esDocente(): boolean {
+  //   return this.usuario?.logueado && this.usuario?.rol === 'docente'; 
+  // }
+
   estaLogueado(): boolean {
-    return !!this.usuario?.logueado; 
+    return !!this.usuario && !!this.usuario.tipo_usuario;
   }
 
   esDocente(): boolean {
-    return this.usuario?.logueado && this.usuario?.rol === 'docente'; 
+    return this.usuario?.tipo_usuario === 'docente';
   }
+
+  esAdmin(): boolean {
+    return this.usuario?.tipo_usuario === 'admin';
+  }
+
+  esAlumno(): boolean {
+    return this.usuario?.tipo_usuario === 'alumno';
+  }
+  
 
   logout(): void {
     if (this.isBrowser) {

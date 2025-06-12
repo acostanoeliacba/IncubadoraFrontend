@@ -3,14 +3,14 @@
 <!-- ****************** seccion fija inicial*******************  -->
 <div class="revisar-contenido">
 
-  <div class="acciones" *ngIf="tipoUsuario === 'docente' || tipoUsuario === 'admin'">
+<div class="acciones">
+  <ng-container *ngIf="tipoUsuario === 'docente' || tipoUsuario === 'admin'">
     <button class="boton" (click)="formularioEdicion = !formularioEdicion">Editar contenido</button>
     <button class="boton" (click)="formularioCarga = !formularioCarga">Cargar contenido</button>
-    <button class="boton" (click)="mostrarPanel = !mostrarPanel">Participantes</button>
+  </ng-container>
 
-    <!-- <button class="boton" (click)="enviarMensaje()">Enviar mensaje grupal</button> -->
-  </div>
-
+  <button class="boton" (click)="mostrarPanel = !mostrarPanel">Participantes</button>
+</div>
 
 <!--  *********** Inicio Seccion Crear Contenido   *********** -->
 <div class="formulario-contenido" *ngIf="formularioCarga && (tipoUsuario === 'docente' || tipoUsuario === 'admin')">
@@ -200,13 +200,15 @@
   </div>
 </div>
 <!-- *********   seccion  fija  inical    **********   -->
-
-<!-- Panel lateral deslizable -->
 <div class="panel-lateral-derecho" [class.visible]="mostrarPanel">
   <button class="cerrar-panel" (click)="mostrarPanel = false">✖</button>
   <h3>Participantes</h3>
-  <p> </p>
+  <ul *ngIf="alumnosCurso.length > 0; else sinAlumnos">
+    <li *ngFor="let alumno of alumnosCurso">
+      {{ alumno.nombre }} {{ alumno.apellido }} 
+    </li>
+  </ul>
+  <ng-template #sinAlumnos>
+    <p>No hay alumnos inscriptos en este curso.</p>
+  </ng-template>
 </div>
-
-
-

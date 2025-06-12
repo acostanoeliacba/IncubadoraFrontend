@@ -1,127 +1,20 @@
-<!-- <<<<<<< HEAD
-  
-  <div class="contenedor">
+ <div class="contenedor">
     <h2>Noticias y Novedades</h2>
-  
-
-    <form *ngIf="esDocente"
-          [formGroup]="publicacionForm"
-          (ngSubmit)="crearPublicacion()"
-          class="formulario"
-          enctype="multipart/form-data">
-  
-      <label>Título:</label>
-      <input formControlName="titulo" type="text" />
-  
-      <label>Contenido:</label>
-      <textarea formControlName="contenido"></textarea>
-  
-      <label>Tipo:</label>
-      <select formControlName="tipo">
-        <option value="">-- Selecciona --</option>
-        <option value="crédito">Crédito</option>
-        <option value="entrenamiento">Entrenamiento</option>
-      </select>
-  
-      <label>Estado:</label>
-      <select formControlName="estado">
-        <option value="">-- Selecciona --</option>
-        <option value="activo">Activo</option>
-        <option value="inactivo">Inactivo</option>
-      </select>
-  
-      <label>Imagen:</label>
-      <input type="file" (change)="onArchivoSeleccionado($event)" />
-  
-      <button type="submit" [disabled]="publicacionForm.invalid">Crear Publicación</button>
-    </form>
-  
-
-    <div *ngFor="let pub of publicaciones" class="tarjeta">
-      <h3>{{ pub.titulo }}</h3>
-      <p>{{ pub.contenido }}</p>
-      <div class="info">
-        <span>{{ pub.tipo }}</span> | <span>{{ pub.estado }}</span>
-=======-->
-<!-- 
-<header class="navbar">
-  <a href="/"><div class="logo"></div></a>
-
-  <input type="checkbox" id="menu-toggle">
-  <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-  <nav class="nav-links">
-    <a href="#inicio">INICIO</a>
-    <a [routerLink]="['/cursoDinamico']">CURSOS</a>
-    <a href="#profesores">PROFESORES</a>
-    <a href="#testimonios">TESTIMONIOS</a>
-    <a href="#contacto">CONTACTO</a>
-    <a [routerLink]="['/registro']">REGISTRARSE</a>
-    <a [routerLink]="['/perfil']">PERFIL</a>
-  </nav> 
-</header> -->
-
-<div class="contenedor">
-  <h2>Noticias y Novedades</h2>
-
-  <!-- Mensaje que indica si es docente o no -->
-  <!-- <div *ngIf="esDocente; else noDocente" class="mensaje-docente"> -->
-    <!-- Estás logueado como <strong>Docente</strong>. -->
-  <!-- </div> -->
-  <!-- <ng-template #noDocente> -->
-    <!-- <div class="mensaje-no-docente"> -->
-      <!-- No tienes permisos de docente. -->
-    <!-- </div> -->
-  <!-- </ng-template> -->
-
-  <!-- Formulario solo visible si es docente -->
-  <form *ngIf="esDocente"
-        [formGroup]="publicacionForm"
-        (ngSubmit)="crearPublicacion()"
-        class="formulario"
-        enctype="multipart/form-data">
-
-    <label>Título:</label>
-    <input formControlName="titulo" type="text" />
-
-    <label>Contenido:</label>
-    <textarea formControlName="contenido"></textarea>
-    
-    <label>Tipo:</label>
-    <select formControlName="tipo">
-      <option value="">-- Selecciona --</option>
-      <option value="curso">Curso</option>
-      <option value="capacitacion">Capacitación</option>
-      <option value="entrenamiento">Entrenamiento</option>
-    </select>
-
-    <label>Estado:</label>
-    <select formControlName="estado">
-      <option value="">-- Selecciona --</option>
-      <option value="activo">Activo</option>
-      <option value="inactivo">Inactivo</option>
-    </select>
-
-    <button type="submit" [disabled]="publicacionForm.invalid">Crear Publicación</button>
-  </form>
-
-  <!-- Carrusel automático de publicaciones -->
-  <div class="carousel-container" *ngIf="publicaciones.length">
-    <div class="carousel-track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-      <div class="carousel-item" *ngFor="let pub of publicaciones">
-        <h3>{{ pub.titulo }}</h3>
-        <p>{{ pub.contenido }}</p>
-        <div class="info">
-          <span>{{ pub.tipo }}</span> | <span>{{ pub.estado }}</span>
+    <!-- Carrusel de publicaciones (una sola vez) -->
+    <div class="carousel-container" *ngIf="publicaciones.length">
+      <div class="carousel-track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="carousel-item" *ngFor="let pub of publicaciones">
+          <h3>{{ pub.titulo }}</h3>
+          <p>{{ pub.contenido }}</p>
+          <div class="info">
+            <span>{{ pub.tipo }}</span> | <span>{{ pub.estado }}</span>
+          </div>
+          <button (click)="abrirModal(pub)">Ver</button>
         </div>
-        <button (click)="abrirModal(pub)">Ver</button>
-<!-- >>>>>>> Nico -->
       </div>
     </div>
   </div>
-</div>
-
-<!-- Modal para mostrar detalles de la publicación -->
+<!-- Modal -->
 <div class="modal" [class.show]="mostrarModal">
   <div class="modal-content">
     <span class="close" (click)="cerrarModal()">&times;</span>
@@ -132,9 +25,69 @@
   </div>
 </div>
 
-<!-- <footer id="footer" class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 IncubadoraNOC. Todos los derechos reservados.</p>
+
+
+<div class="contenedor">
+  <h2>Noticias y Novedades</h2>
+
+
+  <div *ngIf="esDocente; else noDocente">
+    <div class="mensaje-docente">
+      Estás logueado como <strong>{{ tipoUsuario | titlecase }}</strong>.
+    </div>
+
+
+    <form [formGroup]="publicacionForm"
+          (ngSubmit)="crearPublicacion()"
+          class="formulario"
+          enctype="multipart/form-data">
+
+   
+      <label for="titulo">Título:</label>
+      <input id="titulo" formControlName="titulo" type="text" />
+      <div *ngIf="publicacionForm.get('titulo')?.invalid && publicacionForm.get('titulo')?.touched" class="error">
+        <small *ngIf="publicacionForm.get('titulo')?.errors?.['required']">El título es obligatorio.</small>
+        <small *ngIf="publicacionForm.get('titulo')?.errors?.['maxlength']">Máximo 100 caracteres.</small>
+      </div>
+
+      <label for="contenido">Contenido:</label>
+      <textarea id="contenido" formControlName="contenido"></textarea>
+      <div *ngIf="publicacionForm.get('contenido')?.invalid && publicacionForm.get('contenido')?.touched" class="error">
+        <small *ngIf="publicacionForm.get('contenido')?.errors?.['required']">El contenido es obligatorio.</small>
+        <small *ngIf="publicacionForm.get('contenido')?.errors?.['minlength']">Debe tener al menos 10 caracteres.</small>
+      </div>
+
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" formControlName="tipo">
+        <option value="">-- Selecciona --</option>
+        <option value="curso">Curso</option>
+        <option value="capacitacion">Capacitación</option>
+        <option value="entrenamiento">Entrenamiento</option>
+      </select>
+      <div *ngIf="publicacionForm.get('tipo')?.invalid && publicacionForm.get('tipo')?.touched" class="error">
+        <small>El tipo es obligatorio.</small>
+      </div>
+
+
+      <label for="estado">Estado:</label>
+      <select id="estado" formControlName="estado">
+        <option value="">-- Selecciona --</option>
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+      <div *ngIf="publicacionForm.get('estado')?.invalid && publicacionForm.get('estado')?.touched" class="error">
+        <small>El estado es obligatorio.</small>
+      </div>
+
+      <button type="submit" [disabled]="publicacionForm.invalid">Crear Publicación</button>
+    </form>
   </div>
-</footer>
- -->
+
+
+  <ng-template #noDocente>
+    <div class="mensaje-no-docente">
+      No tienes permisos para publicar.
+    </div>
+  </ng-template>
+</div>
+
