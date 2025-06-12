@@ -145,6 +145,14 @@ get fotoUrl(): string {
     return `http://localhost:3000${foto}`;
 }
 
+get fotoDocenteUrl(): string {
+  const foto = this.docente?.foto;
+  if (!foto || foto === 'null' || foto === 'undefined') {
+    return 'assets/img/sinfoto.png'; 
+  }
+  return `http://localhost:3000${foto}`;
+}
+
 buscarCursoPorNombre() {
   if (!this.nombreCursoBuscar.trim()) return;
  
