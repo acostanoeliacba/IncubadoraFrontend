@@ -1,90 +1,4 @@
-/*<<<<<<< HEAD
-body {
-    font-family: 'Poppins', sans-serif; 
-    background-color: #f4f7fa; 
-    color: #333;
 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1; 
-  }
-
-  .descripcion {
-    color: rgb(206, 134, 0);
-  }
-
-
-.perfil-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-  }
-  
-  .perfil-container h2 {
-    font-size: 2em;
-    color: #002147;
-    margin-bottom: 20px;
-  }
-  
-  .perfil-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .perfil-form label {
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .perfil-form input[type="text"],
-  .perfil-form input[type="email"],
-  .perfil-form input[type="password"],
-  .perfil-form input[type="file"],
-  .perfil-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-  }
-  
-  .perfil-form textarea {
-    resize: vertical;
-  }
-  
-  .perfil-form button {
-    align-self: center;
-    background-color: #002147;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .perfil-form button:hover {
-    background-color: #f5680e;
-  }
-
-@media (max-width: 768px) {
-   
-=======*/
 html {
   scroll-behavior: smooth;
 }
@@ -229,9 +143,11 @@ body {
   width: 180px;
   align-self: flex-start;
   padding: 10px 15px;
-  background-color: #f5680e;
+  background-color: #4a90e2;
+  margin: 20px auto; 
+  display: block; 
   border: none;
-  border-radius: 30px;
+  border-radius: 10px;
   color: black;
   font-weight: 700;
   cursor: pointer;
@@ -239,12 +155,12 @@ body {
 }
 
 .formulario button:disabled {
-  background-color: #ccc;
+  background-color: #a1c2f7;
   cursor: not-allowed;
 }
 
 .formulario button:not(:disabled):hover {
-  background-color: #d75400;
+  background-color: #357abd;
   color: white;
 }
 
@@ -256,11 +172,18 @@ body {
   box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  will-change: transform;
-}
+/*.carousel-container {
+  
+  width: 90%;               
+  max-width: 1200px;        
+  height: 500px;            
+  margin: 0 auto;   
+
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}*/
 
 .carousel-item {
   min-width: 100%;
@@ -271,6 +194,26 @@ body {
   border-radius: 12px;
   position: relative;
 }
+
+
+/*.carousel-item {
+  min-width: 100%;
+  height: 100%;             
+  background: #020166;
+  color: white;
+  padding: 40px 30px;      
+  box-sizing: border-box;
+  border-radius: 12px;
+  position: relative;
+}
+
+*/
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
+
 
 .carousel-item h3 {
   margin-bottom: 15px;
@@ -367,6 +310,13 @@ body {
   color: #d75400;
 }
 
+.error small {
+  color: red;
+  font-size: 0.85em;
+  display: block;
+  margin-top: 2px;
+}
+
 /* Footer */
 .footer {
   background-color: #002147;
@@ -404,6 +354,13 @@ body {
   .contenedor {
     margin: 20px 15px;
     padding: 20px;
+  }
+  .carousel-container {
+    height: 300px;
+  }
+
+  .carousel-item {
+    padding: 25px 20px;
   }
 
   .formulario button {
